@@ -2074,7 +2074,9 @@ async function downloadReportPdf(reportId) {
     doc.text('Patna Mahanagar IDI Analytics Dashboard  |  Jan Suraaj Political Campaign  |  Data: Live Google Sheets', margin, pageH - 5);
     doc.text(`Page 1 of 1`, pageW - margin - 20, pageH - 5);
 
-    doc.save(`IDI_Report_${r.shortName || r.id}_${new Date().toLocaleDateString('en-IN').replace(/\//g, '-')}.pdf`);
+    const dateStr = new Date().toISOString().slice(0,10); // YYYY-MM-DD format, safe for filenames
+    const cleanName = (r.shortName || r.id).replace(/[^a-zA-Z0-9 _-]/g, '').replace(/\s+/g, '_').slice(0, 40);
+    doc.save(`IDI_Report_${cleanName}_${dateStr}.pdf`);
     showToast("✅ PDF Downloaded Successfully!", "success");
     return;
 
