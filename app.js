@@ -1883,28 +1883,243 @@ function downloadAllReportsCsv() {
 }
 
 async function downloadReportPdf(reportId) {
-  showToast("Generating PDF Document...", "info");
-  const prevActive = AppState.activeReportId;
-  AppState.activeReportId = reportId;
-  renderDashboard();
+  const r = AppState.reports.find(item => item.id === reportId) || AppState.reports[0];
+  if (!r) { showToast("Report data not found!", "error"); return; }
 
-  setTimeout(async () => {
-    const printArea = document.getElementById('dashboardPrintArea');
-    try {
-      const canvas = await html2canvas(printArea, { scale: 2, useCORS: true });
-      const imgData = canvas.toDataURL('image/png');
-      const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF('landscape', 'pt', [canvas.width, canvas.height]);
-      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-      pdf.save(`IDI_Report_${reportId}.pdf`);
-      showToast("PDF Downloaded Successfully!", "success");
-    } catch (err) {
-      showToast("PDF generation complete.", "info");
-    } finally {
-      AppState.activeReportId = prevActive;
-      renderDashboard();
+  showToast("📄 Generating PDF Report...", "info");
+
+  // Method 1: Rich jsPDF data report (primary - always works, no DOM dependency)
+  try {
+    const { jsPDF } = window.jspdf;
+    if (!jsPDF) throw new Error("jsPDF not loaded");
+
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const pageW = 210, pageH = 297, margin = 14;
+    const contentW = pageW - margin * 2;
+    let y = margin;
+
+    // ---- HEADER BANNER ----
+    doc.setFillColor(2, 132, 199);
+    doc.rect(0, 0, pageW, 28, 'F');
+    doc.setFontSize(9);
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.text('PATNA MAHANAGAR IDI ANALYTICS DASHBOARD', margin, 10);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.text(`Generated: ${new Date().toLocaleString('en-IN')}  |  Live Google Sheets Data  |  Jan Suraaj Political Campaign`, margin, 17);
+    doc.text(`Report ID: ${r.id}`, margin, 23);
+
+    y = 36;
+
+    // ---- REPORT TITLE ----
+    doc.setFillColor(240, 244, 248);
+    doc.rect(margin, y, contentW, 18, 'F');
+    doc.setTextColor(15, 23, 42);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14);
+    doc.text(r.name, margin + 4, y + 7);
+    doc.setFontSize(8);
+    doc.setTextColor(71, 85, 105);
+    doc.setFont('helvetica', 'normal');
+    doc.text(r.shortName || r.name, margin + 4, y + 14);
+    y += 24;
+
+    // ---- COMPUTED METRICS ----
+    const polMtg = Number(r.meetingStatus.political) || 0;
+    const nonPolMtg = Number(r.meetingStatus.nonPolitical) || 0;
+    const totalMtg = polMtg + nonPolMtg;
+    const onb = Number(r.onboardingStatus.onboarded) || 0;
+    const dicey = Number(r.onboardingStatus.dicey) || 0;
+    const notOnb = Number(r.onboardingStatus.notOnboarded) || 0;
+    const totalOnb = onb + dicey + notOnb;
+    const onbPct = totalOnb > 0 ? ((onb / totalOnb) * 100).toFixed(1) : '0.0';
+    const pkYes = Number(r.pkIntervention.yes) || 0;
+    const pkNo = Number(r.pkIntervention.no) || 0;
+    const teaYes = Number(r.hostPKTea.yes) || 0;
+    const teaNo = Number(r.hostPKTea.no) || 0;
+    const recState = Number(r.committeeRec.state) || 0;
+    const recDistrict = Number(r.committeeRec.district) || 0;
+    const recWard = Number(r.committeeRec.ward) || 0;
+
+    // ---- SECTION: KEY SUMMARY METRICS ----
+    const drawSectionHeader = (title, yPos, color = [2, 132, 199]) => {
+      doc.setFillColor(...color);
+      doc.rect(margin, yPos, contentW, 7, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.text(title, margin + 3, yPos + 5);
+      return yPos + 10;
+    };
+
+    const drawMetricBox = (label, value, subText, x, yPos, w, h, accentColor = [2, 132, 199]) => {
+      doc.setFillColor(255, 255, 255);
+      doc.setDrawColor(...accentColor);
+      doc.setLineWidth(0.5);
+      doc.rect(x, yPos, w, h);
+      doc.setFillColor(...accentColor);
+      doc.rect(x, yPos, 2, h, 'F');
+
+      doc.setTextColor(15, 23, 42);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(16);
+      doc.text(String(value), x + 5, yPos + 11);
+
+      doc.setFontSize(7);
+      doc.setTextColor(71, 85, 105);
+      doc.setFont('helvetica', 'normal');
+      doc.text(label, x + 5, yPos + 17);
+
+      if (subText) {
+        doc.setFontSize(6.5);
+        doc.setTextColor(100, 116, 139);
+        const lines = doc.splitTextToSize(subText, w - 8);
+        doc.text(lines[0] || '', x + 5, yPos + 22);
+      }
+    };
+
+    y = drawSectionHeader('📊 KEY PERFORMANCE SUMMARY', y);
+
+    const bw = (contentW - 6) / 4;
+    drawMetricBox('Total IDI Meetings', totalMtg, `Political: ${polMtg}  |  Non-Pol: ${nonPolMtg}`, margin, y, bw, 28, [2, 132, 199]);
+    drawMetricBox('Leaders Onboarded', `${onb} (${onbPct}%)`, `Dicey: ${dicey}  |  Not Onboarded: ${notOnb}`, margin + bw + 2, y, bw, 28, [5, 150, 105]);
+    drawMetricBox('PK Intervention', pkYes, `No: ${pkNo}  |  Total: ${pkYes + pkNo}`, margin + (bw + 2) * 2, y, bw, 28, [217, 119, 6]);
+    drawMetricBox('Interested in PK Tea', teaYes, `Not Interested: ${teaNo}`, margin + (bw + 2) * 3, y, bw, 28, [124, 58, 237]);
+    y += 34;
+
+    // ---- SECTION: DETAILED BREAKDOWN ----
+    y = drawSectionHeader('📋 DETAILED STATISTICAL BREAKDOWN', y, [15, 23, 42]);
+
+    const drawTable = (headers, rows, startY, colWidths) => {
+      const rowH = 8;
+      // Header row
+      doc.setFillColor(30, 41, 59);
+      doc.rect(margin, startY, contentW, rowH, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      let xPos = margin + 2;
+      headers.forEach((h, i) => {
+        doc.text(h, xPos, startY + 5.5);
+        xPos += colWidths[i];
+      });
+
+      let tableY = startY + rowH;
+      rows.forEach((row, ri) => {
+        doc.setFillColor(ri % 2 === 0 ? 248 : 255, ri % 2 === 0 ? 250 : 255, ri % 2 === 0 ? 252 : 255);
+        doc.rect(margin, tableY, contentW, rowH, 'F');
+        doc.setDrawColor(226, 232, 240);
+        doc.rect(margin, tableY, contentW, rowH);
+        doc.setTextColor(15, 23, 42);
+        doc.setFont('helvetica', ri === 0 ? 'bold' : 'normal');
+        doc.setFontSize(7.5);
+        xPos = margin + 2;
+        row.forEach((cell, ci) => {
+          doc.text(String(cell), xPos, tableY + 5.5);
+          xPos += colWidths[ci];
+        });
+        tableY += rowH;
+      });
+      return tableY + 3;
+    };
+
+    y = drawTable(
+      ['Category', 'Sub-Category', 'Count', 'Percentage'],
+      [
+        ['Meeting Status', 'Total Meetings Conducted', totalMtg, '100%'],
+        ['', 'Political Meetings', polMtg, `${totalMtg > 0 ? ((polMtg/totalMtg)*100).toFixed(1) : 0}%`],
+        ['', 'Non-Political Meetings', nonPolMtg, `${totalMtg > 0 ? ((nonPolMtg/totalMtg)*100).toFixed(1) : 0}%`],
+        ['Onboarding Status', 'Leaders Onboarded', onb, `${onbPct}%`],
+        ['', 'Dicey / Undecided', dicey, `${totalOnb > 0 ? ((dicey/totalOnb)*100).toFixed(1) : 0}%`],
+        ['', 'Not Onboarded', notOnb, `${totalOnb > 0 ? ((notOnb/totalOnb)*100).toFixed(1) : 0}%`],
+        ['PK Intervention', 'Yes - Needs PK Meeting', pkYes, `${(pkYes+pkNo) > 0 ? ((pkYes/(pkYes+pkNo))*100).toFixed(1) : 0}%`],
+        ['', 'No - Does Not Need PK', pkNo, `${(pkYes+pkNo) > 0 ? ((pkNo/(pkYes+pkNo))*100).toFixed(1) : 0}%`],
+        ['Host PK Tea', 'Interested in Hosting PK Tea', teaYes, `${(teaYes+teaNo) > 0 ? ((teaYes/(teaYes+teaNo))*100).toFixed(1) : 0}%`],
+        ['', 'Not Interested', teaNo, `${(teaYes+teaNo) > 0 ? ((teaNo/(teaYes+teaNo))*100).toFixed(1) : 0}%`],
+        ['Committee Rec.', 'State Level Recommendation', recState, '-'],
+        ['', 'District Level Recommendation', recDistrict, '-'],
+        ['', 'Ward Level Recommendation', recWard, '-'],
+      ],
+      y,
+      [55, 90, 25, 25]
+    );
+
+    // ---- KEY INSIGHTS ----
+    if (y < pageH - 50) {
+      y = drawSectionHeader('💡 KEY INSIGHTS & ANALYSIS', y, [5, 150, 105]);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(15, 23, 42);
+      const insights = [
+        `• ${onbPct}% of surveyed leaders are onboarded — showing strong ground-level support for Jan Suraaj.`,
+        `• ${pkYes} leaders have been identified as requiring direct PK Intervention for deeper engagement.`,
+        `• ${teaYes} leaders are interested in hosting PK Tea — a key grassroots mobilization opportunity.`,
+        `• ${recWard + recDistrict + recState} total committee recommendations: ${recWard} Ward, ${recDistrict} District, ${recState} State level.`,
+        `• Data sourced live from Google Sheets — reflects real-time field survey records.`
+      ];
+      insights.forEach(insight => {
+        const lines = doc.splitTextToSize(insight, contentW);
+        doc.text(lines, margin, y);
+        y += lines.length * 5 + 2;
+      });
     }
-  }, 150);
+
+    // ---- FOOTER ----
+    doc.setFillColor(15, 23, 42);
+    doc.rect(0, pageH - 12, pageW, 12, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.text('Patna Mahanagar IDI Analytics Dashboard  |  Jan Suraaj Political Campaign  |  Data: Live Google Sheets', margin, pageH - 5);
+    doc.text(`Page 1 of 1`, pageW - margin - 20, pageH - 5);
+
+    doc.save(`IDI_Report_${r.shortName || r.id}_${new Date().toLocaleDateString('en-IN').replace(/\//g, '-')}.pdf`);
+    showToast("✅ PDF Downloaded Successfully!", "success");
+    return;
+
+  } catch (err) {
+    console.warn("jsPDF generation error, trying html2canvas fallback:", err);
+  }
+
+  // Method 2: html2canvas fallback (snapshot of the rendered dashboard)
+  try {
+    const prevActive = AppState.activeReportId;
+    AppState.activeReportId = reportId;
+    renderDashboard();
+
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const printArea = document.getElementById('dashboardPrintArea') || document.body;
+    const canvas = await html2canvas(printArea, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#f0f4f8',
+      logging: false
+    });
+
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: canvas.width > canvas.height ? 'landscape' : 'portrait',
+      unit: 'pt',
+      format: [canvas.width / 2, canvas.height / 2]
+    });
+    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width / 2, canvas.height / 2);
+    pdf.save(`IDI_Dashboard_${reportId}.pdf`);
+
+    AppState.activeReportId = prevActive;
+    renderDashboard();
+    showToast("✅ Dashboard PDF Downloaded!", "success");
+    return;
+  } catch (err2) {
+    console.warn("html2canvas fallback failed:", err2);
+  }
+
+  // Method 3: Print dialog as last resort
+  showToast("Opening print dialog for PDF...", "info");
+  setTimeout(() => window.print(), 300);
 }
 
 // ==========================================================================
