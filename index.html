@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patna Mahanagar Team Overall IDI's - Dynamic Analytics Dashboard</title>
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons & Chart.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Dashboard Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-light">
+  
+  <!-- App Container with Left Drawer & Main View Area -->
+  <div class="app-layout">
+
+    <!-- ================= LEFT DRAWER / SIDEBAR ================= -->
+    <aside class="left-drawer" id="leftDrawer">
+      <div class="drawer-header">
+        <div class="drawer-brand">
+          <div class="drawer-brand-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <div class="drawer-brand-text">
+            <span class="drawer-title">Reports Hub</span>
+            <span class="drawer-subtitle">Patna Mahanagar IDI</span>
+          </div>
+        </div>
+        <button id="closeDrawerBtn" class="drawer-close-btn" title="Close Drawer">&times;</button>
+      </div>
+
+      <!-- Drawer Search -->
+      <div class="drawer-search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="drawerSearchInput" placeholder="Search reports...">
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="drawer-nav-group">
+        <button class="drawer-nav-item active" id="drawerNavLanding">
+          <i class="fa-solid fa-house"></i>
+          <span>Portal Home (Landing Page)</span>
+        </button>
+        <button class="drawer-nav-item" id="drawerNavBoothsWards">
+          <i class="fa-solid fa-map-location-dot text-blue"></i>
+          <span>Booths & Wards Directory</span>
+        </button>
+      </div>
+
+      <!-- Drawer Content: Reports List with Download Options -->
+      <div class="drawer-content">
+        <div class="drawer-section-label">
+          <span>ALL AVAILABLE REPORTS</span>
+          <span class="badge-count" id="drawerReportsCount">5</span>
+        </div>
+
+        <div class="drawer-reports-list" id="drawerReportsList">
+          <!-- Dynamically populated from JS -->
+        </div>
+
+        <!-- Bulk Download Section in Drawer -->
+        <div class="drawer-bulk-section">
+          <div class="drawer-section-label">
+            <span>EXPORT & DOWNLOAD ALL</span>
+          </div>
+          <button id="drawerDownloadAllCsvBtn" class="drawer-action-btn">
+            <i class="fa-solid fa-file-csv"></i>
+            <span>Download All Data (Master CSV)</span>
+          </button>
+          <button id="drawerDownloadAllPdfBtn" class="drawer-action-btn">
+            <i class="fa-solid fa-file-pdf"></i>
+            <span>Download Summary Report (PDF)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Drawer Footer: Sync Status -->
+      <div class="drawer-footer">
+        <div class="drawer-sync-status">
+          <span class="pulse-dot"></span>
+          <span class="drawer-sync-text" id="drawerSyncText">Google Sheets Connected</span>
+        </div>
+        <button id="drawerSyncNowBtn" class="btn btn-sm btn-outline" title="Sync now">
+          <i class="fa-solid fa-arrows-rotate"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Drawer Overlay (For mobile/small screen backdrop) -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <!-- ================= MAIN APP WRAPPER ================= -->
+    <div class="dashboard-wrapper">
+      
+      <!-- Top Control / Navbar -->
+      <header class="top-nav">
+        <div class="nav-left">
+          <!-- Hamburger / Drawer Toggle Button -->
+          <button id="toggleDrawerBtn" class="btn btn-icon-only btn-drawer-toggle" title="Toggle Reports Drawer">
+            <i class="fa-solid fa-bars-staggered"></i>
+          </button>
+
+          <div class="brand-logo" id="navBrandLogo" style="cursor: pointer;">
+            <div class="logo-icon"><i class="fa-solid fa-chart-pie"></i></div>
+            <div class="brand-text">
+              <span class="brand-name">IDI Analytics Portal</span>
+              <span class="brand-badge" id="liveStatusBadge"><span class="pulse-dot"></span> Live Sync Active</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-center">
+          <!-- View Switcher Tabs: Landing Page vs Active Dashboard vs Leader Search -->
+          <div class="view-switch-pills">
+            <button class="view-pill active" id="pillLandingView">
+              <i class="fa-solid fa-house"></i> Landing Page
+            </button>
+            <button class="view-pill" id="pillDashboardView">
+              <i class="fa-solid fa-chart-simple"></i> Detailed Dashboard
+            </button>
+            <button class="view-pill" id="pillSearchView">
+              <i class="fa-solid fa-magnifying-glass"></i> Leader Search
+            </button>
+          </div>
+
+          <!-- Dynamic Report Selector (Shows on Dashboard view) -->
+          <div class="report-selector-container" id="navReportSelectorWrapper" style="display: none;">
+            <label for="reportSelect" class="selector-label"><i class="fa-solid fa-folder-tree"></i> Report:</label>
+            <div class="custom-select-wrapper">
+              <select id="reportSelect" class="report-select" aria-label="Select Report">
+                <!-- Dynamically populated -->
+              </select>
+              <i class="fa-solid fa-chevron-down select-arrow"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-right">
+          <!-- Live Sync Controls -->
+          <div class="sync-status-group" title="Auto-refresh status">
+            <button id="syncNowBtn" class="btn btn-icon btn-sync" title="Sync from Google Sheets now">
+              <i class="fa-solid fa-arrows-rotate" id="syncIcon"></i>
+              <span class="btn-text">Sync</span>
+            </button>
+            <div class="sync-indicator">
+              <span class="last-sync-text" id="lastSyncTime">Just now</span>
+              <span class="countdown-badge" id="countdownBadge">Auto: 30s</span>
+            </div>
+          </div>
+
+            <div class="header-universal-search">
+              <div class="search-input-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="globalLeaderSearchInput" placeholder="Search leader by Name, Mobile No, Ward (e.g. Ward 18, 51), Assembly, Status, Party..." autocomplete="off">
+                <button id="clearGlobalSearchBtn" class="search-clear-btn" style="display: none;">&times;</button>
+              </div>
+            </div>
+
+            <button id="openShareModalBtn" class="btn btn-primary" title="Share dynamic dashboard link with team">
+              <i class="fa-solid fa-share-nodes"></i>
+              <span>Share Link</span>
+            </button>
+
+            <button id="openBoothsWardsBtn" class="btn btn-outline" title="View Assembly Booths & Wards Breakdown">
+              <i class="fa-solid fa-map-location-dot text-blue"></i>
+              <span>Booths & Wards</span>
+            </button>
+
+            <button id="openCompareBtn" class="btn btn-outline" title="Compare Multiple Reports">
+              <i class="fa-solid fa-code-compare"></i>
+              <span>Compare</span>
+            </button>
+
+            <div class="dropdown-export">
+              <button id="exportDropdownBtn" class="btn btn-outline btn-icon-only" title="Export Dashboard">
+                <i class="fa-solid fa-download"></i>
+              </button>
+              <div class="export-menu" id="exportMenu">
+                <button id="exportPngBtn"><i class="fa-solid fa-image"></i> Export as PNG</button>
+                <button id="exportPdfBtn"><i class="fa-solid fa-file-pdf"></i> Export as PDF</button>
+                <button id="printBtn"><i class="fa-solid fa-print"></i> Print Report</button>
+              </div>
+            </div>
+
+            <button id="openThemeStudioBtn" class="btn btn-outline" title="Customize Colors & Themes" style="border-color: #f59e0b; color: #d97706; font-weight: 700;">
+              <i class="fa-solid fa-palette"></i>
+              <span>Theme Studio</span>
+            </button>
+
+            <button id="themeToggleBtn" class="btn btn-outline btn-icon-only" title="Toggle Dark/Light Mode">
+              <i class="fa-solid fa-moon" id="themeIcon"></i>
+            </button>
+          </div>
+      </header>
+
+
+      <!-- ================= 1. LANDING PAGE VIEW ================= -->
+      <section class="landing-page-view" id="landingPageView">
+        <div class="landing-hero-container">
+          
+          <!-- Hero Banner -->
+          <div class="landing-hero-card">
+            <div class="hero-text-content">
+              <div class="hero-badge"><i class="fa-solid fa-bolt"></i> Live Real-Time Analytics Portal</div>
+              <h1 class="hero-main-title">Patna Mahanagar Team <span class="highlight-gold">IDI Progress</span></h1>
+              <p class="hero-subtitle">
+                Interactive executive reporting, Vidhan Sabha breakdown, onboarding analytics, and live synchronization from Google Sheets.
+              </p>
+              <div class="hero-cta-group">
+                <button id="heroOpenOverallBtn" class="btn btn-primary btn-lg">
+                  <i class="fa-solid fa-chart-pie"></i> View Overall Dashboard
+                </button>
+                <button id="heroOpenDrawerBtn" class="btn btn-outline btn-lg">
+                  <i class="fa-solid fa-folder-open"></i> Browse All Reports & Downloads
+                </button>
+              </div>
+            </div>
+            
+            <div class="hero-stat-pill-group">
+              <div class="hero-pill-stat">
+                <div class="pill-stat-icon bg-blue-subtle text-blue"><i class="fa-solid fa-users"></i></div>
+                <div class="pill-stat-info">
+                  <span class="pill-stat-num" id="heroStatTotalMeetings">582</span>
+                  <span class="pill-stat-label">Total Meetings</span>
+                </div>
+              </div>
+
+              <div class="hero-pill-stat">
+                <div class="pill-stat-icon bg-green-subtle text-green"><i class="fa-solid fa-user-check"></i></div>
+                <div class="pill-stat-info">
+                  <span class="pill-stat-num" id="heroStatOnboarded">408</span>
+                  <span class="pill-stat-label">Leaders Onboarded (<span id="heroStatOnboardedPct">70.1%</span>)</span>
+                </div>
+              </div>
+
+              <div class="hero-pill-stat">
+                <div class="pill-stat-icon bg-amber-subtle text-amber"><i class="fa-solid fa-mug-hot"></i></div>
+                <div class="pill-stat-info">
+                  <span class="pill-stat-num" id="heroStatTea">182</span>
+                  <span class="pill-stat-label">Interested in PK Tea</span>
+                </div>
+              </div>
+
+              <div class="hero-pill-stat">
+                <div class="pill-stat-icon bg-purple-subtle text-purple"><i class="fa-solid fa-city"></i></div>
+                <div class="pill-stat-info">
+                  <span class="pill-stat-num" id="heroStatWardRec">227</span>
+                  <span class="pill-stat-label">Ward Recommendations</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reports Grid Header -->
+          <div class="landing-section-header">
+            <div class="section-title-box">
+              <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> All Team & Assembly Reports</h2>
+              <span class="section-subtitle">Click any report to view its full 6-card interactive dashboard or download instantly</span>
+            </div>
+            <div class="section-actions-box">
+              <button id="landingCompareBtn" class="btn btn-outline btn-sm">
+                <i class="fa-solid fa-code-compare"></i> Compare All Side-by-Side
+              </button>
+              <button id="landingDownloadAllCsvBtn" class="btn btn-primary btn-sm">
+                <i class="fa-solid fa-file-csv"></i> Download Master CSV
+              </button>
+            </div>
+          </div>
+
+          <!-- Reports Card Grid -->
+          <div class="landing-reports-grid" id="landingReportsGrid">
+            <!-- Dynamically populated from JS -->
+          </div>
+
+          <!-- ================= 3. ASSEMBLY BOOTHS & WARDS DIRECTORY SECTION ================= -->
+          <div class="landing-section-header section-booths-header" id="boothsWardsSection">
+            <div class="section-title-box">
+              <h2 class="section-title"><i class="fa-solid fa-map-location-dot text-blue"></i> Patna Mahanagar Assembly Booths & Wards Directory</h2>
+              <span class="section-subtitle">Official breakdown of polling booths and PMC municipal wards across Vidhan Sabha constituencies (बूथ एवं वार्ड डायरेक्टरी)</span>
+            </div>
+            <div class="section-actions-box">
+              <div class="ward-search-input-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="wardSearchInput" placeholder="Search Ward (e.g. Ward 18, 38) or Locality (e.g. Kankarbagh, Digha)...">
+              </div>
+            </div>
+          </div>
+
+          <!-- Booth & Ward Summary KPI Strip -->
+          <div class="booth-kpi-strip">
+            <div class="booth-kpi-card">
+              <div class="kpi-icon-box bg-blue-subtle text-blue"><i class="fa-solid fa-landmark"></i></div>
+              <div class="kpi-info">
+                <span class="kpi-val" id="kpiTotalAssemblies">4</span>
+                <span class="kpi-lbl">Urban Assemblies</span>
+              </div>
+            </div>
+            <div class="booth-kpi-card">
+              <div class="kpi-icon-box bg-green-subtle text-green"><i class="fa-solid fa-check-to-slot"></i></div>
+              <div class="kpi-info">
+                <span class="kpi-val" id="kpiTotalBooths">--</span>
+                <span class="kpi-lbl">Total Polling Booths</span>
+              </div>
+            </div>
+            <div class="booth-kpi-card">
+              <div class="kpi-icon-box bg-amber-subtle text-amber"><i class="fa-solid fa-building"></i></div>
+              <div class="kpi-info">
+                <span class="kpi-val" id="kpiTotalWards">--</span>
+                <span class="kpi-lbl">Municipal Wards</span>
+              </div>
+            </div>
+            <div class="booth-kpi-card">
+              <div class="kpi-icon-box bg-purple-subtle text-purple"><i class="fa-solid fa-users"></i></div>
+              <div class="kpi-info">
+                <span class="kpi-val" id="kpiTotalElectors">--</span>
+                <span class="kpi-lbl">Registered Electors</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assembly Booth & Ward Detailed Grid -->
+          <div class="assembly-ward-grid" id="assemblyWardGrid">
+            <!-- Dynamically populated via JS with interactive ward pills and locality expansion -->
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ================= 2. DETAILED 6-CARD DASHBOARD VIEW ================= -->
+      <main class="main-content" id="dashboardDetailView" style="display: none;">
+        
+        <!-- Breadcrumb & Back to Landing Bar -->
+        <div class="dashboard-subnav">
+          <button id="backToLandingBtn" class="btn btn-sm btn-outline back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to All Reports
+          </button>
+          <div class="dashboard-breadcrumb">
+            <span>Portal Home</span> &rarr; <strong id="breadcrumbReportName">Patna Mahanagar Team Overall IDI's</strong>
+          </div>
+          <div class="dashboard-quick-actions">
+            <button id="viewAssemblyWardsDetailBtn" class="btn btn-sm btn-outline" title="View Booths and Wards Directory">
+              <i class="fa-solid fa-map-location-dot text-blue"></i> Booths & Wards
+            </button>
+            <button id="downloadCurrentPdfBtn" class="btn btn-sm btn-outline" title="Download this report as PDF">
+              <i class="fa-solid fa-file-pdf text-red"></i> PDF
+            </button>
+            <button id="downloadCurrentPngBtn" class="btn btn-sm btn-outline" title="Download this report as PNG">
+              <i class="fa-solid fa-image text-blue"></i> PNG
+            </button>
+          </div>
+        </div>
+
+        <!-- Primary Report Title Header (Matches Exact Screenshot Design) -->
+        <div class="report-header-banner" id="dashboardPrintArea">
+          <h1 class="report-main-title" id="currentReportTitle">
+            Patna Mahanagar Team Overall <span class="highlight-gold">IDI's</span>
+          </h1>
+          <div class="title-underline-accent">
+            <span class="accent-line"></span>
+            <span class="accent-dot"></span>
+          </div>
+
+          <!-- Constituency Booth & Ward Coverage Badge -->
+          <div class="assembly-quick-profile-pill" id="assemblyQuickProfilePill">
+            <div class="profile-pill-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+            <div class="profile-pill-text" id="assemblyProfileText">
+              <strong>Electoral Profile:</strong> <span id="profileBoothsCount">1,672 Polling Booths</span> &bull; <span id="profileWardsCount">75 Municipal Wards</span> (<span id="profileWardsList">PMC Ward Nos. 1 to 75</span>)
+            </div>
+          </div>
+        </div>
+
+        <!-- 6-Card Dashboard Grid (3 Columns x 2 Rows Layout) -->
+        <div class="dashboard-grid">
+          
+          <!-- CARD 1: Meeting Status (Blue Theme) -->
+          <section class="metric-card card-meeting-status" id="cardMeetingStatus">
+            <div class="card-header header-blue">
+              <div class="header-icon-box"><i class="fa-solid fa-users"></i></div>
+              <h2 class="card-title">Meeting Status</h2>
+            </div>
+            
+            <div class="card-body">
+              <!-- 3 Metric Boxes -->
+              <div class="metric-boxes-row boxes-3">
+                <div class="metric-box box-total">
+                  <span class="metric-label">Total Meetings</span>
+                  <span class="metric-value" id="valTotalMeetings">582</span>
+                  <div class="metric-icon-circle bg-blue-light text-blue">
+                    <i class="fa-solid fa-user-group"></i>
+                  </div>
+                </div>
+
+                <div class="metric-box box-political">
+                  <span class="metric-label">Political Meeting</span>
+                  <span class="metric-value" id="valPoliticalMeetings">293</span>
+                  <div class="metric-icon-circle bg-red-light text-red">
+                    <i class="fa-solid fa-person-chalkboard"></i>
+                  </div>
+                </div>
+
+                <div class="metric-box box-nonpolitical">
+                  <span class="metric-label">Non- Political Meeting</span>
+                  <span class="metric-value" id="valNonPoliticalMeetings">289</span>
+                  <div class="metric-icon-circle bg-green-light text-green">
+                    <i class="fa-solid fa-users-line"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Distribution Chart Section -->
+              <div class="chart-section">
+                <h3 class="chart-section-title">Meeting Status Distribution</h3>
+                <div class="donut-chart-container">
+                  <div class="chart-canvas-wrapper">
+                    <canvas id="chartMeetingStatus"></canvas>
+                    <div class="donut-center-label">
+                      <span class="center-num" id="centerMeetingTotal">582</span>
+                      <span class="center-text">Total</span>
+                    </div>
+                  </div>
+
+                  <!-- Callout Badges (Left & Right) -->
+                  <div class="chart-callout callout-left text-red" id="calloutMeetingPolitical">
+                    <div class="callout-num">293</div>
+                    <div class="callout-pct">(50.3%)</div>
+                    <div class="callout-line line-red"></div>
+                  </div>
+
+                  <div class="chart-callout callout-right-top text-green" id="calloutMeetingNonPolitical">
+                    <div class="callout-num">289</div>
+                    <div class="callout-pct">(49.7%)</div>
+                    <div class="callout-line line-green-top"></div>
+                  </div>
+
+                  <!-- Chart Legend -->
+                  <div class="custom-chart-legend">
+                    <div class="legend-item"><span class="legend-dot bg-red"></span> Political Meeting</div>
+                    <div class="legend-item"><span class="legend-dot bg-green"></span> Non- Political Meeting</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+          <!-- CARD 2: Onboarding Status (Green Theme) -->
+          <section class="metric-card card-onboarding-status" id="cardOnboardingStatus">
+            <div class="card-header header-green">
+              <div class="header-icon-box"><i class="fa-solid fa-user-plus"></i></div>
+              <h2 class="card-title">Onboarding Status</h2>
+            </div>
+
+            <div class="card-body">
+              <!-- 3 Metric Boxes -->
+              <div class="metric-boxes-row boxes-3">
+                <div class="metric-box box-onboarded">
+                  <span class="metric-label">Onboarded</span>
+                  <span class="metric-value" id="valOnboarded">408</span>
+                  <div class="metric-icon-circle bg-green-light text-green">
+                    <i class="fa-solid fa-user-check"></i>
+                  </div>
+                </div>
+
+                <div class="metric-box box-dicey">
+                  <span class="metric-label">Dicey</span>
+                  <span class="metric-value" id="valDicey">128</span>
+                  <div class="metric-icon-circle bg-yellow-light text-yellow">
+                    <i class="fa-solid fa-user-pen"></i>
+                  </div>
+                </div>
+
+                <div class="metric-box box-notonboarded">
+                  <span class="metric-label">Not Onboarded</span>
+                  <span class="metric-value" id="valNotOnboarded">48</span>
+                  <div class="metric-icon-circle bg-red-light text-red">
+                    <i class="fa-solid fa-user-xmark"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Distribution Chart Section -->
+              <div class="chart-section">
+                <h3 class="chart-section-title">Onboarding Status Distribution</h3>
+                <div class="donut-chart-container">
+                  <div class="chart-canvas-wrapper">
+                    <canvas id="chartOnboardingStatus"></canvas>
+                    <div class="donut-center-label">
+                      <span class="center-num" id="centerOnboardingTotal">582</span>
+                      <span class="center-text">Total</span>
+                    </div>
+                  </div>
+
+                  <!-- Callout Badges -->
+                  <div class="chart-callout callout-top-left text-red" id="calloutOnboardingNot">
+                    <div class="callout-num">48</div>
+                    <div class="callout-pct">(8.2%)</div>
+                    <div class="callout-line line-red-top"></div>
+                  </div>
+
+                  <div class="chart-callout callout-mid-left text-yellow" id="calloutOnboardingDicey">
+                    <div class="callout-num">128</div>
+                    <div class="callout-pct">(22.0%)</div>
+                    <div class="callout-line line-yellow-mid"></div>
+                  </div>
+
+                  <div class="chart-callout callout-right-bottom text-green" id="calloutOnboardingYes">
+                    <div class="callout-num">408</div>
+                    <div class="callout-pct">(70.1%)</div>
+                    <div class="callout-line line-green-bottom"></div>
+                  </div>
+
+                  <!-- Chart Legend -->
+                  <div class="custom-chart-legend legend-top-right">
+                    <div class="legend-item"><span class="legend-dot bg-green"></span> Onboarded</div>
+                    <div class="legend-item"><span class="legend-dot bg-yellow"></span> Dicey</div>
+                    <div class="legend-item"><span class="legend-dot bg-red"></span> Not Onboarded</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+          <!-- CARD 3: Key Takeaways (Purple Theme) -->
+          <section class="metric-card card-key-takeaways" id="cardKeyTakeaways">
+            <div class="card-header header-purple">
+              <div class="header-icon-box"><i class="fa-solid fa-file-lines"></i></div>
+              <h2 class="card-title">Key Takeaways</h2>
+            </div>
+
+            <div class="card-body takeaways-body">
+              <div class="takeaways-list" id="takeawaysList">
+                
+                <!-- Takeaway 1 -->
+                <div class="takeaway-item">
+                  <div class="takeaway-icon-box bg-blue-subtle text-blue">
+                    <i class="fa-solid fa-users"></i>
+                  </div>
+                  <div class="takeaway-content">
+                    <span class="takeaway-val" id="takeawayValMeetings">582</span>
+                    <span class="takeaway-text">Total Meetings Conducted</span>
+                  </div>
+                </div>
+
+                <!-- Takeaway 2 -->
+                <div class="takeaway-item">
+                  <div class="takeaway-icon-box bg-green-subtle text-green">
+                    <i class="fa-solid fa-user"></i>
+                  </div>
+                  <div class="takeaway-content">
+                    <span class="takeaway-val" id="takeawayValOnboarded">408</span>
+                    <span class="takeaway-text">Leaders Onboarded (<span id="takeawayPctOnboarded">70.1%</span>)</span>
+                  </div>
+                </div>
+
+                <!-- Takeaway 3 -->
+                <div class="takeaway-item">
+                  <div class="takeaway-icon-box bg-purple-subtle text-purple">
+                    <i class="fa-solid fa-comment-dots"></i>
+                  </div>
+                  <div class="takeaway-content">
+                    <span class="takeaway-val" id="takeawayValPK">148</span>
+                    <span class="takeaway-text">PK Interventions (Yes)</span>
+                  </div>
+                </div>
+
+                <!-- Takeaway 4 -->
+                <div class="takeaway-item">
+                  <div class="takeaway-icon-box bg-amber-subtle text-amber">
+                    <i class="fa-solid fa-mug-hot"></i>
+                  </div>
+                  <div class="takeaway-content">
+                    <span class="takeaway-val" id="takeawayValTea">182</span>
+                    <span class="takeaway-text">Leaders Interested to Host PK Tea</span>
+                  </div>
+                </div>
+
+                <!-- Takeaway 5 -->
+                <div class="takeaway-item">
+                  <div class="takeaway-icon-box bg-orange-subtle text-orange">
+                    <i class="fa-solid fa-city"></i>
+                  </div>
+                  <div class="takeaway-content">
+                    <span class="takeaway-val" id="takeawayValWard">227</span>
+                    <span class="takeaway-text">Ward Level Recommendations (Highest)</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+
+          <!-- CARD 4: PK Intervention (Purple Theme) -->
+          <section class="metric-card card-pk-intervention" id="cardPKIntervention">
+            <div class="card-header header-purple">
+              <div class="header-icon-box"><i class="fa-solid fa-comment-dots"></i></div>
+              <h2 class="card-title">PK Intervention</h2>
+            </div>
+
+            <div class="card-body">
+              <!-- 2 Metric Boxes -->
+              <div class="metric-boxes-row boxes-2">
+                <div class="metric-box box-yes">
+                  <span class="metric-label">Yes</span>
+                  <span class="metric-value" id="valPKYes">148</span>
+                  <div class="metric-icon-circle bg-green-light text-green">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                </div>
+
+                <div class="metric-box box-no">
+                  <span class="metric-label">No</span>
+                  <span class="metric-value" id="valPKNo">46</span>
+                  <div class="metric-icon-circle bg-red-light text-red">
+                    <i class="fa-solid fa-xmark"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Distribution Chart Section -->
+              <div class="chart-section">
+                <h3 class="chart-section-title">PK Intervention Distribution</h3>
+                <div class="donut-chart-container">
+                  <div class="chart-canvas-wrapper">
+                    <canvas id="chartPKIntervention"></canvas>
+                    <div class="donut-center-label">
+                      <span class="center-num" id="centerPKTotal">194</span>
+                      <span class="center-text">Total</span>
+                    </div>
+                  </div>
+
+                  <!-- Callout Badges -->
+                  <div class="chart-callout callout-left text-green" id="calloutPKYes">
+                    <div class="callout-num">148</div>
+                    <div class="callout-pct">(76.3%)</div>
+                    <div class="callout-line line-green"></div>
+                  </div>
+
+                  <div class="chart-callout callout-right-top text-red" id="calloutPKNo">
+                    <div class="callout-num">46</div>
+                    <div class="callout-pct">(23.7%)</div>
+                    <div class="callout-line line-red-top"></div>
+                  </div>
+
+                  <!-- Legend -->
+                  <div class="custom-chart-legend legend-inline">
+                    <div class="legend-item"><span class="legend-dot bg-green"></span> Yes</div>
+                    <div class="legend-item"><span class="legend-dot bg-red"></span> No</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+          <!-- CARD 5: Wants To Host PK Tea (Amber/Gold Theme) -->
+          <section class="metric-card card-pk-tea" id="cardPKTea">
+            <div class="card-header header-amber">
+              <div class="header-icon-box"><i class="fa-solid fa-mug-hot"></i></div>
+              <h2 class="card-title">Wants To Host PK Tea</h2>
+            </div>
+
+            <div class="card-body">
+              <!-- 2 Metric Boxes -->
+              <div class="metric-boxes-row boxes-2">
+                <div class="metric-box box-yes">
+                  <span class="metric-label">Yes</span>
+                  <span class="metric-value" id="valTeaYes">182</span>
+                  <div class="metric-icon-circle bg-green-light text-green">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                </div>
+
+                <div class="metric-box box-no">
+                  <span class="metric-label">No</span>
+                  <span class="metric-value" id="valTeaNo">78</span>
+                  <div class="metric-icon-circle bg-red-light text-red">
+                    <i class="fa-solid fa-xmark"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Distribution Chart Section -->
+              <div class="chart-section">
+                <h3 class="chart-section-title">Wants To Host PK Tea Distribution</h3>
+                <div class="donut-chart-container">
+                  <div class="chart-canvas-wrapper">
+                    <canvas id="chartPKTea"></canvas>
+                    <div class="donut-center-label">
+                      <span class="center-num" id="centerTeaTotal">260</span>
+                      <span class="center-text">Total</span>
+                    </div>
+                  </div>
+
+                  <!-- Callout Badges -->
+                  <div class="chart-callout callout-left text-green" id="calloutTeaYes">
+                    <div class="callout-num">182</div>
+                    <div class="callout-pct">(70.0%)</div>
+                    <div class="callout-line line-green"></div>
+                  </div>
+
+                  <div class="chart-callout callout-right-top text-red" id="calloutTeaNo">
+                    <div class="callout-num">78</div>
+                    <div class="callout-pct">(30.0%)</div>
+                    <div class="callout-line line-red-top"></div>
+                  </div>
+
+                  <!-- Legend -->
+                  <div class="custom-chart-legend legend-inline">
+                    <div class="legend-item"><span class="legend-dot bg-green"></span> Yes</div>
+                    <div class="legend-item"><span class="legend-dot bg-red"></span> No</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+          <!-- CARD 6: Committee Recommendation (Navy/Blue Theme) -->
+          <section class="metric-card card-recommendation" id="cardRecommendation">
+            <div class="card-header header-navy">
+              <div class="header-icon-box"><i class="fa-solid fa-chart-column"></i></div>
+              <h2 class="card-title">Committee Recommendation</h2>
+            </div>
+
+            <div class="card-body">
+              <!-- 3 Metric Boxes -->
+              <div class="metric-boxes-row boxes-3">
+                <div class="metric-box box-state">
+                  <span class="metric-label">State</span>
+                  <span class="metric-value" id="valRecState">2</span>
+                  <div class="metric-icon-circle bg-purple-light text-purple">
+                    <i class="fa-solid fa-file-circle-check"></i>
+                  </div>
+                </div>
+
+                <div class="metric-box box-district">
+                  <span class="metric-label">District</span>
+                  <span class="metric-value" id="valRecDistrict">38</span>
+                  <div class="metric-icon-circle bg-cyan-light text-cyan">
+                    <i class="fa-solid fa-file-lines"></i>
+                  </div>
+                </div>
+
+                <div class="metric-box box-ward">
+                  <span class="metric-label">Ward</span>
+                  <span class="metric-value" id="valRecWard">227</span>
+                  <div class="metric-icon-circle bg-orange-light text-orange">
+                    <i class="fa-solid fa-file-waveform"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Recommendations by Level Bar Chart Section -->
+              <div class="chart-section bar-chart-section">
+                <h3 class="chart-section-title">Recommendations by Level</h3>
+                
+                <div class="horizontal-bars-container">
+                  <!-- State Bar -->
+                  <div class="hbar-item">
+                    <span class="hbar-label">State</span>
+                    <div class="hbar-track">
+                      <div class="hbar-fill bar-state" id="hbarState" style="width: 2%;"></div>
+                    </div>
+                    <span class="hbar-value" id="hbarValState">2</span>
+                  </div>
+
+                  <!-- District Bar -->
+                  <div class="hbar-item">
+                    <span class="hbar-label">District</span>
+                    <div class="hbar-track">
+                      <div class="hbar-fill bar-district" id="hbarDistrict" style="width: 17%;"></div>
+                    </div>
+                    <span class="hbar-value" id="hbarValDistrict">38</span>
+                  </div>
+
+                  <!-- Ward Bar -->
+                  <div class="hbar-item">
+                    <span class="hbar-label">Ward</span>
+                    <div class="hbar-track">
+                      <div class="hbar-fill bar-ward" id="hbarWard" style="width: 95%;"></div>
+                    </div>
+                    <span class="hbar-value" id="hbarValWard">227</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <!-- ================= 3. LEADER SEARCH & DIRECTORY VIEW ================= -->
+      <section class="search-directory-view" id="searchDirectoryView" style="display: none;">
+        <div class="search-hero-box">
+          <div class="search-hero-title">
+            <h2><i class="fa-solid fa-magnifying-glass-chart text-blue"></i> Universal Leader & Prospect Directory</h2>
+            <p>Search and filter leaders, prospective members, and ward councillors across all Patna Mahanagar assemblies, municipal wards, and party backgrounds in real-time.</p>
+          </div>
+
+          <!-- Main Input & Controls -->
+          <div class="search-main-bar">
+            <div class="search-input-field">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="dirSearchInput" placeholder="Type name, mobile number, ward no. (e.g. Ward 6, Ward 51), assembly, or designation...">
+              <button id="dirClearSearchBtn" class="clear-btn" style="display: none;">&times;</button>
+            </div>
+            <div class="search-filter-selects">
+              <select id="filterAssemblySelect" class="form-control">
+                <option value="all">All Assemblies / Teams</option>
+                <option value="181_digha">181 - Digha Assembly</option>
+                <option value="182_bankipur">182 - Bankipur Assembly</option>
+                <option value="183_kumhrar">183 - Kumhrar Assembly</option>
+                <option value="184_patna_sahib">184 - Patna Sahib Assembly</option>
+                <option value="mahila_team">Mahila Team</option>
+                <option value="councillors">Ward Councillors (2017 & 2022)</option>
+              </select>
+
+              <select id="filterStatusSelect" class="form-control">
+                <option value="all">All Statuses</option>
+                <option value="Onboarded">🟢 Onboarded Only</option>
+                <option value="Dicey">🟡 Dicey Only</option>
+                <option value="Not Onboarded">🔴 Not Onboarded Only</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Quick Filter Tags -->
+          <div class="quick-filter-chips">
+            <span class="chip-label">Quick Tags:</span>
+            <button class="filter-chip active" data-filter="all">All (<span id="countAllLeaders">885</span>)</button>
+            <button class="filter-chip" data-filter="Onboarded">🟢 Onboarded (<span id="countOnboardedLeaders">681</span>)</button>
+            <button class="filter-chip" data-filter="Dicey">🟡 Dicey (<span id="countDiceyLeaders">154</span>)</button>
+            <button class="filter-chip" data-filter="Not Onboarded">🔴 Not Onboarded (<span id="countNotOnboardedLeaders">51</span>)</button>
+            <button class="filter-chip" data-filter="tea">☕ Wants PK Tea (<span id="countTeaLeaders">206</span>)</button>
+            <button class="filter-chip" data-filter="pk">⚡ PK Intervention (<span id="countPKLeaders">210</span>)</button>
+            <button class="filter-chip" data-filter="state_dist">🏛️ State/Dist Rec (<span id="countStateDistLeaders">42</span>)</button>
+          </div>
+        </div>
+
+        <!-- Search Results Count Banner -->
+        <div class="search-status-bar">
+          <div class="results-badge" id="searchResultsStatusText">Showing all leaders across Patna Mahanagar</div>
+          <button class="btn btn-sm btn-outline" id="exportSearchResultsCsvBtn">
+            <i class="fa-solid fa-file-csv"></i> Export Results (CSV)
+          </button>
+        </div>
+
+        <!-- Leader Cards / Table Grid -->
+        <div class="leader-results-container" id="leaderResultsContainer">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="dashboard-footer">
+        <div class="footer-left">
+          <span>Dynamic IDI Analytics Engine &bull; Real-Time Google Sheets Sync Active</span>
+        </div>
+        <div class="footer-right">
+          <span>Last Refreshed: <strong id="footerSyncTime">16 Sep 2026, 04:52 PM</strong></span>
+        </div>
+      </footer>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 3. Multi-Report Comparison Modal -->
+  <div class="modal-overlay" id="compareModal">
+    <div class="modal-container modal-large">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-code-compare modal-icon"></i>
+          <h3>Multi-Report Cross Comparison Table</h3>
+        </div>
+        <button class="modal-close-btn" id="closeCompareModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="comparison-table" id="comparisonTable">
+            <thead>
+              <tr>
+                <th>Report / Team Name</th>
+                <th>Total Meetings</th>
+                <th>Political</th>
+                <th>Non-Political</th>
+                <th>Onboarded (%)</th>
+                <th>Dicey</th>
+                <th>Not Onboarded</th>
+                <th>PK Intervention (Yes)</th>
+                <th>Host PK Tea (Yes)</th>
+                <th>Ward Rec</th>
+              </tr>
+            </thead>
+            <tbody id="comparisonTableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="closeCompareBtn2" class="btn btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Share Progress Modal -->
+  <div class="modal-overlay" id="shareModal">
+    <div class="modal-container modal-large">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-share-nodes modal-icon"></i>
+          <h3>Share Live Progress Report</h3>
+        </div>
+        <button class="modal-close-btn" id="closeShareModalBtn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Main Sharable Link Input Box -->
+        <div class="share-box-primary">
+          <label><b>Direct Shareable Link (Auto-Updates with Active Report):</b></label>
+          <div class="copy-input-group">
+            <input type="text" id="shareUrlInput" class="form-control" readonly>
+            <button id="copyShareUrlBtn" class="btn btn-primary"><i class="fa-solid fa-copy"></i> Copy Link</button>
+          </div>
+          <small class="form-help">Opening this link will load the current report with real-time Google Sheets auto-sync.</small>
+        </div>
+
+        <!-- Quick Share Channels & QR Code Grid -->
+        <div class="share-options-grid">
+          
+          <!-- Left: WhatsApp & Social Sharing -->
+          <div class="share-action-card">
+            <h4><i class="fa-brands fa-whatsapp text-green"></i> 1-Click WhatsApp Progress Broadcast</h4>
+            <p class="share-card-desc">Send the latest metrics directly to your leadership or team group on WhatsApp:</p>
+            <button id="whatsappShareBtn" class="btn btn-whatsapp">
+              <i class="fa-brands fa-whatsapp"></i> Share on WhatsApp
+            </button>
+          </div>
+
+          <!-- Right: Mobile QR Code Scanner -->
+          <div class="share-action-card qr-card">
+            <h4><i class="fa-solid fa-qrcode"></i> Scan on Mobile Phone</h4>
+            <div class="qr-code-wrapper" id="qrCodeContainer">
+              <img id="qrCodeImg" alt="QR Code to Open Dashboard" class="qr-image">
+            </div>
+            <span class="qr-caption">Scan with any phone camera to view live progress</span>
+          </div>
+
+        </div>
+
+        <!-- Network & Hosting Options Tabs/Accordions -->
+        <div class="share-hosting-box">
+          <h4><i class="fa-solid fa-globe"></i> How to Share with Your Entire Team Online</h4>
+          
+          <div class="hosting-options-list">
+            <div class="hosting-item">
+              <div class="hosting-badge">Option 1</div>
+              <div class="hosting-info">
+                <strong>Local Wi-Fi / Office Network:</strong>
+                <span>Anyone connected to your local network can open: <code id="localNetworkIpCode">http://192.168.1.5:3000</code></span>
+              </div>
+            </div>
+
+            <div class="hosting-item">
+              <div class="hosting-badge">Option 2</div>
+              <div class="hosting-info">
+                <strong>Free Permanent 24/7 Hosting (GitHub Pages / Netlify / Vercel):</strong>
+                <span>Simply upload these files to GitHub Pages or drag-and-drop to <a href="https://app.netlify.com/drop" target="_blank">Netlify Drop</a> to get a permanent <code>https://your-team.netlify.app</code> link that auto-syncs with your Google Sheet!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button id="closeShareModalBtn2" class="btn btn-primary">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Assembly Booth & Ward Directory Modal -->
+  <div class="modal-overlay" id="boothWardModal">
+    <div class="modal-container modal-large">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-map-location-dot modal-icon text-blue"></i>
+          <div>
+            <h3>Patna Mahanagar Assembly Booths & Wards Breakdown</h3>
+            <span class="modal-subtitle">Official Election Commission & Patna Municipal Corporation (PMC) Demographics</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="closeBoothWardModalBtn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-ward-search-bar">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="modalWardSearchInput" placeholder="Quick filter by Ward Number (e.g. Ward 6, Ward 18, Ward 38) or Locality...">
+        </div>
+
+        <div class="modal-assembly-accordion" id="modalAssemblyAccordion">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+  <!-- 6. Theme & Color Customizer Studio Modal -->
+  <div class="modal-overlay" id="themeStudioModal">
+    <div class="modal-container modal-large">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-palette modal-icon" style="color:#f59e0b;"></i>
+          <div>
+            <h3>🎨 Report Theme & Color Customizer Studio</h3>
+            <span class="modal-subtitle">Personalize dashboard colors, donut charts, and card accents with 1-click presets or live custom pickers</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="closeThemeStudioModalBtn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Section 1: 1-Click Curated Presets -->
+        <div class="theme-section">
+          <h4 class="theme-section-title"><i class="fa-solid fa-wand-magic-sparkles"></i> 1-Click Curated Theme Presets</h4>
+          <div class="theme-presets-grid" id="themePresetsGrid">
+            
+            <div class="theme-preset-card" data-preset="jansuraaj">
+              <div class="preset-preview-bar">
+                <span style="background: #1e293b;"></span>
+                <span style="background: #f59e0b;"></span>
+                <span style="background: #10b981;"></span>
+                <span style="background: #8b5cf6;"></span>
+              </div>
+              <div class="preset-name">🌟 Jan Suraaj Signature</div>
+              <div class="preset-desc">Slate & Gold Accents</div>
+            </div>
+
+            <div class="theme-preset-card" data-preset="royal_blue">
+              <div class="preset-preview-bar">
+                <span style="background: #0f172a;"></span>
+                <span style="background: #0284c7;"></span>
+                <span style="background: #1d4ed8;"></span>
+                <span style="background: #0d9488;"></span>
+              </div>
+              <div class="preset-name">🔵 Royal Navy & Blue</div>
+              <div class="preset-desc">Corporate Deep Blue</div>
+            </div>
+
+            <div class="theme-preset-card" data-preset="emerald_green">
+              <div class="preset-preview-bar">
+                <span style="background: #064e3b;"></span>
+                <span style="background: #059669;"></span>
+                <span style="background: #10b981;"></span>
+                <span style="background: #84cc16;"></span>
+              </div>
+              <div class="preset-name">🟢 Grassroots Emerald</div>
+              <div class="preset-desc">Forest & Mint Green</div>
+            </div>
+
+            <div class="theme-preset-card" data-preset="modern_purple">
+              <div class="preset-preview-bar">
+                <span style="background: #312e81;"></span>
+                <span style="background: #7c3aed;"></span>
+                <span style="background: #a855f7;"></span>
+                <span style="background: #ec4899;"></span>
+              </div>
+              <div class="preset-name">🟣 Modern Violet</div>
+              <div class="preset-desc">Tech Purple & Indigo</div>
+            </div>
+
+            <div class="theme-preset-card" data-preset="mahila_rose">
+              <div class="preset-preview-bar">
+                <span style="background: #831843;"></span>
+                <span style="background: #db2777;"></span>
+                <span style="background: #f43f5e;"></span>
+                <span style="background: #f59e0b;"></span>
+              </div>
+              <div class="preset-name">🌸 Mahila Leadership</div>
+              <div class="preset-desc">Ruby & Rose Pink</div>
+            </div>
+
+            <div class="theme-preset-card" data-preset="charcoal_dark">
+              <div class="preset-preview-bar">
+                <span style="background: #09090b;"></span>
+                <span style="background: #27272a;"></span>
+                <span style="background: #52525b;"></span>
+                <span style="background: #06b6d4;"></span>
+              </div>
+              <div class="preset-name">🖤 Midnight Obsidian</div>
+              <div class="preset-desc">High Contrast Dark</div>
+            </div>
+
+            <div class="theme-preset-card" data-preset="sunset_amber">
+              <div class="preset-preview-bar">
+                <span style="background: #451a03;"></span>
+                <span style="background: #ea580c;"></span>
+                <span style="background: #f59e0b;"></span>
+                <span style="background: #e11d48;"></span>
+              </div>
+              <div class="preset-name">🌅 Sunset Amber</div>
+              <div class="preset-desc">Warm Orange & Coral</div>
+            </div>
+
+            <div class="theme-preset-card" data-preset="cyber_teal">
+              <div class="preset-preview-bar">
+                <span style="background: #083344;"></span>
+                <span style="background: #06b6d4;"></span>
+                <span style="background: #14b8a6;"></span>
+                <span style="background: #3b82f6;"></span>
+              </div>
+              <div class="preset-name">🌊 Ocean Cyan & Teal</div>
+              <div class="preset-desc">Vibrant Aquatic Blue</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Section 2: Live Custom Color Pickers -->
+        <div class="theme-section" style="margin-top: 24px;">
+          <h4 class="theme-section-title"><i class="fa-solid fa-sliders"></i> Fine-Tune Custom Colors (Live Pickers)</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: -6px; margin-bottom: 16px;">Change individual colors and see them update across cards, donuts, charts, and progress bars immediately.</p>
+          
+          <div class="custom-pickers-grid">
+            <div class="picker-item">
+              <label for="pickerBrandPrimary">Primary Accent (Blue / Brand):</label>
+              <div class="picker-control">
+                <input type="color" id="pickerBrandPrimary" value="#0284c7">
+                <span class="picker-code" id="codeBrandPrimary">#0284c7</span>
+              </div>
+            </div>
+
+            <div class="picker-item">
+              <label for="pickerOnboardedGreen">Onboarded / Success (Green):</label>
+              <div class="picker-control">
+                <input type="color" id="pickerOnboardedGreen" value="#059669">
+                <span class="picker-code" id="codeOnboardedGreen">#059669</span>
+              </div>
+            </div>
+
+            <div class="picker-item">
+              <label for="pickerDiceyOrange">Dicey / Follow-up (Orange/Gold):</label>
+              <div class="picker-control">
+                <input type="color" id="pickerDiceyOrange" value="#ea580c">
+                <span class="picker-code" id="codeDiceyOrange">#ea580c</span>
+              </div>
+            </div>
+
+            <div class="picker-item">
+              <label for="pickerNotOnboardedRed">Not Onboarded / Drop (Red):</label>
+              <div class="picker-control">
+                <input type="color" id="pickerNotOnboardedRed" value="#e11d48">
+                <span class="picker-code" id="codeNotOnboardedRed">#e11d48</span>
+              </div>
+            </div>
+
+            <div class="picker-item">
+              <label for="pickerPurpleAccent">PK Intervention / Special (Purple):</label>
+              <div class="picker-control">
+                <input type="color" id="pickerPurpleAccent" value="#7c3aed">
+                <span class="picker-code" id="codePurpleAccent">#7c3aed</span>
+              </div>
+            </div>
+
+            <div class="picker-item">
+              <label for="pickerTeaAmber">PK Tea Hosting (Amber / Yellow):</label>
+              <div class="picker-control">
+                <input type="color" id="pickerTeaAmber" value="#d97706">
+                <span class="picker-code" id="codeTeaAmber">#d97706</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <button id="resetThemeDefaultBtn" class="btn btn-outline" style="color: var(--text-secondary);">
+          <i class="fa-solid fa-arrow-rotate-left"></i> Reset to Default
+        </button>
+        <div style="display: flex; gap: 10px;">
+          <button id="closeThemeStudioModalBtn2" class="btn btn-outline">Close</button>
+          <button id="saveThemeBtn" class="btn btn-primary">
+            <i class="fa-solid fa-check"></i> Apply & Save Palette
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Main JavaScript Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

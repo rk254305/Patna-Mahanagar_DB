@@ -1,0 +1,6 @@
+Team_Name,Meeting_Type,Onboarding_Status,PK_Intervention,Host_PK_Tea,Committee_Recommendation
+Patna Sahib,Political,Onboarded,Yes,Yes,Ward
+Bankipur,Non-Political,Onboarded,Yes,No,District
+Kumhrar,Political,Dicey,No,Yes,Ward
+Digha,Non-Political,Not Onboarded,No,No,Ward
+Danapur,Political,Onboarded,Yes,Yes,State
