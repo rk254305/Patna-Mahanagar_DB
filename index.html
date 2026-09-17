@@ -45,9 +45,13 @@
 
       <!-- Navigation Links -->
       <div class="drawer-nav-group">
-        <button class="drawer-nav-item active" id="drawerNavLanding">
+        <button class="drawer-nav-item" id="drawerNavLanding">
           <i class="fa-solid fa-house"></i>
           <span>Portal Home (Landing Page)</span>
+        </button>
+        <button class="drawer-nav-item" id="drawerNavCouncillors">
+          <i class="fa-solid fa-users-rectangle text-amber"></i>
+          <span>Ward Councillor Reports (2017 & 2022)</span>
         </button>
         <button class="drawer-nav-item" id="drawerNavBoothsWards">
           <i class="fa-solid fa-map-location-dot text-blue"></i>
@@ -118,13 +122,16 @@
         </div>
 
         <div class="nav-center">
-          <!-- View Switcher Tabs: Landing Page vs Active Dashboard vs Leader Search -->
+          <!-- View Switcher Tabs: Landing Page vs Active Dashboard vs Ward Councillors vs Leader Search -->
           <div class="view-switch-pills">
             <button class="view-pill active" id="pillLandingView">
               <i class="fa-solid fa-house"></i> Landing Page
             </button>
             <button class="view-pill" id="pillDashboardView">
               <i class="fa-solid fa-chart-simple"></i> Detailed Dashboard
+            </button>
+            <button class="view-pill" id="pillCouncillorsView">
+              <i class="fa-solid fa-users-rectangle text-amber"></i> Ward Councillors
             </button>
             <button class="view-pill" id="pillSearchView">
               <i class="fa-solid fa-magnifying-glass"></i> Leader Search
@@ -280,6 +287,23 @@
             <!-- Dynamically populated from JS -->
           </div>
 
+          <!-- Featured Ward Councillor Banner Card -->
+          <div class="councillor-featured-card" id="landingCouncillorCard">
+            <div class="councillor-featured-content">
+              <div class="councillor-featured-icon"><i class="fa-solid fa-users-rectangle"></i></div>
+              <div class="councillor-featured-text">
+                <div class="councillor-featured-badge"><i class="fa-solid fa-file-lines"></i> G-SHEET GID 2143900618 INTEGRATED</div>
+                <h3>Ward Councillor Physical Meeting & Onboarding Status (2017 & 2022)</h3>
+                <p>Complete ward-by-ward field intelligence covering 75 PMC wards, 374 evaluated winners & runner-ups, 216 physical meetings, and 47 onboarded leaders.</p>
+              </div>
+            </div>
+            <div class="councillor-featured-action">
+              <button class="btn btn-primary" id="btnExploreCouncillors">
+                <span>View Full Interactive Matrix</span> <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
           <!-- ================= 3. ASSEMBLY BOOTHS & WARDS DIRECTORY SECTION ================= -->
           <div class="landing-section-header section-booths-header" id="boothsWardsSection">
             <div class="section-title-box">
@@ -291,6 +315,13 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="wardSearchInput" placeholder="Search Ward (e.g. Ward 18, 38) or Locality (e.g. Kankarbagh, Digha)...">
               </div>
+              <button id="btnSyncBoothsSheet" class="btn btn-sm btn-outline" title="Sync live from Google Sheet (gid=603975213)">
+                <i class="fa-solid fa-cloud-arrow-down text-blue"></i> <span>Sync Booth Sheet</span>
+              </button>
+              <button id="btnUploadBoothsCsv" class="btn btn-sm btn-outline" title="Upload downloaded CSV file">
+                <i class="fa-solid fa-file-arrow-up text-amber"></i> <span>Upload CSV</span>
+              </button>
+              <input type="file" id="boothCsvFileInput" accept=".csv" style="display: none;">
             </div>
           </div>
 
@@ -392,25 +423,25 @@
               <!-- 3 Metric Boxes -->
               <div class="metric-boxes-row boxes-3">
                 <div class="metric-box box-total">
-                  <span class="metric-label">Total Meetings</span>
+                  <span class="metric-label" id="lblTotalMeetings">Total Meetings</span>
                   <span class="metric-value" id="valTotalMeetings">582</span>
                   <div class="metric-icon-circle bg-blue-light text-blue">
                     <i class="fa-solid fa-user-group"></i>
                   </div>
                 </div>
 
-                <div class="metric-box box-political">
-                  <span class="metric-label">Political Meeting</span>
+                <div class="metric-box box-political" id="boxMeetingLeft">
+                  <span class="metric-label" id="lblPoliticalMeetings">Political Meeting</span>
                   <span class="metric-value" id="valPoliticalMeetings">293</span>
-                  <div class="metric-icon-circle bg-red-light text-red">
+                  <div class="metric-icon-circle bg-red-light text-red" id="iconMeetingLeft">
                     <i class="fa-solid fa-person-chalkboard"></i>
                   </div>
                 </div>
 
-                <div class="metric-box box-nonpolitical">
-                  <span class="metric-label">Non- Political Meeting</span>
+                <div class="metric-box box-nonpolitical" id="boxMeetingRight">
+                  <span class="metric-label" id="lblNonPoliticalMeetings">Non- Political Meeting</span>
                   <span class="metric-value" id="valNonPoliticalMeetings">289</span>
-                  <div class="metric-icon-circle bg-green-light text-green">
+                  <div class="metric-icon-circle bg-green-light text-green" id="iconMeetingRight">
                     <i class="fa-solid fa-users-line"></i>
                   </div>
                 </div>
@@ -442,9 +473,9 @@
                   </div>
 
                   <!-- Chart Legend -->
-                  <div class="custom-chart-legend">
-                    <div class="legend-item"><span class="legend-dot bg-red"></span> Political Meeting</div>
-                    <div class="legend-item"><span class="legend-dot bg-green"></span> Non- Political Meeting</div>
+                  <div class="custom-chart-legend" id="legendMeetingStatus">
+                    <div class="legend-item" id="legendItemMeetingLeft"><span class="legend-dot bg-red" id="legendDotMeetingLeft"></span> <span id="legendTextMeetingLeft">Political Meeting</span></div>
+                    <div class="legend-item" id="legendItemMeetingRight"><span class="legend-dot bg-green" id="legendDotMeetingRight"></span> <span id="legendTextMeetingRight">Non- Political Meeting</span></div>
                   </div>
                 </div>
               </div>
@@ -799,6 +830,154 @@
           </section>
         </div>
       </main>
+
+      <!-- ================= WARD COUNCILLOR REPORTS SECTION ================= -->
+      <section class="councillor-section-view" id="councillorSectionView" style="display: none;">
+        <!-- Header & Action Bar -->
+        <div class="councillor-hero-box">
+          <div class="councillor-header-left">
+            <div class="hero-badge-pill">
+              <span class="badge-dot"></span> Official PMC Election Matrix (2017 & 2022)
+            </div>
+            <h2><i class="fa-solid fa-users-rectangle text-amber"></i> Ward Councillor Physical Meeting & Onboarding Status</h2>
+            <p>Comprehensive field tracking of Winners and Runner-Ups across all 75 Patna Municipal Corporation (PMC) wards (G-Sheet GID: 2143900618)</p>
+          </div>
+          <div class="councillor-header-actions">
+            <button id="exportCouncillorCsvBtn" class="btn btn-outline btn-sm">
+              <i class="fa-solid fa-file-csv"></i> Export Matrix (CSV)
+            </button>
+            <button id="downloadCouncillorPdfBtn" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-file-pdf"></i> Download Councillor Report (PDF)
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter & Search Controls Bar -->
+        <div class="councillor-controls-bar">
+          <div class="councillor-search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="councillorSearchInput" placeholder="Search by Ward No. (e.g. 1, 6, 22A), Area (e.g. Digha, Kankarbagh), or POC...">
+            <button id="clearCouncillorSearchBtn" class="clear-btn" style="display:none;">&times;</button>
+          </div>
+          <div class="councillor-filters-wrap">
+            <select id="councillorAssemblyFilter" class="form-control">
+              <option value="all">All Constituencies (75 Wards)</option>
+              <option value="Digha - 181">181 - Digha Assembly</option>
+              <option value="Bankipur - 182">182 - Bankipur Assembly</option>
+              <option value="Kumhrar - 183">183 - Kumhrar Assembly</option>
+              <option value="Patna Sahib - 184">184 - Patna Sahib Assembly</option>
+            </select>
+            <div class="matrix-toggle-group">
+              <button class="matrix-toggle-btn active" data-mode="all">Combined (2017 & 2022)</button>
+              <button class="matrix-toggle-btn" data-mode="2022">2022 Status Only</button>
+              <button class="matrix-toggle-btn" data-mode="2017">2017 Status Only</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Summary Cards (4 Cards) -->
+        <div class="councillor-kpi-grid">
+          <div class="councillor-kpi-card card-gold">
+            <div class="kpi-tag">2022 ELECTION (RECENT)</div>
+            <div class="kpi-main-val" id="kpi2022Meetings">69 / 159</div>
+            <div class="kpi-sub-text">Physical Meetings Done (43.4% overall)</div>
+            <div class="kpi-split-row">
+              <div class="kpi-sub-stat"><span>Winners Met:</span> <strong id="kpi2022WinnersMet">35 / 54 (64.8%)</strong></div>
+              <div class="kpi-sub-stat"><span>Runner-Ups Met:</span> <strong id="kpi2022RunnersMet">34 / 105 (32.4%)</strong></div>
+              <div class="kpi-sub-stat highlight-green"><span>Total Onboarded:</span> <strong id="kpi2022Onboarded">30 (11W + 19R)</strong></div>
+            </div>
+          </div>
+
+          <div class="councillor-kpi-card card-orange">
+            <div class="kpi-tag">2017 ELECTION (PREVIOUS)</div>
+            <div class="kpi-main-val" id="kpi2017Meetings">147 / 215</div>
+            <div class="kpi-sub-text">Physical Meetings Done (68.4% overall)</div>
+            <div class="kpi-split-row">
+              <div class="kpi-sub-stat"><span>Winners Met:</span> <strong id="kpi2017WinnersMet">23 / 54 (42.6%)</strong></div>
+              <div class="kpi-sub-stat"><span>Runner-Ups Met:</span> <strong id="kpi2017RunnersMet">124 / 161 (77.0%)</strong></div>
+              <div class="kpi-sub-stat highlight-green"><span>Total Onboarded:</span> <strong id="kpi2017Onboarded">17 (4W + 13R)</strong></div>
+            </div>
+          </div>
+
+          <div class="councillor-kpi-card card-blue">
+            <div class="kpi-tag">FIELD ENGAGEMENT TOTALS</div>
+            <div class="kpi-main-val" id="kpiCombinedMeetings">216</div>
+            <div class="kpi-sub-text">Total Physical IDI Sessions Conducted</div>
+            <div class="kpi-split-row">
+              <div class="kpi-sub-stat"><span>Total Pool Evaluated:</span> <strong>374 Leaders</strong></div>
+              <div class="kpi-sub-stat"><span>Winner Touchpoints:</span> <strong>58 Meetings</strong></div>
+              <div class="kpi-sub-stat"><span>Runner-Up Touchpoints:</span> <strong>158 Meetings</strong></div>
+            </div>
+          </div>
+
+          <div class="councillor-kpi-card card-green">
+            <div class="kpi-tag">ONBOARDING CONVERSION</div>
+            <div class="kpi-main-val" id="kpiCombinedOnboarded">47</div>
+            <div class="kpi-sub-text">Ward Councillors & Runners Onboarded</div>
+            <div class="kpi-split-row">
+              <div class="kpi-sub-stat"><span>2022 Conversions:</span> <strong>30 Onboarded</strong></div>
+              <div class="kpi-sub-stat"><span>2017 Conversions:</span> <strong>17 Onboarded</strong></div>
+              <div class="kpi-sub-stat highlight-green"><span>Active Jan Suraaj Cadre:</span> <strong>47 Leaders</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Full Interactive Styled Spreadsheet Table -->
+        <div class="councillor-table-container">
+          <div class="table-legend-strip">
+            <div class="legend-left">
+              <span class="legend-item"><span class="color-chip chip-green"></span> Meeting Completed / Onboarded (>0)</span>
+              <span class="legend-item"><span class="color-chip chip-red"></span> Meeting Pending (0)</span>
+              <span class="legend-item"><span class="color-chip chip-orange"></span> 2017 Physical Meetings</span>
+              <span class="legend-item"><span class="color-chip chip-yellow"></span> 2022 Physical Meetings</span>
+            </div>
+            <div class="legend-right">
+              <span id="councillorRowCount">Showing 75 Wards</span>
+            </div>
+          </div>
+
+          <div class="councillor-table-scroll">
+            <table class="councillor-matrix-table" id="councillorMatrixTable">
+              <thead>
+                <!-- Top Multi-Column Header (Matching Google Sheet Reference) -->
+                <tr class="thead-row-group">
+                  <th rowspan="2" class="th-sr">Sr No.</th>
+                  <th rowspan="2" class="th-poc">POC</th>
+                  <th rowspan="2" class="th-asm">Assembly</th>
+                  <th rowspan="2" class="th-ward">Ward No.</th>
+                  <th rowspan="2" class="th-area">Area Covered</th>
+                  <th colspan="6" class="th-group-2017">Ward Councillor Physical Meeting Status (2017)</th>
+                  <th colspan="6" class="th-group-2022">Ward Councillor Physical Meeting Status (2022)</th>
+                </tr>
+                <!-- Sub-Headers Row -->
+                <tr class="thead-row-subs">
+                  <!-- 2017 Sub-cols -->
+                  <th class="th-sub-17" title="Total Pool (Winner)">Total Pool (Winner)</th>
+                  <th class="th-sub-17" title="Winners Physical Meeting Status">Winners Physical Meeting</th>
+                  <th class="th-sub-17" title="Total Pool Runner Ups">Total Pool Runner Ups</th>
+                  <th class="th-sub-17" title="Runner Ups Physical Meeting Status">Runner Ups Physical Meeting</th>
+                  <th class="th-sub-17" title="Winner Onboarded">Winner Onboarded</th>
+                  <th class="th-sub-17" title="Runner Ups Onboarding Status">Runner Ups Onboarded</th>
+                  <!-- 2022 Sub-cols -->
+                  <th class="th-sub-22" title="Total Pool (Winner)">Total Pool (Winner)</th>
+                  <th class="th-sub-22" title="Winners Physical Meeting Status">Winners Physical Meeting</th>
+                  <th class="th-sub-22" title="Total Pool Runner Ups">Total Pool Runner Ups</th>
+                  <th class="th-sub-22" title="Runner Ups Physical Meeting Status">Runner Ups Physical Meeting</th>
+                  <th class="th-sub-22" title="Winner Onboarded">Winner Onboarded</th>
+                  <th class="th-sub-22" title="Runner Ups Onboarding Status">Runner Ups Onboarded</th>
+                </tr>
+                <!-- Summary / Total Row (Exact Match to G-Sheet Green Total Row) -->
+                <tr class="tfoot-totals-row" id="councillorTotalsRow">
+                  <!-- Dynamically populated from JS -->
+                </tr>
+              </thead>
+              <tbody id="councillorTableBody">
+                <!-- Dynamically populated from JS (75 Wards) -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
 
       <!-- ================= 3. LEADER SEARCH & DIRECTORY VIEW ================= -->
       <section class="search-directory-view" id="searchDirectoryView" style="display: none;">
@@ -1204,6 +1383,9 @@
 
   <!-- Notification Toast Container -->
   <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Preloaded Data -->
+  <script src="councillors_data.js"></script>
 
   <!-- Main JavaScript Logic -->
   <script src="app.js"></script>

@@ -1,0 +1,1727 @@
+[
+  {
+    "sr": "1",
+    "poc": "Mahtab,Gautam,Sapna",
+    "assembly": "Digha - 181",
+    "wardNo": "1",
+    "area": "Digha/Rajiv Nagar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "2",
+    "poc": "Mahtab,Gautam,Sapna",
+    "assembly": "Digha - 181",
+    "wardNo": "2",
+    "area": "Ashiyana Nagar/ khajpura",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 1,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "3",
+    "poc": "Mahtab,Gautam,Sapna",
+    "assembly": "Digha - 181",
+    "wardNo": "5",
+    "area": "Samanpura/ A.G Colony/Ashiayan Nagar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "4",
+    "poc": "Mahtab,Gautam,Sapna",
+    "assembly": "Digha - 181",
+    "wardNo": "6",
+    "area": "Rajiv Nagar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "5",
+    "poc": "Mahtab,Gautam,Sapna",
+    "assembly": "Digha - 181",
+    "wardNo": "7",
+    "area": "Kesari Nagar/Rajvanshi Nagar/Patel Nagar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "6",
+    "poc": "Mahtab,Gautam,Sapna",
+    "assembly": "Digha - 181",
+    "wardNo": "8",
+    "area": "Shashtri Nagar/Punai Chak/Patel Nagar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "7",
+    "poc": "Mahtab,Gautam,Sapna",
+    "assembly": "Digha - 181",
+    "wardNo": "20",
+    "area": "Punai Chak/Rajvanshi Nagar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "8",
+    "poc": "Mahtab,Gautam,Sapna",
+    "assembly": "Digha - 181",
+    "wardNo": "22A",
+    "area": "Digha/Makhdumpur",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "9",
+    "poc": "Mahtab,Gautam,Sapna",
+    "assembly": "Digha - 181",
+    "wardNo": "22B",
+    "area": "Kurji/Balupar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "10",
+    "poc": "Mahtab,Gautam,Sapna",
+    "assembly": "Digha - 181",
+    "wardNo": "22C",
+    "area": "Mainpura",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "11",
+    "poc": "Abhishek , Reshu Rani",
+    "assembly": "Digha - 181",
+    "wardNo": "3",
+    "area": "Murlichak/Khalilpura/Sabjapur",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "12",
+    "poc": "Abhishek , Reshu Rani",
+    "assembly": "Digha - 181",
+    "wardNo": "4",
+    "area": "Shekhpura/Raja bazaar/Khajpura",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 2,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "13",
+    "poc": "Abhishek , Reshu Rani",
+    "assembly": "Digha - 181",
+    "wardNo": "9",
+    "area": "Beli Road/Harding Road/Khausal Nagar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 1,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "14",
+    "poc": "Abhishek , Reshu Rani",
+    "assembly": "Digha - 181",
+    "wardNo": "10",
+    "area": "Anisabad",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 2
+    }
+  },
+  {
+    "sr": "15",
+    "poc": "Abhishek , Reshu Rani",
+    "assembly": "Digha - 181",
+    "wardNo": "11",
+    "area": "Chitkhohra/Anishabad/Shivpuri",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "16",
+    "poc": "Abhishek , Reshu Rani",
+    "assembly": "Digha - 181",
+    "wardNo": "12",
+    "area": "Chitkhohra/Anishabad/Shivpuri",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "17",
+    "poc": "Abhishek , Reshu Rani",
+    "assembly": "Digha - 181",
+    "wardNo": "13",
+    "area": "Sarispabad/Gardanibag/Sadhnapuri",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "18",
+    "poc": "Abhishek , Reshu Rani",
+    "assembly": "Digha - 181",
+    "wardNo": "14",
+    "area": "Sarispabad",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "19",
+    "poc": "Abhishek , Reshu Rani",
+    "assembly": "Digha - 181",
+    "wardNo": "16",
+    "area": "Jakkanpur/Jhunjhun Mahal",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "20",
+    "poc": "Abhishek , Reshu Rani",
+    "assembly": "Digha - 181",
+    "wardNo": "21",
+    "area": "A.N College/Adaalat Ganj",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "21",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "31",
+    "area": "Chiraiya Tand, postel Park",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 1,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "22",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "32",
+    "area": "Katra Bazaar/Rikab Ganj/Nawaab Ganj/Sarifa Ganj",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "23",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "33",
+    "area": "Kankarbag/Postal Park,RMS Colony",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 2
+    }
+  },
+  {
+    "sr": "24",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "34",
+    "area": "Kankarbag/Lohiya Nagar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "25",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "43",
+    "area": "KadamKua/Rajendra Nagar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "26",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "44",
+    "area": "Kankarbag/Hanuman Nagar/Lohiya Nagar/Bahadurpur",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "27",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "45",
+    "area": "RMS Colony/Malahi Pakdi/Chitragupt Nagar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "28",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "55",
+    "area": "Bahadurpur Housing Colony/Kumhrar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "29",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "46",
+    "area": "Bahadurpur/Nand Lal Chhpra",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "30",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "47",
+    "area": "Bahadurpur/Sandalpur",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "31",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "48",
+    "area": "Musallahpur",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "32",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "49",
+    "area": "Ranighat/Patna Law College",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "33",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "50",
+    "area": "Ranighat/Mahendru/Muhammadpur/Sandalpur/Katra Dargah",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "34",
+    "poc": "Saurabh , Roshan ,Richa Thakur",
+    "assembly": "Kumhrar - 183",
+    "wardNo": "51",
+    "area": "Chaudhari Tola/Khajoor Banna/Tripoliya/Mahendru",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "35",
+    "poc": "Shubham Kumar  , Mayank , Shabnam",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "52",
+    "area": "Tripollia/Pripoliya/Gai Ghat/Alamganj/Gulljarbag",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "36",
+    "poc": "Shubham Kumar  , Mayank , Shabnam",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "53",
+    "area": "Gai Ghat/Shershah Road/BabuGunj",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "37",
+    "poc": "Shubham Kumar  , Mayank , Shabnam",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "54",
+    "area": "Mirdaha Toli/Alabakspur/Shershah Road",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "38",
+    "poc": "Shubham Kumar  , Mayank , Shabnam",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "56",
+    "area": "Maharajganj/Chhota and Bada Pahari/Jakariyapur",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "39",
+    "poc": "Shubham Kumar  , Mayank , Shabnam",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "57",
+    "area": "Mina Bazar/Shadikpur/Tulsimandi/Guljarbag",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "40",
+    "poc": "Shubham Kumar  , Mayank , Shabnam",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "58",
+    "area": "Mathramma / Chailital / Mahavirghat / Guljarbag",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "41",
+    "poc": "Shubham Kumar  , Mayank , Shabnam",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "59",
+    "area": "Gujri / Khajekala / Gurhatha / Naujarkatra",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "42",
+    "poc": "Shubham Kumar  , Mayank , Shabnam",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "60",
+    "area": "Gujri / Khajekala / Mogalpur / Padri ki Haweli",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "43",
+    "poc": "Shubham Kumar  , Mayank , Shabnam",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "61",
+    "area": "Maheshpur / Mehdiganj / Ranipur / Kasba Karimabad",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 1,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "44",
+    "poc": "Shubham Kumar  , Mayank , Shabnam",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "62",
+    "area": "Mangal Talaw / Begampur",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "45",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "63",
+    "area": "Mogalpur / Nun ka Chauraha / Chok Sikarpur / Dundi Bazar",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "46",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "64",
+    "area": "Mangal Talaw / Nun ka Chauraha",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "47",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "65",
+    "area": "Padri ki Haweli / Maharajghat / Tedhghat / Mangal Talaw / Sadar Gali",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "48",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "66",
+    "area": "Bade ki Gali / Magal Talaw / Chok Sikarpur",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 1,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "49",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "67",
+    "area": "Chhipi Tola / Nehru Tola / Kila Road / Kalmasikoh",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 1,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "50",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "68",
+    "area": "Chainpura / Dhavalpura / Beldari Tola / Nakhas Mangal Akhada",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "51",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "69",
+    "area": "Dalhatta / Mashurganj / Nkhas Mangal Akhada",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 1,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    }
+  },
+  {
+    "sr": "52",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "70",
+    "area": "Nand Gola / Pirdmariya / Nurudinganj / Dahuchak Nagala / Shimli",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 3,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "53",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "71",
+    "area": "Chhutkiya Bazar / Nurudinganj",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "54",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Patna Sahib - 184",
+    "wardNo": "72",
+    "area": "Katra Bazar / Rikab Ganj / Nabab Ganj / Sarifa Ganj",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "55",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "15",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 3,
+      "runnerMtg": 2,
+      "winnerOnboard": 0,
+      "runnerOnboard": 1
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 1,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "56",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "17",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "57",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "18",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "58",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "19",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "59",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "22",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "60",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "23",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "61",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "24",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 1,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "62",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "25",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "63",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "26",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 1,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "64",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "27",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "65",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "28",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 1,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "66",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "29",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "67",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "30",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "68",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "35",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "69",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "36",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "70",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "37",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 1,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "71",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "38",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "72",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "39",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "73",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "40",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 1,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "74",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "41",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  },
+  {
+    "sr": "75",
+    "poc": "Imteyaz , Vickey , Sadaf",
+    "assembly": "Bankipur - 182",
+    "wardNo": "42",
+    "area": "",
+    "w2017": {
+      "winnerPool": 1,
+      "winnerMtg": 1,
+      "runnerPool": 3,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    },
+    "w2022": {
+      "winnerPool": 1,
+      "winnerMtg": 0,
+      "runnerPool": 2,
+      "runnerMtg": 0,
+      "winnerOnboard": 0,
+      "runnerOnboard": 0
+    }
+  }
+]

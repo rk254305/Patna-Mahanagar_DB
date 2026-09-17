@@ -1069,7 +1069,7 @@ body.theme-dark .drawer-report-card:hover {
 /* Nav Center: Report Selector */
 .nav-center {
   flex: 1;
-  max-width: 480px;
+  max-width: 650px;
   display: flex;
   justify-content: center;
 }
@@ -3464,6 +3464,478 @@ body.theme-dark .locality-chip {
     border: 1px solid #ccc !important;
     break-inside: avoid;
   }
+}
+
+/* ==========================================================================
+   Ward Councillor Physical Meeting & Onboarding Matrix Styling
+   ========================================================================== */
+
+.councillor-section-view {
+  padding: 24px 32px 60px;
+  max-width: 1560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.councillor-hero-box {
+  background: linear-gradient(135deg, rgba(254, 243, 199, 0.5) 0%, rgba(254, 215, 170, 0.4) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-xl);
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-sm);
+}
+
+.councillor-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.councillor-header-left h2 {
+  font-family: var(--font-heading);
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.councillor-header-left p {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  max-width: 780px;
+}
+
+.councillor-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Featured Landing Page Card for Ward Councillors */
+.councillor-featured-card {
+  margin-top: 24px;
+  margin-bottom: 28px;
+  background: linear-gradient(135deg, rgba(254, 240, 138, 0.25) 0%, rgba(254, 215, 170, 0.25) 100%);
+  border: 1.5px solid rgba(245, 158, 11, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 22px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.08);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.councillor-featured-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.15);
+}
+
+.councillor-featured-content {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.councillor-featured-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);
+  flex-shrink: 0;
+}
+
+.councillor-featured-badge {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #d97706;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.councillor-featured-text h3 {
+  font-family: var(--font-heading);
+  font-size: 1.22rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.councillor-featured-text p {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+
+/* Controls Bar */
+.councillor-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: var(--bg-card);
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.councillor-search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-body);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  min-width: 320px;
+  flex: 1;
+  max-width: 480px;
+}
+
+.councillor-search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  width: 100%;
+}
+
+.councillor-filters-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.matrix-toggle-group {
+  display: flex;
+  background: var(--bg-body);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  gap: 4px;
+}
+
+.matrix-toggle-btn {
+  border: none;
+  background: transparent;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.matrix-toggle-btn.active {
+  background: var(--color-blue);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+}
+
+/* Councillor KPI Cards */
+.councillor-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 1100px) {
+  .councillor-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .councillor-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.councillor-kpi-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.councillor-kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.councillor-kpi-card.card-gold::before { background: linear-gradient(90deg, #eab308, #ca8a04); }
+.councillor-kpi-card.card-orange::before { background: linear-gradient(90deg, #f97316, #ea580c); }
+.councillor-kpi-card.card-blue::before { background: linear-gradient(90deg, #0284c7, #0369a1); }
+.councillor-kpi-card.card-green::before { background: linear-gradient(90deg, #16a34a, #15803d); }
+
+.councillor-kpi-card .kpi-tag {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.councillor-kpi-card .kpi-main-val {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.councillor-kpi-card .kpi-sub-text {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.councillor-kpi-card .kpi-split-row {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.78rem;
+}
+
+.councillor-kpi-card .kpi-sub-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-secondary);
+}
+
+.councillor-kpi-card .kpi-sub-stat strong {
+  color: var(--text-primary);
+}
+
+.councillor-kpi-card .kpi-sub-stat.highlight-green strong {
+  color: #16a34a;
+}
+
+/* Councillor Table Layout */
+.councillor-table-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.table-legend-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px;
+  background: var(--bg-body);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.legend-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.color-chip {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.chip-green { background: #16a34a; }
+.chip-red { background: #dc2626; }
+.chip-orange { background: #ea580c; }
+.chip-yellow { background: #eab308; }
+
+.councillor-table-scroll {
+  overflow-x: auto;
+  max-height: 700px;
+}
+
+.councillor-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  min-width: 1100px;
+}
+
+.councillor-matrix-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.councillor-matrix-table th {
+  padding: 8px 10px;
+  font-family: var(--font-heading);
+  font-size: 0.76rem;
+  font-weight: 700;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
+}
+
+.thead-row-group th {
+  background: #0f172a;
+  color: #fff;
+  text-align: center;
+}
+
+.thead-row-group .th-group-2017 {
+  background: #fed7aa;
+  color: #7c2d12;
+  font-weight: 800;
+  border-bottom: 2px solid #ea580c;
+  font-size: 0.82rem;
+}
+
+.thead-row-group .th-group-2022 {
+  background: #fef08a;
+  color: #713f12;
+  font-weight: 800;
+  border-bottom: 2px solid #ca8a04;
+  font-size: 0.82rem;
+}
+
+.thead-row-subs th {
+  background: #1e293b;
+  color: #f1f5f9;
+  font-size: 0.72rem;
+  text-align: center;
+}
+
+.thead-row-subs .th-sub-17 {
+  background: #ffedd5;
+  color: #9a3412;
+  font-weight: 700;
+}
+
+.thead-row-subs .th-sub-22 {
+  background: #fef9c3;
+  color: #854d0e;
+  font-weight: 700;
+}
+
+/* Green Totals Row - Exact G-Sheet Match */
+.tfoot-totals-row td, .tfoot-totals-row th {
+  background: #15803d !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  font-size: 0.88rem;
+  padding: 10px 10px;
+  text-align: center;
+  border: 1px solid #166534;
+}
+
+.councillor-matrix-table tbody tr {
+  border-bottom: 1px solid var(--border-color);
+  transition: background var(--transition-fast);
+}
+
+.councillor-matrix-table tbody tr:hover {
+  background: rgba(2, 132, 199, 0.05);
+}
+
+.councillor-matrix-table td {
+  padding: 7px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  vertical-align: middle;
+}
+
+.cell-stat-green {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+  font-weight: 800;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.cell-stat-red {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.cell-stat-neutral {
+  text-align: center;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.ward-badge-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.76rem;
+  background: rgba(2, 132, 199, 0.12);
+  color: var(--color-blue);
+  border: 1px solid rgba(2, 132, 199, 0.3);
+}
+
+.asm-tag-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: rgba(100, 116, 139, 0.12);
+  color: var(--text-secondary);
 }
 
 
