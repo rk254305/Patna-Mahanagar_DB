@@ -1055,6 +1055,7 @@ function renderDashboard() {
 
   // --- CARD 1: Meeting Status ---
   const isCouncillor = data.id.includes('councillor') || data.isCouncillor || (data.name && data.name.toLowerCase().includes('councillor'));
+  let totalMeetings = 0;
 
   if (isCouncillor) {
     // Dynamic real data from G-Sheet GID 2143900618
@@ -1075,6 +1076,8 @@ function renderDashboard() {
       pool = Number(data.totalPool || data.meetingStatus.total) || (completed + (Number(data.meetingStatus.notMet || data.meetingStatus.remaining || data.meetingStatus.nonPolitical) || 90));
       remaining = pool - completed;
     }
+
+    totalMeetings = pool;
 
     if (DOM.lblTotalMeetings) DOM.lblTotalMeetings.textContent = "Total Pool";
     if (DOM.lblPoliticalMeetings) DOM.lblPoliticalMeetings.textContent = "Meeting Completed";
@@ -1136,7 +1139,7 @@ function renderDashboard() {
 
     const polMeetings = Number(data.meetingStatus.political) || 0;
     const nonPolMeetings = Number(data.meetingStatus.nonPolitical) || 0;
-    const totalMeetings = polMeetings + nonPolMeetings;
+    totalMeetings = polMeetings + nonPolMeetings;
 
     if (DOM.valTotalMeetings) DOM.valTotalMeetings.textContent = totalMeetings;
     if (DOM.valPoliticalMeetings) DOM.valPoliticalMeetings.textContent = polMeetings;
