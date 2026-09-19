@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "patna-mahanagar-idi-dashboard",
+  "name": "patna-mahanagar-db",
   "outputDirectory": ".",
   "headers": [
     {
