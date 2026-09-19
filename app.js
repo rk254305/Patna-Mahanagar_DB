@@ -131,32 +131,38 @@ let ASSEMBLY_DEMOGRAPHICS = {
     badgeClass: "bg-green-light",
     headerClass: "header-green",
     icon: "fa-city",
-    totalBooths: "420",
-    totalElectors: "4,68,210",
-    wardsCount: "21",
+    totalBooths: "501",
+    totalElectors: "4,54,022",
+    wardsCount: "23",
     circle: "Patliputra Circle",
     wards: [
-      { wardNo: 1, name: "Ward 1", area: "Digha Ghat, Polson, Nakta Diyara" },
-      { wardNo: 2, name: "Ward 2", area: "Kurji, Balupar, Bind Toli" },
-      { wardNo: 3, name: "Ward 3", area: "Murlichak, Khalilpura, Sabjapur" },
-      { wardNo: 4, name: "Ward 4", area: "Shekhpura, Raja Bazar, Khajpura" },
-      { wardNo: 6, name: "Ward 6", area: "Ashiana Nagar, Ram Nagari, Magistrate Colony" },
-      { wardNo: 7, name: "Ward 7", area: "Raja Bazar, Samanpura, Pillar 40-70" },
-      { wardNo: 9, name: "Ward 9", area: "Beli Road, Harding Road, Khausal Nagar" },
-      { wardNo: 10, name: "Ward 10", area: "Anisabad, Phulwari Border" },
-      { wardNo: 11, name: "Ward 11", area: "Chitkohra, Anisabad, Shivpuri" },
-      { wardNo: 12, name: "Ward 12", area: "Chitkohra, Anisabad, Shivpuri" },
-      { wardNo: 13, name: "Ward 13", area: "Sarispabad, Gardanibagh, Sadhnapuri" },
-      { wardNo: 14, name: "Ward 14", area: "Sarispabad, Mahavir Cancer Sansthan Area" },
-      { wardNo: 16, name: "Ward 16", area: "Jakkanpur, Jhunjhun Mahal" },
-      { wardNo: 21, name: "Ward 21", area: "A.N College, Adalat Ganj, Boring Road" },
-      { wardNo: "22A", name: "Ward 22A", area: "Patliputra, Gosaintola" },
-      { wardNo: "22B", name: "Ward 22B", area: "Kurji, Balupar" },
-      { wardNo: "22C", name: "Ward 22C", area: "Mainpura, Digha Bridge Point" }
+      { wardNo: 1, name: "Ward 1", booths: 33, area: "Digha / Rajiv Nagar", voters: 31992 },
+      { wardNo: 2, name: "Ward 2", booths: 25, area: "Ashiyana Nagar / Khajpura", voters: 23438 },
+      { wardNo: 3, name: "Ward 3", booths: 16, area: "Murlichak / Khalilpura / Sabjapur", voters: 14470 },
+      { wardNo: 4, name: "Ward 4", booths: 26, area: "Shekhpura / Raja Bazaar / Khajpura", voters: 22939 },
+      { wardNo: 5, name: "Ward 5", booths: 37, area: "Samanpura / A.G Colony / Ashiyana Nagar", voters: 34186 },
+      { wardNo: 6, name: "Ward 6", booths: 17, area: "Rajiv Nagar", voters: 15409 },
+      { wardNo: 7, name: "Ward 7", booths: 34, area: "Kesari Nagar / Rajvanshi Nagar / Patel Nagar", voters: 31788 },
+      { wardNo: 8, name: "Ward 8", booths: 25, area: "Shashtri Nagar / Punai Chak / Patel Nagar", voters: 21420 },
+      { wardNo: 9, name: "Ward 9", booths: 9, area: "Beli Road / Harding Road / Khausal Nagar", voters: 7026 },
+      { wardNo: 10, name: "Ward 10", booths: 28, area: "Anisabad", voters: 21151 },
+      { wardNo: 12, name: "Ward 12", booths: 35, area: "Chitkhohra / Anishabad / Shivpuri", voters: 30326 },
+      { wardNo: 13, name: "Ward 13", booths: 35, area: "Sarispabad / Gardanibagh / Sadhnapuri", voters: 32888 },
+      { wardNo: 14, name: "Ward 14", booths: 33, area: "Sarispabad", voters: 31178 },
+      { wardNo: 15, name: "Ward 15", booths: 8, area: "Chitkhohra / Anishabad / Shivpuri", voters: 7019 },
+      { wardNo: 16, name: "Ward 16", booths: 3, area: "Jakkanpur / Jhunjhun Mahal", voters: 2669 },
+      { wardNo: 19, name: "Ward 19", booths: 2, area: "Jakkanpur / Jhunjhun Mahal", voters: 21150 },
+      { wardNo: 20, name: "Ward 20", booths: 17, area: "Punai Chak / Rajvanshi Nagar", voters: 21543 },
+      { wardNo: 21, name: "Ward 21", booths: 22, area: "A.N College / Adaalat Ganj", voters: 17278 },
+      { wardNo: 22, name: "Ward 22", booths: 22, area: "Katra Bazaar / Rikab Ganj / Nawaab Ganj / Sarifa Ganj", voters: 23497 },
+      { wardNo: "22A", name: "Ward 22A", booths: 20, area: "Digha / Makhdumpur", voters: 16107 },
+      { wardNo: "22B", name: "Ward 22B", booths: 26, area: "Kurji / Balupar", voters: 16933 },
+      { wardNo: "22C", name: "Ward 22C", booths: 18, area: "Mainpura", voters: 15357 },
+      { wardNo: "Panchayat", name: "Panchayat", booths: 10, area: "Panchayat (Rural)", voters: 12886 }
     ],
-    otherAreas: "Wards 1 to 22C covering Patliputra, Digha & Danapur Border",
-    localities: ["Digha Ghat", "Kurji", "Patliputra", "Rajiv Nagar", "Ashiana Nagar", "Raja Bazar", "Jagdeo Path", "Khajpura"],
-    summary: "Digha is the largest urban constituency in Patna Mahanagar with high density of residential and commercial zones."
+    otherAreas: "23 Wards & Units covering Patliputra, Digha, Rajiv Nagar & Danapur Border",
+    localities: ["Digha", "Rajiv Nagar", "Ashiyana Nagar", "Khajpura", "Shekhpura", "Raja Bazaar", "Samanpura", "A.G Colony", "Patel Nagar", "Anisabad", "Chitkhohra", "Gardanibagh", "Kurji", "Mainpura"],
+    summary: "Digha is the largest urban constituency in Patna Mahanagar with 501 polling booths across 23 municipal wards & units."
   },
   "182_bankipur": {
     id: "patna_team_report",
@@ -166,24 +172,39 @@ let ASSEMBLY_DEMOGRAPHICS = {
     badgeClass: "bg-amber-light",
     headerClass: "header-amber",
     icon: "fa-building-columns",
-    totalBooths: "374",
-    totalElectors: "3,92,450",
-    wardsCount: "18",
+    totalBooths: "422",
+    totalElectors: "3,78,249",
+    wardsCount: "24",
     circle: "Bankipur Circle",
     wards: [
-      { wardNo: 15, name: "Ward 15", area: "Gandhi Maidan, Exhibition Road, Frazer Road" },
-      { wardNo: 17, name: "Ward 17", area: "Boring Canal Road, Sri Krishna Puri" },
-      { wardNo: 18, name: "Ward 18", area: "Kidwaipuri, Buddha Colony, Mandiri" },
-      { wardNo: 19, name: "Ward 19", area: "Kadamkuan, Sahityakar Colony, Park Road" },
-      { wardNo: 22, name: "Ward 22", area: "Naya Tola, Machhua Toli, Bari Path" },
-      { wardNo: 26, name: "Ward 26", area: "Pirbahore, Patna Market, Ashok Rajpath" },
-      { wardNo: 35, name: "Ward 35", area: "Chiraiyatand, Postal Park, Munna Chak" },
-      { wardNo: 41, name: "Ward 41", area: "Lohanipur, Kadamkuan Main" },
-      { wardNo: 42, name: "Ward 42", area: "Rajendra Nagar North, Arya Kumar Road" }
+      { wardNo: 15, name: "Ward 15", booths: 14, area: "Chitkhohra / Anishabad / Shivpuri" },
+      { wardNo: 16, name: "Ward 16", booths: 12, area: "Jakkanpur / Jhunjhun Mahal" },
+      { wardNo: 17, name: "Ward 17", booths: 22, area: "Sarispabad / Gardanibagh / Sadhnapuri" },
+      { wardNo: 18, name: "Ward 18", booths: 23, area: "Sarispabad" },
+      { wardNo: 19, name: "Ward 19", booths: 23, area: "Jakkanpur / Jhunjhun Mahal" },
+      { wardNo: 21, name: "Ward 21", booths: 15, area: "A.N College / Adaalat Ganj" },
+      { wardNo: 22, name: "Ward 22", booths: 19, area: "Katra Bazaar / Rikab Ganj / Nawaab Ganj / Sarifa Ganj" },
+      { wardNo: 23, name: "Ward 23", booths: 19, area: "Kankarbagh / Postal Park, RMS Colony" },
+      { wardNo: 24, name: "Ward 24", booths: 17, area: "Kankarbagh / Lohiya Nagar" },
+      { wardNo: 25, name: "Ward 25", booths: 14, area: "KadamKua / Rajendra Nagar" },
+      { wardNo: 26, name: "Ward 26", booths: 19, area: "Kankarbagh / Hanuman Nagar / Lohiya Nagar / Bahadurpur" },
+      { wardNo: 27, name: "Ward 27", booths: 23, area: "RMS Colony / Malahi Pakdi / Chitragupt Nagar" },
+      { wardNo: 28, name: "Ward 28", booths: 24, area: "Bahadurpur Housing Colony / Kumhrar" },
+      { wardNo: 29, name: "Ward 29", booths: 26, area: "Bahadurpur / Nand Lal Chhpra" },
+      { wardNo: 30, name: "Ward 30", booths: 26, area: "Bahadurpur / Sandalpur" },
+      { wardNo: 31, name: "Ward 31", booths: 2, area: "Chiraiya Tand, Postal Park" },
+      { wardNo: 35, name: "Ward 35", booths: 12, area: "Tripollia / Pripoliya / Gai Ghat / Alamganj / Gulljarbag" },
+      { wardNo: 36, name: "Ward 36", booths: 32, area: "Gai Ghat / Shershah Road / BabuGunj" },
+      { wardNo: 37, name: "Ward 37", booths: 13, area: "Mirdaha Toli / Alabakspur / Shershah Road" },
+      { wardNo: 38, name: "Ward 38", booths: 23, area: "Maharajganj / Chhota and Bada Pahari / Jakariyapur" },
+      { wardNo: 39, name: "Ward 39", booths: 14, area: "Mina Bazar / Shadikpur / Tulsimandi / Guljarbag" },
+      { wardNo: 40, name: "Ward 40", booths: 17, area: "Mathramma / Chailital / Mahavirghat / Guljarbag" },
+      { wardNo: 41, name: "Ward 41", booths: 7, area: "Gujri / Khajekala / Gurhatha / Naujarkatra" },
+      { wardNo: 42, name: "Ward 42", booths: 6, area: "Gujri / Khajekala / Mogalpur / Padri ki Haweli" }
     ],
-    otherAreas: "Wards 15 to 42 covering Central Commercial & Administrative Hub",
-    localities: ["Gandhi Maidan", "Boring Road", "SK Puri", "Kidwaipuri", "Kadamkuan", "Machhua Toli", "Ashok Rajpath", "Naya Tola"],
-    summary: "Bankipur constitutes the administrative, educational, and medical nerve center of Patna Mahanagar."
+    otherAreas: "24 Wards covering Central Commercial & Administrative Hub of Patna",
+    localities: ["Gandhi Maidan", "Boring Road", "SK Puri", "Kidwaipuri", "Kadamkuan", "Machhua Toli", "Ashok Rajpath", "Naya Tola", "Gardanibagh", "Gai Ghat"],
+    summary: "Bankipur constitutes the administrative, educational, and medical nerve center of Patna Mahanagar with 422 polling booths across 24 wards."
   },
   "183_kumhrar": {
     id: "kumhrar_team1",
@@ -193,29 +214,37 @@ let ASSEMBLY_DEMOGRAPHICS = {
     badgeClass: "bg-purple-light",
     headerClass: "header-purple",
     icon: "fa-landmark",
-    totalBooths: "410",
-    totalElectors: "4,40,120",
-    wardsCount: "20",
+    totalBooths: "435",
+    totalElectors: "4,46,165",
+    wardsCount: "22",
     circle: "Kankarbagh Circle",
     wards: [
-      { wardNo: 31, name: "Ward 31", area: "Chiraiyatand, Postal Park" },
-      { wardNo: 32, name: "Ward 32", area: "Katra Bazar, Rikab Ganj, Nawab Ganj" },
-      { wardNo: 33, name: "Ward 33", area: "Kankarbagh, Postal Park, RMS Colony" },
-      { wardNo: 34, name: "Ward 34", area: "Kankarbagh, Lohia Nagar" },
-      { wardNo: 43, name: "Ward 43", area: "Kadamkuan, Rajendra Nagar" },
-      { wardNo: 44, name: "Ward 44", area: "Kankarbagh, Hanuman Nagar, Lohia Nagar, Bahadurpur" },
-      { wardNo: 45, name: "Ward 45", area: "RMS Colony, Malahi Pakri, Chitragupta Nagar" },
-      { wardNo: 46, name: "Ward 46", area: "Bahadurpur, Nand Lal Chhapra" },
-      { wardNo: 47, name: "Ward 47", area: "Bahadurpur, Sandalpur" },
-      { wardNo: 48, name: "Ward 48", area: "Musallahpur, Bazar Samiti" },
-      { wardNo: 49, name: "Ward 49", area: "Ranighat, Patna Law College" },
-      { wardNo: 50, name: "Ward 50", area: "Ranighat, Mahendru, Muhammadpur, Sandalpur" },
-      { wardNo: 51, name: "Ward 51", area: "Chaudhary Tola, Khajoor Banna, Tripoliya" },
-      { wardNo: 55, name: "Ward 55", area: "Bahadurpur Housing Colony, Kumhrar" }
+      { wardNo: 2, name: "Ward 2", booths: 1, area: "Ashiyana Nagar / Khajpura" },
+      { wardNo: 30, name: "Ward 30", booths: 4, area: "Bahadurpur / Sandalpur" },
+      { wardNo: 31, name: "Ward 31", booths: 25, area: "Chiraiya Tand, Postal Park" },
+      { wardNo: 32, name: "Ward 32", booths: 9, area: "Katra Bazaar / Rikab Ganj / Nawaab Ganj / Sarifa Ganj" },
+      { wardNo: 33, name: "Ward 33", booths: 23, area: "Kankarbagh / Postal Park, RMS Colony" },
+      { wardNo: 34, name: "Ward 34", booths: 22, area: "Kankarbagh / Lohiya Nagar" },
+      { wardNo: 35, name: "Ward 35", booths: 9, area: "Tripollia / Pripoliya / Gai Ghat / Alamganj / Gulljarbag" },
+      { wardNo: 36, name: "Ward 36", booths: 1, area: "Gai Ghat / Shershah Road / BabuGunj" },
+      { wardNo: 41, name: "Ward 41", booths: 21, area: "Gujri / Khajekala / Gurhatha / Naujarkatra" },
+      { wardNo: 42, name: "Ward 42", booths: 22, area: "Gujri / Khajekala / Mogalpur / Padri ki Haweli" },
+      { wardNo: 43, name: "Ward 43", booths: 32, area: "KadamKua / Rajendra Nagar" },
+      { wardNo: 44, name: "Ward 44", booths: 33, area: "Kankarbagh / Hanuman Nagar / Lohiya Nagar / Bahadurpur" },
+      { wardNo: 45, name: "Ward 45", booths: 38, area: "RMS Colony / Malahi Pakdi / Chitragupt Nagar" },
+      { wardNo: 46, name: "Ward 46", booths: 30, area: "Bahadurpur / Nand Lal Chhpra" },
+      { wardNo: 47, name: "Ward 47", booths: 25, area: "Bahadurpur / Sandalpur" },
+      { wardNo: 48, name: "Ward 48", booths: 29, area: "Musallahpur" },
+      { wardNo: 49, name: "Ward 49", booths: 24, area: "Ranighat / Patna Law College" },
+      { wardNo: 50, name: "Ward 50", booths: 36, area: "Ranighat / Mahendru / Muhammadpur / Sandalpur / Katra Dargah" },
+      { wardNo: 51, name: "Ward 51", booths: 20, area: "Chaudhari Tola / Khajoor Banna / Tripoliya / Mahendru" },
+      { wardNo: 52, name: "Ward 52", booths: 1, area: "Tripollia / Pripoliya / Gai Ghat / Alamganj / Gulljarbag" },
+      { wardNo: 55, name: "Ward 55", booths: 29, area: "Bahadurpur Housing Colony / Kumhrar" },
+      { wardNo: 60, name: "Ward 60", booths: 1, area: "Gujri / Khajekala / Mogalpur / Padri ki Haweli" }
     ],
-    otherAreas: "Wards 31 to 55 covering Kankarbagh, Kumhrar & Rajendra Nagar",
-    localities: ["Rajendra Nagar", "PC Colony", "Hanuman Nagar", "Kumhrar", "Bazar Samiti", "Bahadurpur", "Chiraiyatand", "Bhootnath Road"],
-    summary: "Kumhrar represents the massive South-Central urban block with high concentration of professionals and community leaders."
+    otherAreas: "22 Wards covering Kankarbagh, Kumhrar, Rajendra Nagar & University Area",
+    localities: ["Rajendra Nagar", "PC Colony", "Hanuman Nagar", "Kumhrar", "Bazar Samiti", "Bahadurpur", "Chiraiyatand", "Bhootnath Road", "Ranighat", "Mahendru"],
+    summary: "Kumhrar represents the massive South-Central urban block with 435 polling booths across 22 wards with high residential density."
   },
   "184_patna_sahib": {
     id: "patnasahib_team2",
@@ -225,35 +254,35 @@ let ASSEMBLY_DEMOGRAPHICS = {
     badgeClass: "bg-orange-light",
     headerClass: "header-navy",
     icon: "fa-monument",
-    totalBooths: "392",
-    totalElectors: "3,86,700",
-    wardsCount: "24",
+    totalBooths: "405",
+    totalElectors: "3,87,685",
+    wardsCount: "20",
     circle: "Patna City Circle",
     wards: [
-      { wardNo: 52, name: "Ward 52", area: "Tripoliya, Gai Ghat, Alamganj, Gulzarbagh" },
-      { wardNo: 53, name: "Ward 53", area: "Gai Ghat, Shershah Road, Babu Ganj" },
-      { wardNo: 54, name: "Ward 54", area: "Mirdaha Toli, Alabakshpur, Shershah Road" },
-      { wardNo: 56, name: "Ward 56", area: "Maharajganj, Chhoti & Badi Pahari, Jakariyapur" },
-      { wardNo: 57, name: "Ward 57", area: "Meena Bazar, Sadikpur, Tulsimandi, Gulzarbagh" },
-      { wardNo: 58, name: "Ward 58", area: "Mathramma, Chailital, Mahavirghat, Gulzarbagh" },
-      { wardNo: 59, name: "Ward 59", area: "Gujri, Khajekala, Gurhatta, Naujarkatra" },
-      { wardNo: 60, name: "Ward 60", area: "Gujri, Khajekala, Moghalpura, Padri ki Haweli" },
-      { wardNo: 61, name: "Ward 61", area: "Maheshpur, Mehdiganj, Ranipur, Kasba Karimabad" },
-      { wardNo: 62, name: "Ward 62", area: "Mangal Talab, Begampur" },
-      { wardNo: 63, name: "Ward 63", area: "Moghalpura, Noon ka Chauraha, Chowk Shikarpur" },
-      { wardNo: 64, name: "Ward 64", area: "Mangal Talab, Noon ka Chauraha" },
-      { wardNo: 65, name: "Ward 65", area: "Padri ki Haweli, Maharajghat, Tedhighat, Sadar Gali" },
-      { wardNo: 66, name: "Ward 66", area: "Bade ki Gali, Mangal Talab, Chowk Shikarpur" },
-      { wardNo: 67, name: "Ward 67", area: "Chhipi Tola, Nehru Tola, Kila Road, Kalmasikoh" },
-      { wardNo: 68, name: "Ward 68", area: "Chainpura, Dhavalpura, Beldari Tola, Nakhas" },
-      { wardNo: 69, name: "Ward 69", area: "Dalhatta, Mashoorganj, Nakhas Mangal Akhada" },
-      { wardNo: 70, name: "Ward 70", area: "Nand Gola, Pirdamariya, Noorganj, Dahuchak" },
-      { wardNo: 71, name: "Ward 71", area: "Chhutkiya Bazar, Noorganj" },
-      { wardNo: 72, name: "Ward 72", area: "Katra Bazar, Rikab Ganj, Nawab Ganj, Sarifa Ganj" }
+      { wardNo: 52, name: "Ward 52", booths: 28, area: "Tripollia / Pripoliya / Gai Ghat / Alamganj / Gulljarbag" },
+      { wardNo: 53, name: "Ward 53", booths: 16, area: "Gai Ghat / Shershah Road / BabuGunj" },
+      { wardNo: 54, name: "Ward 54", booths: 31, area: "Mirdaha Toli / Alabakspur / Shershah Road" },
+      { wardNo: 56, name: "Ward 56", booths: 23, area: "Maharajganj / Chhota and Bada Pahari / Jakariyapur" },
+      { wardNo: 57, name: "Ward 57", booths: 15, area: "Mina Bazar / Shadikpur / Tulsimandi / Guljarbag" },
+      { wardNo: 58, name: "Ward 58", booths: 28, area: "Mathramma / Chailital / Mahavirghat / Guljarbag" },
+      { wardNo: 59, name: "Ward 59", booths: 28, area: "Gujri / Khajekala / Gurhatha / Naujarkatra" },
+      { wardNo: 60, name: "Ward 60", booths: 29, area: "Gujri / Khajekala / Mogalpur / Padri ki Haweli" },
+      { wardNo: 61, name: "Ward 61", booths: 28, area: "Maheshpur / Mehdiganj / Ranipur / Kasba Karimabad" },
+      { wardNo: 62, name: "Ward 62", booths: 21, area: "Mangal Talaw / Begampur" },
+      { wardNo: 63, name: "Ward 63", booths: 10, area: "Mogalpur / Nun ka Chauraha / Chok Sikarpur / Dundi Bazar" },
+      { wardNo: 64, name: "Ward 64", booths: 15, area: "Mangal Talaw / Nun ka Chauraha" },
+      { wardNo: 65, name: "Ward 65", booths: 17, area: "Padri ki Haweli / Maharajghat / Tedhghat / Mangal Talaw / Sadar Gali" },
+      { wardNo: 66, name: "Ward 66", booths: 16, area: "Bade ki Gali / Magal Talaw / Chok Sikarpur" },
+      { wardNo: 67, name: "Ward 67", booths: 25, area: "Chhipi Tola / Nehru Tola / Kila Road / Kalmasikoh" },
+      { wardNo: 68, name: "Ward 68", booths: 13, area: "Chainpura / Dhavalpura / Beldari Tola / Nakhas Mangal Akhada" },
+      { wardNo: 69, name: "Ward 69", booths: 11, area: "Dalhatta / Mashurganj / Nkhas Mangal Akhada" },
+      { wardNo: 70, name: "Ward 70", booths: 24, area: "Nand Gola / Pirdmariya / Nurudinganj / Dahuchak Nagala / Shimli" },
+      { wardNo: 71, name: "Ward 71", booths: 8, area: "Chhutkiya Bazar / Nurudinganj" },
+      { wardNo: 72, name: "Ward 72", booths: 19, area: "Katra Bazar / Rikab Ganj / Nabab Ganj / Sarifa Ganj" }
     ],
-    otherAreas: "Wards 52 to 72 covering Historic Patna City, Wholesale Mandis & Heritage Ghats",
-    localities: ["Takht Patna Sahib", "Chowk", "Gulzarbagh", "Alamganj", "Marufganj", "Didarganj", "Malsalami", "Gaighat", "Begampur"],
-    summary: "Patna Sahib is the historic wholesale business hub and heritage heart of Patna with deeply established grassroots networks."
+    otherAreas: "20 Wards covering Historic Patna City, Wholesale Mandis & Heritage Ghats",
+    localities: ["Takht Patna Sahib", "Chowk", "Gulzarbagh", "Alamganj", "Marufganj", "Didarganj", "Malsalami", "Gaighat", "Begampur", "Mehdiganj"],
+    summary: "Patna Sahib is the historic wholesale business hub and heritage heart of Patna with 405 polling booths across 20 wards."
   }
 };
 
@@ -781,6 +810,14 @@ function renderBoothsWardsDirectory(searchQuery = '') {
   DOM.assemblyWardGrid.innerHTML = '';
   const query = searchQuery.trim().toLowerCase();
 
+  // Populate overall KPI counts from official data
+  const kpiTotalBooths = document.getElementById('kpiTotalBooths');
+  const kpiTotalWards = document.getElementById('kpiTotalWards');
+  const kpiTotalElectors = document.getElementById('kpiTotalElectors');
+  if (kpiTotalBooths) kpiTotalBooths.textContent = '1,763';
+  if (kpiTotalWards) kpiTotalWards.textContent = '75';
+  if (kpiTotalElectors) kpiTotalElectors.textContent = '16,66,121';
+
   Object.keys(ASSEMBLY_DEMOGRAPHICS).forEach(key => {
     const asm = ASSEMBLY_DEMOGRAPHICS[key];
     
@@ -804,9 +841,10 @@ function renderBoothsWardsDirectory(searchQuery = '') {
       asm.wards.forEach(w => {
         const isHighlighted = query && (w.name.toLowerCase().includes(query) || w.wardNo.toString() === query || w.area.toLowerCase().includes(query));
         wardPillsHtml += `
-          <div class="ward-pill ${isHighlighted ? 'active' : ''}" title="${w.name}: ${w.area}" data-ward="${w.wardNo}" data-asmkey="${key}">
+          <div class="ward-pill ${isHighlighted ? 'active' : ''}" title="${w.name}: ${w.area} (${w.booths} Booths)" data-ward="${w.wardNo}" data-asmkey="${key}">
             <span class="ward-pill-num">${w.name}</span>
-            <span class="ward-pill-area">${w.area.split(',')[0]}</span>
+            <span class="ward-pill-area">${w.area.split('/')[0].trim()}</span>
+            <span class="ward-pill-booths" style="font-size:0.72rem; font-weight:800; color:var(--color-blue); margin-left:3px;" title="${w.booths} Booths">• ${w.booths}</span>
           </div>
         `;
       });
@@ -925,11 +963,16 @@ function renderModalAssemblyAccordion(searchQuery = '', focusAsmKey = null, focu
       
       wardsTableRows += `
         <tr style="${isFocused || isSearchMatch ? 'background:rgba(2, 132, 199, 0.12); font-weight:bold;' : ''}">
-          <td style="padding:8px 12px; font-weight:800; color:var(--color-blue); width:90px;">
+          <td style="padding:8px 12px; font-weight:800; color:var(--color-blue); width:95px; white-space:nowrap;">
             <i class="fa-solid fa-map-pin"></i> ${w.name}
           </td>
           <td style="padding:8px 12px; font-size:0.84rem; color:var(--text-primary);">
             ${w.area}
+          </td>
+          <td style="padding:8px 12px; font-size:0.82rem; font-weight:700; color:var(--text-secondary); text-align:right; width:120px; white-space:nowrap;">
+            <span class="booth-count-badge" style="display:inline-flex; align-items:center; gap:5px; padding:3px 9px; font-size:0.75rem; border-radius:12px; background:var(--tint-blue); color:var(--color-blue); border:1px solid rgba(2,132,199,0.25);">
+              <i class="fa-solid fa-check-to-slot"></i> ${w.booths || '--'} Booths
+            </span>
           </td>
         </tr>
       `;
@@ -960,8 +1003,15 @@ function renderModalAssemblyAccordion(searchQuery = '', focusAsmKey = null, focu
           <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px;">
             <i class="fa-solid fa-table-list text-blue"></i> MUNICIPAL WARDS LIST (${asm.wardsCount} WARDS):
           </div>
-          <div class="table-responsive" style="border:1px solid var(--border-color); border-radius:var(--radius-sm); max-height:220px; overflow-y:auto;">
+          <div class="table-responsive" style="border:1px solid var(--border-color); border-radius:var(--radius-sm); max-height:240px; overflow-y:auto;">
             <table style="width:100%; border-collapse:collapse; text-align:left;">
+              <thead>
+                <tr style="background:var(--bg-card-alt, #f8fafc); border-bottom:1px solid var(--border-color); font-size:0.74rem; color:var(--text-muted); text-transform:uppercase; position:sticky; top:0; z-index:1;">
+                  <th style="padding:7px 12px; font-weight:700;">Ward</th>
+                  <th style="padding:7px 12px; font-weight:700;">Locality / Area Covered</th>
+                  <th style="padding:7px 12px; font-weight:700; text-align:right;">No. of Booths</th>
+                </tr>
+              </thead>
               <tbody>${wardsTableRows}</tbody>
             </table>
           </div>
