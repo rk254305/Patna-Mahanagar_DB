@@ -320,9 +320,34 @@ const DOM = {
   viewAssemblyWardsDetailBtn: document.getElementById('viewAssemblyWardsDetailBtn'),
   downloadCurrentPdfBtn: document.getElementById('downloadCurrentPdfBtn'),
   downloadCurrentPngBtn: document.getElementById('downloadCurrentPngBtn'),
-  openBoothsWardsBtn: document.getElementById('openBoothsWardsBtn'),
   landingCouncillorCard: document.getElementById('landingCouncillorCard'),
   btnExploreCouncillors: document.getElementById('btnExploreCouncillors'),
+
+  // Interactive Map Elements
+  drawerNavMaps: document.getElementById('drawerNavMaps'),
+  interactiveMapView: document.getElementById('interactiveMapView'),
+  pillMapView: document.getElementById('pillMapView'),
+  btnExploreMaps: document.getElementById('btnExploreMaps'),
+  landingMapsCard: document.getElementById('landingMapsCard'),
+  mapWardSearchInput: document.getElementById('mapWardSearchInput'),
+  mapSearchDropdown: document.getElementById('mapSearchDropdown'),
+  layerStreetBtn: document.getElementById('layerStreetBtn'),
+  layerSatBtn: document.getElementById('layerSatBtn'),
+  layerDarkBtn: document.getElementById('layerDarkBtn'),
+  btnResetMapBounds: document.getElementById('btnResetMapBounds'),
+  btnToggleMapFullscreen: document.getElementById('btnToggleMapFullscreen'),
+  mapViewportWrapper: document.getElementById('mapViewportWrapper'),
+  wardFloatingCard: document.getElementById('wardFloatingCard'),
+  closeWardCardBtn: document.getElementById('closeWardCardBtn'),
+  cardWardBadge: document.getElementById('cardWardBadge'),
+  cardWardAcTag: document.getElementById('cardWardAcTag'),
+  cardWardAreaName: document.getElementById('cardWardAreaName'),
+  cardBoothsTotal: document.getElementById('cardBoothsTotal'),
+  cardVotersTotal: document.getElementById('cardVotersTotal'),
+  cardCouncillorPreview: document.getElementById('cardCouncillorPreview'),
+  cardViewCouncillorBtn: document.getElementById('cardViewCouncillorBtn'),
+  cardZoomWardBtn: document.getElementById('cardZoomWardBtn'),
+  mapAcFilterGroup: document.getElementById('mapAcFilterGroup'),
 
   // Councillor Section Controls & Elements
   exportCouncillorCsvBtn: document.getElementById('exportCouncillorCsvBtn'),
@@ -551,15 +576,18 @@ function switchView(viewName, targetReportId = null) {
   if (DOM.dashboardDetailView) DOM.dashboardDetailView.style.display = 'none';
   if (DOM.searchDirectoryView) DOM.searchDirectoryView.style.display = 'none';
   if (DOM.councillorSectionView) DOM.councillorSectionView.style.display = 'none';
+  if (DOM.interactiveMapView) DOM.interactiveMapView.style.display = 'none';
 
   if (DOM.pillLandingView) DOM.pillLandingView.classList.remove('active');
   if (DOM.pillDashboardView) DOM.pillDashboardView.classList.remove('active');
   if (DOM.pillCouncillorsView) DOM.pillCouncillorsView.classList.remove('active');
   if (DOM.pillSearchView) DOM.pillSearchView.classList.remove('active');
+  if (DOM.pillMapView) DOM.pillMapView.classList.remove('active');
 
   if (DOM.drawerNavLanding) DOM.drawerNavLanding.classList.remove('active');
   if (DOM.drawerNavCouncillors) DOM.drawerNavCouncillors.classList.remove('active');
   if (DOM.drawerNavBoothsWards) DOM.drawerNavBoothsWards.classList.remove('active');
+  if (DOM.drawerNavMaps) DOM.drawerNavMaps.classList.remove('active');
 
   if (viewName === 'landing') {
     if (DOM.landingPageView) DOM.landingPageView.style.display = 'block';
@@ -578,6 +606,12 @@ function switchView(viewName, targetReportId = null) {
     if (DOM.pillSearchView) DOM.pillSearchView.classList.add('active');
     if (DOM.navReportSelectorWrapper) DOM.navReportSelectorWrapper.style.display = 'none';
     renderLeaderSearchResults();
+  } else if (viewName === 'map' || viewName === 'maps') {
+    if (DOM.interactiveMapView) DOM.interactiveMapView.style.display = 'block';
+    if (DOM.pillMapView) DOM.pillMapView.classList.add('active');
+    if (DOM.navReportSelectorWrapper) DOM.navReportSelectorWrapper.style.display = 'none';
+    if (DOM.drawerNavMaps) DOM.drawerNavMaps.classList.add('active');
+    initOrUpdatePatnaMap();
   } else {
     if (DOM.dashboardDetailView) DOM.dashboardDetailView.style.display = 'block';
     if (DOM.pillDashboardView) DOM.pillDashboardView.classList.add('active');
@@ -859,6 +893,9 @@ function renderBoothsWardsDirectory(searchQuery = '') {
           <button class="btn btn-outline btn-sm btn-open-ward-modal" data-key="${key}">
             <i class="fa-solid fa-list-check"></i> Full Ward Breakdown
           </button>
+          <button class="btn btn-outline btn-sm btn-open-asm-map" data-ac="${asm.acNo || key}">
+            <i class="fa-solid fa-map-location-dot text-indigo"></i> View on Map
+          </button>
           <button class="btn btn-primary btn-sm btn-open-asm-dashboard" data-asm="${asm.id}">
             <i class="fa-solid fa-chart-pie"></i> View IDI Analytics
           </button>
@@ -869,6 +906,12 @@ function renderBoothsWardsDirectory(searchQuery = '') {
     card.querySelector('.btn-open-asm-dashboard').addEventListener('click', () => {
       const matchReport = AppState.reports.find(r => r.id === asm.id) || AppState.reports[0];
       switchView('dashboard', matchReport.id);
+    });
+
+    card.querySelector('.btn-open-asm-map').addEventListener('click', () => {
+      const acNum = asm.acNo || (key.includes('181') ? '181' : key.includes('182') ? '182' : key.includes('183') ? '183' : '184');
+      switchView('map');
+      setTimeout(() => filterMapByAc(acNum), 150);
     });
 
     card.querySelector('.btn-open-ward-modal').addEventListener('click', () => {
@@ -3164,6 +3207,31 @@ function setupEventListeners() {
     DOM.btnExploreCouncillors.addEventListener('click', () => switchView('councillors'));
   }
 
+  // Interactive Map Navigation Listeners
+  if (DOM.drawerNavMaps) {
+    DOM.drawerNavMaps.addEventListener('click', () => {
+      switchView('map');
+      closeDrawer();
+    });
+  }
+
+  if (DOM.pillMapView) {
+    DOM.pillMapView.addEventListener('click', () => switchView('map'));
+  }
+
+  if (DOM.btnExploreMaps) {
+    DOM.btnExploreMaps.addEventListener('click', () => switchView('map'));
+  }
+
+  document.querySelectorAll('.map-chip').forEach(chip => {
+    chip.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const ac = chip.getAttribute('data-ac');
+      switchView('map');
+      setTimeout(() => filterMapByAc(ac), 150);
+    });
+  });
+
   // Councillor Section Controls
   if (DOM.exportCouncillorCsvBtn) {
     DOM.exportCouncillorCsvBtn.addEventListener('click', exportCouncillorMatrixCsv);
@@ -3325,6 +3393,527 @@ function setupEventListeners() {
 }
 
 // ==========================================================================
+// 12B. Patna GIS Interactive Ward & Assembly Map Engine (Leaflet)
+// ==========================================================================
+
+let patnaMapInstance = null;
+let geojsonLayer = null;
+let patnaGeojsonData = null;
+let currentMapAc = 'all';
+let currentActiveLayer = 'street';
+let wardLayersMap = {}; // key: wardNo (string) -> Leaflet polygon layer
+let baseTileLayers = {};
+let selectedWardFeature = null;
+
+const AC_META_CONFIG = {
+  all: { name: 'All Patna (75 Wards)', color: '#6366f1', bounds: [[25.53, 85.02], [25.68, 85.28]] },
+  '181': { name: '181 - Digha', color: '#10b981', filter: 'digha', acNo: '181' },
+  '182': { name: '182 - Bankipur', color: '#3b82f6', filter: 'bankipur', acNo: '182' },
+  '183': { name: '183 - Kumhrar', color: '#f59e0b', filter: 'kumhrar', acNo: '183' },
+  '184': { name: '184 - Patna Sahib', color: '#ec4899', filter: 'patna sahib', acNo: '184' }
+};
+
+function getWardStyle(feature, isSelected = false) {
+  const props = feature.properties || {};
+  const ac = (props.primary_ac || '').toLowerCase();
+  
+  let baseColor = '#6366f1';
+  if (ac.includes('digha')) baseColor = '#10b981';
+  else if (ac.includes('bankipur')) baseColor = '#3b82f6';
+  else if (ac.includes('kumhrar')) baseColor = '#f59e0b';
+  else if (ac.includes('patna sahib') || ac.includes('sahib')) baseColor = '#ec4899';
+
+  let isDimmed = false;
+  if (currentMapAc !== 'all') {
+    const targetFilter = AC_META_CONFIG[currentMapAc]?.filter || '';
+    if (!ac.includes(targetFilter)) {
+      isDimmed = true;
+    }
+  }
+
+  if (isSelected) {
+    return {
+      fillColor: baseColor,
+      weight: 3.5,
+      opacity: 1,
+      color: '#ffffff',
+      fillOpacity: 0.65,
+      dashArray: ''
+    };
+  }
+
+  if (isDimmed) {
+    return {
+      fillColor: '#64748b',
+      weight: 1,
+      opacity: 0.4,
+      color: '#475569',
+      fillOpacity: 0.1,
+      dashArray: '2'
+    };
+  }
+
+  return {
+    fillColor: baseColor,
+    weight: 1.5,
+    opacity: 0.9,
+    color: '#ffffff',
+    fillOpacity: 0.28,
+    dashArray: '2'
+  };
+}
+
+function initOrUpdatePatnaMap() {
+  if (typeof L === 'undefined') {
+    console.error('Leaflet library is not loaded.');
+    return;
+  }
+
+  const mapContainer = document.getElementById('patnaMap');
+  if (!mapContainer) return;
+
+  if (!patnaMapInstance) {
+    // 1. Initialize Leaflet Map with full interactive zoom & pan capabilities
+    patnaMapInstance = L.map('patnaMap', {
+      center: [25.609, 85.1376],
+      zoom: 12,
+      minZoom: 10,
+      maxZoom: 18,
+      zoomControl: true,
+      scrollWheelZoom: true,
+      doubleClickZoom: true,
+      touchZoom: true,
+      boxZoom: true,
+      keyboard: true
+    });
+
+    // 2. Base Tile Layers
+    baseTileLayers.street = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap &copy; CARTO',
+      maxZoom: 19
+    });
+
+    baseTileLayers.satellite = L.layerGroup([
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics',
+        maxZoom: 18
+      }),
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+        subdomains: 'abcd'
+      })
+    ]);
+
+    baseTileLayers.dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap &copy; CARTO',
+      maxZoom: 19
+    });
+
+    // Add default street layer
+    baseTileLayers.street.addTo(patnaMapInstance);
+
+    // Setup Toolbar Events
+    setupMapToolbarEvents();
+    setupMapSearch();
+  }
+
+  // Load GeoJSON Data if not already loaded
+  if (!patnaGeojsonData) {
+    fetch('data/data_combined_all.geojson')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load combined GeoJSON');
+        return res.json();
+      })
+      .then(geojson => {
+        patnaGeojsonData = geojson;
+        renderGeojsonLayers();
+      })
+      .catch(err => {
+        console.warn('GeoJSON fetch error, falling back:', err);
+      });
+  } else {
+    renderGeojsonLayers();
+  }
+
+  // Invalidate size for proper display
+  setTimeout(() => {
+    if (patnaMapInstance) {
+      patnaMapInstance.invalidateSize();
+      if (geojsonLayer && currentMapAc === 'all') {
+        patnaMapInstance.fitBounds(geojsonLayer.getBounds(), { padding: [30, 30] });
+      }
+    }
+  }, 180);
+}
+
+function renderGeojsonLayers() {
+  if (!patnaGeojsonData || !patnaMapInstance) return;
+
+  if (geojsonLayer) {
+    patnaMapInstance.removeLayer(geojsonLayer);
+  }
+
+  wardLayersMap = {};
+
+  geojsonLayer = L.geoJSON(patnaGeojsonData, {
+    style: (feature) => getWardStyle(feature, false),
+    onEachFeature: (feature, layer) => {
+      const p = feature.properties || {};
+      const wardNo = String(p.ward || '');
+      wardLayersMap[wardNo] = layer;
+
+      // Tooltip on Hover
+      layer.bindTooltip(`
+        <div style="font-weight: 700; font-size: 13px;">Ward ${p.ward}: ${p.area || ''}</div>
+        <div style="font-size: 11px; opacity: 0.85;">${p.primary_ac || ''} &bull; ${p.total_ward_booths || ''} Booths</div>
+      `, {
+        direction: 'center',
+        className: 'ward-polygon-tooltip',
+        sticky: true
+      });
+
+      // Mouse Events
+      layer.on({
+        mouseover: (e) => {
+          const l = e.target;
+          if (selectedWardFeature !== p.ward) {
+            l.setStyle({
+              weight: 3,
+              color: '#ffffff',
+              dashArray: '',
+              fillOpacity: 0.55
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+              l.bringToFront();
+            }
+          }
+        },
+        mouseout: (e) => {
+          const l = e.target;
+          if (selectedWardFeature !== p.ward) {
+            geojsonLayer.resetStyle(l);
+            l.setStyle(getWardStyle(feature, false));
+          }
+        },
+        click: (e) => {
+          L.DomEvent.stopPropagation(e);
+          selectWardLayer(wardNo, layer, p);
+        }
+      });
+    }
+  }).addTo(patnaMapInstance);
+
+  if (currentMapAc === 'all') {
+    patnaMapInstance.fitBounds(geojsonLayer.getBounds(), { padding: [30, 30] });
+  } else {
+    filterMapByAc(currentMapAc);
+  }
+}
+
+function selectWardLayer(wardNo, layer, props) {
+  selectedWardFeature = wardNo;
+
+  // Reset all layer styles
+  if (geojsonLayer) {
+    geojsonLayer.eachLayer(l => {
+      l.setStyle(getWardStyle(l.feature, l.feature.properties.ward === wardNo));
+    });
+  }
+
+  // Highlight selected layer
+  layer.setStyle(getWardStyle(layer.feature, true));
+  layer.bringToFront();
+
+  // Create & open rich popup
+  const popupContent = `
+    <div class="map-popup-header">
+      <div class="map-popup-title">Ward ${props.ward}: ${props.area || ''}</div>
+      <div class="map-popup-ac">${props.primary_ac || 'Patna'} Assembly Constituency</div>
+    </div>
+    <div class="map-popup-stats">
+      <div><strong>Booths:</strong> ${props.total_ward_booths || '--'} | <strong>Voters:</strong> ${props.total_ward_voters || '--'}</div>
+    </div>
+    <div class="map-popup-actions">
+      <button class="btn btn-xs btn-primary" onclick="window.viewWardInCouncillors('${props.ward}')">
+        <i class="fa-solid fa-users"></i> Councillor Details
+      </button>
+    </div>
+  `;
+
+  layer.bindPopup(popupContent, { maxWidth: 320, offset: [0, -10] }).openPopup();
+
+  // Show floating details card
+  showWardFloatingCard(props);
+}
+
+function showWardFloatingCard(props) {
+  const card = DOM.wardFloatingCard;
+  if (!card) return;
+
+  if (DOM.cardWardBadge) DOM.cardWardBadge.textContent = `Ward ${props.ward}`;
+  if (DOM.cardWardAcTag) DOM.cardWardAcTag.textContent = `${props.primary_ac || 'Patna'} Assembly`;
+  if (DOM.cardWardAreaName) DOM.cardWardAreaName.textContent = props.area || 'Covered Area';
+  if (DOM.cardBoothsTotal) DOM.cardBoothsTotal.textContent = props.total_ward_booths || '--';
+  if (DOM.cardVotersTotal) DOM.cardVotersTotal.textContent = props.total_ward_voters || '--';
+
+  // Lookup councillor data
+  if (DOM.cardCouncillorPreview) {
+    const list = window.DEFAULT_COUNCILLORS_DATA || (AppState && AppState.councillorsData) || [];
+    const councillor = list.find(c => String(c.wardNo) === String(props.ward));
+
+    if (councillor) {
+      const w22 = councillor.w2022 || {};
+      DOM.cardCouncillorPreview.innerHTML = `
+        <div class="councillor-row">
+          <span class="c-label">2022 Winner Mtg:</span>
+          <span class="c-val">${w22.winnerMtg ? '<span class="text-green"><i class="fa-solid fa-check"></i> Done</span>' : '<span class="text-muted">Pending</span>'} (Onboard: ${w22.winnerOnboard ? '<strong class="text-green">Yes</strong>' : 'No'})</span>
+        </div>
+        <div class="councillor-row">
+          <span class="c-label">2022 Runner Mtg:</span>
+          <span class="c-val">${w22.runnerMtg ? '<span class="text-green"><i class="fa-solid fa-check"></i> Done</span>' : '<span class="text-muted">Pending</span>'} (Onboard: ${w22.runnerOnboard ? '<strong class="text-green">Yes</strong>' : 'No'})</span>
+        </div>
+        <div class="councillor-row" style="margin-top: 4px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 4px;">
+          <span class="c-label">Field POC:</span>
+          <span class="c-val" style="font-size: 0.72rem; color: #a5b4fc;">${councillor.poc || 'Assigned Team'}</span>
+        </div>
+      `;
+    } else {
+      DOM.cardCouncillorPreview.innerHTML = `
+        <div style="color: #94a3b8; font-style: italic;">No specific councillor survey logged for this ward.</div>
+      `;
+    }
+  }
+
+  // Setup Actions on card
+  if (DOM.cardViewCouncillorBtn) {
+    DOM.cardViewCouncillorBtn.onclick = () => {
+      window.viewWardInCouncillors(props.ward);
+    };
+  }
+
+  if (DOM.cardZoomWardBtn) {
+    DOM.cardZoomWardBtn.onclick = () => {
+      flyToWard(props.ward);
+    };
+  }
+
+  card.style.display = 'block';
+}
+
+window.viewWardInCouncillors = function(wardNumber) {
+  switchView('councillors');
+  if (DOM.councillorSearchInput) {
+    DOM.councillorSearchInput.value = String(wardNumber);
+    renderCouncillorSection(String(wardNumber));
+  }
+};
+
+function flyToWard(wardNumber) {
+  const wardStr = String(wardNumber).trim();
+  const layer = wardLayersMap[wardStr];
+  if (layer && patnaMapInstance) {
+    patnaMapInstance.flyToBounds(layer.getBounds(), {
+      maxZoom: 15,
+      duration: 1.2,
+      padding: [40, 40]
+    });
+    layer.fire('click');
+  }
+}
+
+function filterMapByAc(acId) {
+  currentMapAc = String(acId);
+
+  // Update pills active state
+  if (DOM.mapAcFilterGroup) {
+    DOM.mapAcFilterGroup.querySelectorAll('.map-filter-pill').forEach(pill => {
+      if (pill.getAttribute('data-ac') === String(acId)) {
+        pill.classList.add('active');
+      } else {
+        pill.classList.remove('active');
+      }
+    });
+  }
+
+  if (!geojsonLayer || !patnaMapInstance) return;
+
+  const targetBounds = L.latLngBounds();
+  let foundAny = false;
+
+  geojsonLayer.eachLayer(layer => {
+    const props = layer.feature.properties || {};
+    const ac = (props.primary_ac || '').toLowerCase();
+    
+    layer.setStyle(getWardStyle(layer.feature, selectedWardFeature === props.ward));
+
+    if (acId === 'all') {
+      targetBounds.extend(layer.getBounds());
+      foundAny = true;
+    } else {
+      const cfg = AC_META_CONFIG[acId];
+      if (cfg && ac.includes(cfg.filter)) {
+        targetBounds.extend(layer.getBounds());
+        foundAny = true;
+      }
+    }
+  });
+
+  if (foundAny) {
+    patnaMapInstance.flyToBounds(targetBounds, {
+      duration: 1.0,
+      padding: [30, 30]
+    });
+  }
+}
+
+function switchMapBaseLayer(layerType) {
+  if (!patnaMapInstance) return;
+  currentActiveLayer = layerType;
+
+  // Remove all base layers
+  Object.values(baseTileLayers).forEach(layer => {
+    if (patnaMapInstance.hasLayer(layer)) {
+      patnaMapInstance.removeLayer(layer);
+    }
+  });
+
+  // Add requested base layer
+  if (baseTileLayers[layerType]) {
+    baseTileLayers[layerType].addTo(patnaMapInstance);
+    if (baseTileLayers[layerType].bringToBack) {
+      baseTileLayers[layerType].bringToBack();
+    }
+  }
+
+  // Update button active state
+  if (DOM.layerStreetBtn) DOM.layerStreetBtn.classList.toggle('active', layerType === 'street');
+  if (DOM.layerSatBtn) DOM.layerSatBtn.classList.toggle('active', layerType === 'satellite');
+  if (DOM.layerDarkBtn) DOM.layerDarkBtn.classList.toggle('active', layerType === 'dark');
+}
+
+function setupMapToolbarEvents() {
+  // AC Filter Pills
+  if (DOM.mapAcFilterGroup) {
+    DOM.mapAcFilterGroup.querySelectorAll('.map-filter-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const ac = pill.getAttribute('data-ac');
+        filterMapByAc(ac);
+      });
+    });
+  }
+
+  // Layer buttons
+  if (DOM.layerStreetBtn) {
+    DOM.layerStreetBtn.addEventListener('click', () => switchMapBaseLayer('street'));
+  }
+  if (DOM.layerSatBtn) {
+    DOM.layerSatBtn.addEventListener('click', () => switchMapBaseLayer('satellite'));
+  }
+  if (DOM.layerDarkBtn) {
+    DOM.layerDarkBtn.addEventListener('click', () => switchMapBaseLayer('dark'));
+  }
+
+  // Reset Bounds button
+  if (DOM.btnResetMapBounds) {
+    DOM.btnResetMapBounds.addEventListener('click', () => {
+      filterMapByAc(currentMapAc);
+    });
+  }
+
+  // Fullscreen toggle
+  if (DOM.btnToggleMapFullscreen && DOM.mapViewportWrapper) {
+    DOM.btnToggleMapFullscreen.addEventListener('click', () => {
+      DOM.mapViewportWrapper.classList.toggle('is-fullscreen');
+      const isFull = DOM.mapViewportWrapper.classList.contains('is-fullscreen');
+      DOM.btnToggleMapFullscreen.innerHTML = isFull ? '<i class="fa-solid fa-compress"></i>' : '<i class="fa-solid fa-maximize"></i>';
+      setTimeout(() => {
+        if (patnaMapInstance) patnaMapInstance.invalidateSize();
+      }, 250);
+    });
+  }
+
+  // Close floating ward card
+  if (DOM.closeWardCardBtn && DOM.wardFloatingCard) {
+    DOM.closeWardCardBtn.addEventListener('click', () => {
+      DOM.wardFloatingCard.style.display = 'none';
+      selectedWardFeature = null;
+      if (geojsonLayer) {
+        geojsonLayer.eachLayer(l => l.setStyle(getWardStyle(l.feature, false)));
+      }
+    });
+  }
+}
+
+function setupMapSearch() {
+  const input = DOM.mapWardSearchInput;
+  const dropdown = DOM.mapSearchDropdown;
+  if (!input || !dropdown) return;
+
+  input.addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    if (!q || !patnaGeojsonData) {
+      dropdown.style.display = 'none';
+      dropdown.innerHTML = '';
+      return;
+    }
+
+    const matches = patnaGeojsonData.features.filter(f => {
+      const p = f.properties || {};
+      const wMatch = String(p.ward).toLowerCase().includes(q);
+      const aMatch = String(p.area || '').toLowerCase().includes(q);
+      const acMatch = String(p.primary_ac || '').toLowerCase().includes(q);
+      return wMatch || aMatch || acMatch;
+    }).slice(0, 10);
+
+    if (matches.length === 0) {
+      dropdown.innerHTML = '<div style="padding: 10px; font-size: 12px; color: #94a3b8; text-align: center;">No matching ward found</div>';
+      dropdown.style.display = 'block';
+      return;
+    }
+
+    dropdown.innerHTML = matches.map(f => {
+      const p = f.properties;
+      return `
+        <div class="map-search-item" data-ward="${p.ward}">
+          <div>
+            <strong>Ward ${p.ward}</strong> &bull; <span>${p.area || ''}</span>
+          </div>
+          <span style="font-size: 11px; opacity: 0.75;">${p.primary_ac || ''}</span>
+        </div>
+      `;
+    }).join('');
+
+    dropdown.style.display = 'block';
+
+    dropdown.querySelectorAll('.map-search-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const wardNo = item.getAttribute('data-ward');
+        input.value = `Ward ${wardNo}`;
+        dropdown.style.display = 'none';
+        flyToWard(wardNo);
+      });
+    });
+  });
+
+  // Hide dropdown on click outside
+  document.addEventListener('click', (e) => {
+    if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.style.display = 'none';
+    }
+  });
+
+  // Enter key support
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const firstItem = dropdown.querySelector('.map-search-item');
+      if (firstItem) {
+        firstItem.click();
+      }
+    }
+  });
+}
+
+// ==========================================================================
 // 13. App Initialization
 // ==========================================================================
 
@@ -3333,6 +3922,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const reportParam = urlParams.get('report');
   const viewParam = urlParams.get('view');
   const queryParam = urlParams.get('q');
+  const acParam = urlParams.get('ac');
+  const wardParam = urlParams.get('ward');
 
   let shouldOpenDashboard = false;
 
@@ -3364,6 +3955,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if (viewParam === 'search' || queryParam) {
     switchView('search');
+  } else if (viewParam === 'map' || viewParam === 'maps') {
+    switchView('map');
+    if (acParam) {
+      setTimeout(() => filterMapByAc(acParam), 250);
+    }
+    if (wardParam) {
+      setTimeout(() => flyToWard(wardParam), 400);
+    }
   } else if (shouldOpenDashboard || viewParam === 'dashboard') {
     switchView('dashboard');
   } else {

@@ -3938,4 +3938,710 @@ body.theme-dark .locality-chip {
   color: var(--text-secondary);
 }
 
+/* ==========================================================================
+   INTERACTIVE GIS MAPS COMPONENT & VIEW STYLES
+   ========================================================================== */
+
+/* 1. Landing Page Featured Maps Card */
+.maps-featured-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.04) 50%, rgba(16, 185, 129, 0.06) 100%);
+  border: 1.5px solid rgba(99, 102, 241, 0.3);
+  border-radius: 18px;
+  padding: 26px 30px;
+  margin-top: 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.08);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.maps-featured-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(to bottom, #6366f1, #8b5cf6, #10b981);
+}
+
+.maps-featured-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(99, 102, 241, 0.15);
+}
+
+.maps-featured-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex: 1;
+}
+
+.maps-featured-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+  flex-shrink: 0;
+}
+
+.maps-featured-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.12);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+}
+
+.maps-featured-text h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  font-family: var(--font-heading);
+}
+
+.maps-featured-text p {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: 820px;
+  margin-bottom: 14px;
+}
+
+.maps-quick-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.map-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.chip-all {
+  background: rgba(99, 102, 241, 0.12);
+  color: #6366f1;
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.chip-digha {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.chip-bankipur {
+  background: rgba(59, 130, 246, 0.12);
+  color: #3b82f6;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.chip-kumhrar {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.chip-patnasahib {
+  background: rgba(236, 72, 153, 0.12);
+  color: #ec4899;
+  border-color: rgba(236, 72, 153, 0.3);
+}
+
+.map-chip:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.maps-featured-action {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.maps-standalone-btn {
+  white-space: nowrap;
+}
+
+/* 2. Interactive Map View Section */
+.map-view-section {
+  padding: 24px 30px 40px;
+  animation: fadeIn 0.3s ease;
+}
+
+.map-view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.map-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.map-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+}
+
+.badge-ac-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 700;
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-ac-live i {
+  font-size: 0.6rem;
+  animation: pulse 1.6s infinite;
+}
+
+.map-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  max-width: 860px;
+  line-height: 1.5;
+}
+
+/* Map Toolbar */
+.map-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  flex-wrap: wrap;
+}
+
+.map-filter-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.map-filter-pill {
+  border: 1px solid var(--border-color);
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  padding: 6px 13px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-family: var(--font-heading);
+}
+
+.map-filter-pill:hover {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: #cbd5e1;
+}
+
+.map-filter-pill.active {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pill-digha .pill-dot { background: #10b981; }
+.pill-bankipur .pill-dot { background: #3b82f6; }
+.pill-kumhrar .pill-dot { background: #f59e0b; }
+.pill-patnasahib .pill-dot { background: #ec4899; }
+
+.map-filter-pill.pill-digha.active { background: #10b981; border-color: #10b981; }
+.map-filter-pill.pill-bankipur.active { background: #3b82f6; border-color: #3b82f6; }
+.map-filter-pill.pill-kumhrar.active { background: #f59e0b; border-color: #f59e0b; }
+.map-filter-pill.pill-patnasahib.active { background: #ec4899; border-color: #ec4899; }
+
+.map-tools-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.map-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.map-search-box i {
+  position: absolute;
+  left: 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.map-search-box input {
+  padding: 7px 12px 7px 32px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-subtle);
+  border-radius: 10px;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  width: 240px;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.map-search-box input:focus {
+  width: 280px;
+  border-color: #6366f1;
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.map-search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  max-height: 260px;
+  overflow-y: auto;
+  z-index: 1050;
+}
+
+.map-search-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  transition: background 0.15s ease;
+}
+
+.map-search-item:hover {
+  background: var(--bg-subtle);
+}
+
+.map-search-item:last-child {
+  border-bottom: none;
+}
+
+.map-layer-selector {
+  display: flex;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: 9px;
+  padding: 2px;
+}
+
+.layer-btn {
+  border: none;
+  background: transparent;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+
+.layer-btn.active {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.btn-map-action {
+  border: 1px solid var(--border-color);
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  padding: 6px 11px;
+  border-radius: 9px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.btn-map-action:hover {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border-color: #cbd5e1;
+}
+
+/* Map Viewport Wrapper & Leaflet */
+.map-viewport-wrapper {
+  position: relative;
+  width: 100%;
+  height: 640px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.patna-leaflet-map {
+  width: 100%;
+  height: 100%;
+  background: #0f172a;
+}
+
+/* Fullscreen mode for map wrapper */
+.map-viewport-wrapper.is-fullscreen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 99999 !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+}
+
+/* Floating Info Card */
+.ward-floating-card {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 320px;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 18px;
+  color: #f8fafc;
+  z-index: 1000;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  animation: slideInRight 0.25s ease;
+}
+
+.card-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.card-close-btn:hover {
+  color: #ffffff;
+}
+
+.ward-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.ward-badge {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.ward-ac-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(99, 102, 241, 0.25);
+  color: #a5b4fc;
+  border: 1px solid rgba(99, 102, 241, 0.4);
+}
+
+.ward-area-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.ward-card-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.ward-stat-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-num {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: var(--font-heading);
+}
+
+.stat-lbl {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.ward-councillor-preview {
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 12px;
+  font-size: 0.76rem;
+  border-left: 3px solid #f59e0b;
+}
+
+.councillor-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.councillor-row:last-child {
+  margin-bottom: 0;
+}
+
+.c-label {
+  color: #94a3b8;
+}
+
+.c-val {
+  font-weight: 700;
+  color: #ffffff;
+  text-align: right;
+}
+
+.ward-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Map Legend */
+.map-legend-box {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: #f8fafc;
+  z-index: 1000;
+  font-size: 0.75rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+.legend-title {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.legend-items {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.legend-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.bg-digha { background: #10b981; }
+.bg-bankipur { background: #3b82f6; }
+.bg-kumhrar { background: #f59e0b; }
+.bg-patnasahib { background: #ec4899; }
+
+/* Custom Leaflet Popups */
+.leaflet-popup-content-wrapper {
+  background: rgba(15, 23, 42, 0.94) !important;
+  color: #f8fafc !important;
+  border-radius: 14px !important;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(15, 23, 42, 0.94) !important;
+}
+
+.leaflet-popup-content {
+  margin: 14px 16px !important;
+  font-family: var(--font-base) !important;
+  line-height: 1.4 !important;
+}
+
+.map-popup-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.map-popup-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: var(--font-heading);
+}
+
+.map-popup-ac {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.map-popup-stats {
+  font-size: 0.78rem;
+  margin-bottom: 8px;
+  color: #cbd5e1;
+}
+
+.map-popup-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+/* Custom Leaflet Control Zoom styling */
+.leaflet-bar {
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+
+.leaflet-bar a {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+  color: #f8fafc !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(8px);
+}
+
+.leaflet-bar a:hover {
+  background-color: #6366f1 !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 900px) {
+  .maps-featured-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+  }
+
+  .maps-featured-content {
+    flex-direction: column;
+  }
+
+  .map-viewport-wrapper {
+    height: 480px;
+  }
+
+  .ward-floating-card {
+    position: static;
+    width: 100%;
+    margin-top: 14px;
+  }
+}
+
+
 
