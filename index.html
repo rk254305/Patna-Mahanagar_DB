@@ -16,9 +16,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-  <!-- Leaflet GIS Interactive Maps -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet GIS Map Library -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
   <!-- Dashboard Stylesheet -->
   <link rel="stylesheet" href="style.css">
@@ -53,17 +53,17 @@
           <i class="fa-solid fa-house"></i>
           <span>Portal Home (Landing Page)</span>
         </button>
+        <button class="drawer-nav-item" id="drawerNavMap">
+          <i class="fa-solid fa-map-location-dot text-blue"></i>
+          <span>Assembly & Ward GIS Map</span>
+        </button>
         <button class="drawer-nav-item" id="drawerNavCouncillors">
           <i class="fa-solid fa-users-rectangle text-amber"></i>
           <span>Ward Councillor Reports (2017 & 2022)</span>
         </button>
         <button class="drawer-nav-item" id="drawerNavBoothsWards">
-          <i class="fa-solid fa-table-list text-blue"></i>
+          <i class="fa-solid fa-table-list text-purple"></i>
           <span>Booths & Wards Directory</span>
-        </button>
-        <button class="drawer-nav-item" id="drawerNavMaps">
-          <i class="fa-solid fa-map-location-dot text-indigo"></i>
-          <span>Interactive Ward & AC Maps</span>
         </button>
       </div>
 
@@ -135,6 +135,9 @@
             <button class="view-pill active" id="pillLandingView">
               <i class="fa-solid fa-house"></i> Landing Page
             </button>
+            <button class="view-pill" id="pillMapView">
+              <i class="fa-solid fa-map-location-dot text-blue"></i> Assembly & Ward Map
+            </button>
             <button class="view-pill" id="pillDashboardView">
               <i class="fa-solid fa-chart-simple"></i> Detailed Dashboard
             </button>
@@ -143,9 +146,6 @@
             </button>
             <button class="view-pill" id="pillSearchView">
               <i class="fa-solid fa-magnifying-glass"></i> Leader Search
-            </button>
-            <button class="view-pill" id="pillMapView">
-              <i class="fa-solid fa-map-location-dot text-indigo"></i> Interactive Maps
             </button>
           </div>
 
@@ -208,6 +208,10 @@
               </div>
             </div>
 
+            <button id="btnQuickEOD" class="btn btn-sm btn-eod-pill" title="View Today's EOD Report (22nd Sept)">
+              <i class="fa-solid fa-bolt text-amber"></i>
+              <span>Daily EOD (22 Sept)</span>
+            </button>
             <button id="openThemeStudioBtn" class="btn btn-outline" title="Customize Colors & Themes" style="border-color: #f59e0b; color: #d97706; font-weight: 700;">
               <i class="fa-solid fa-palette"></i>
               <span>Theme Studio</span>
@@ -238,53 +242,6 @@
                 </button>
                 <button id="heroOpenDrawerBtn" class="btn btn-outline btn-lg">
                   <i class="fa-solid fa-folder-open"></i> Browse All Reports & Downloads
-                </button>
-              </div>
-
-              <!-- Quick Command & Navigation Hub -->
-              <div class="hero-nav-hub">
-                <button class="hero-nav-card" id="heroNavReports">
-                  <div class="hero-nav-icon bg-blue-subtle text-blue">
-                    <i class="fa-solid fa-chart-pie"></i>
-                  </div>
-                  <div class="hero-nav-info">
-                    <h4>IDI Analytics & Reports</h4>
-                    <p>Vidhan Sabha breakdown & team meetings</p>
-                  </div>
-                  <i class="fa-solid fa-chevron-right hero-nav-arrow"></i>
-                </button>
-
-                <button class="hero-nav-card" id="heroNavCouncillors">
-                  <div class="hero-nav-icon bg-amber-subtle text-amber">
-                    <i class="fa-solid fa-users-rectangle"></i>
-                  </div>
-                  <div class="hero-nav-info">
-                    <h4>Ward Councillors (75 Wards)</h4>
-                    <p>2017 & 2022 winners, meetings & onboarding</p>
-                  </div>
-                  <i class="fa-solid fa-chevron-right hero-nav-arrow"></i>
-                </button>
-
-                <button class="hero-nav-card" id="heroNavCoverage">
-                  <div class="hero-nav-icon bg-green-subtle text-green">
-                    <i class="fa-solid fa-clipboard-check"></i>
-                  </div>
-                  <div class="hero-nav-info">
-                    <h4>Today's IDI & Ward Coverage</h4>
-                    <p>किसने कौन सा वार्ड कवर किया & बूथ डेटा</p>
-                  </div>
-                  <i class="fa-solid fa-chevron-right hero-nav-arrow"></i>
-                </button>
-
-                <button class="hero-nav-card hero-nav-card-accent" id="heroNavMap">
-                  <div class="hero-nav-icon bg-purple-subtle text-purple">
-                    <i class="fa-solid fa-map-location-dot"></i>
-                  </div>
-                  <div class="hero-nav-info">
-                    <h4>Interactive Map & Booths</h4>
-                    <p>1,008 Polling stations with teardrop pins</p>
-                  </div>
-                  <i class="fa-solid fa-chevron-right hero-nav-arrow"></i>
                 </button>
               </div>
             </div>
@@ -325,6 +282,30 @@
           </div>
 
           <!-- Reports Grid Header -->
+          <!-- Featured Daily EOD Banner -->
+          <div class="eod-featured-banner" id="landingEodBanner">
+            <div class="eod-banner-left">
+              <div class="eod-banner-badge"><i class="fa-solid fa-bolt"></i> TODAY'S FIELD INTELLIGENCE &bull; 22ND SEPT 2026</div>
+              <h3 class="eod-banner-title">Daily POC wise IDI Performance Report (EOD)</h3>
+              <p class="eod-banner-sub">
+                Ground field execution across 14 JSPT POCs in Patna Mahanagar. Active meetings conducted today in Wards 6, 9, 33, 41, 42, 48, 55.
+              </p>
+              <div class="eod-pills-row">
+                <span class="eod-pill"><i class="fa-solid fa-users text-blue"></i> <strong>12</strong> Meetings Today</span>
+                <span class="eod-pill"><i class="fa-solid fa-user-check text-green"></i> <strong>8</strong> Onboarded (66.7%)</span>
+                <span class="eod-pill"><i class="fa-solid fa-clock text-amber"></i> <strong>4</strong> Dicey</span>
+                <span class="eod-pill"><i class="fa-solid fa-mug-hot text-amber"></i> <strong>1</strong> PK Tea</span>
+                <span class="eod-pill"><i class="fa-solid fa-city text-purple"></i> <strong>10</strong> Ward Recs</span>
+                <span class="eod-pill"><i class="fa-solid fa-user-plus text-emerald"></i> <strong>11</strong> New Leaders</span>
+              </div>
+            </div>
+            <div class="eod-banner-right">
+              <button class="btn btn-primary btn-lg" id="btnOpenEodReport">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Daily EOD Report
+              </button>
+            </div>
+          </div>
+
           <div class="landing-section-header">
             <div class="section-title-box">
               <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> All Team & Assembly Reports</h2>
@@ -359,33 +340,6 @@
               <button class="btn btn-primary" id="btnExploreCouncillors">
                 <span>View Full Interactive Matrix</span> <i class="fa-solid fa-arrow-right"></i>
               </button>
-            </div>
-          </div>
-
-          <!-- Featured Interactive Geospatial Maps Banner Card -->
-          <div class="maps-featured-card" id="landingMapsCard">
-            <div class="maps-featured-content">
-              <div class="maps-featured-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-              <div class="maps-featured-text">
-                <div class="maps-featured-badge"><i class="fa-solid fa-satellite"></i> GIS LEAFLET & GEOJSON INTERACTIVE ENGINE</div>
-                <h3>Patna Assembly & Municipal Ward Interactive Maps</h3>
-                <p>Fully interactive boundary map covering all 75 Patna Municipal Corporation (PMC) wards across 4 constituencies. Zoom in and out smoothly, filter by assembly, search any locality, switch satellite/street views, and click wards for booth counts and councillor histories.</p>
-                <div class="maps-quick-chips">
-                  <span class="map-chip chip-all" data-ac="all"><i class="fa-solid fa-border-all"></i> All 75 Wards (Patna Master)</span>
-                  <span class="map-chip chip-digha" data-ac="181"><i class="fa-solid fa-location-dot"></i> 181 Digha (23 Wards)</span>
-                  <span class="map-chip chip-bankipur" data-ac="182"><i class="fa-solid fa-location-dot"></i> 182 Bankipur (24 Wards)</span>
-                  <span class="map-chip chip-kumhrar" data-ac="183"><i class="fa-solid fa-location-dot"></i> 183 Kumhrar (22 Wards)</span>
-                  <span class="map-chip chip-patnasahib" data-ac="184"><i class="fa-solid fa-location-dot"></i> 184 Patna Sahib (20 Wards)</span>
-                </div>
-              </div>
-            </div>
-            <div class="maps-featured-action">
-              <button class="btn btn-primary" id="btnExploreMaps">
-                <i class="fa-solid fa-map"></i> <span>Launch Interactive Map</span>
-              </button>
-              <a href="map_combined_patna.html" target="_blank" class="btn btn-outline btn-sm maps-standalone-btn">
-                <i class="fa-solid fa-arrow-up-right-from-square"></i> Standalone Fullscreen
-              </a>
             </div>
           </div>
 
@@ -913,7 +867,13 @@
               </div>
             </div>
           </section>
-        </div>
+        
+        <!-- Special Dedicated Section: Daily POC-wise IDI Performance Matrix (EOD Report) -->
+        <div id="eodPocSectionContainer" class="eod-poc-container" style="display: none; margin-top: 32px;"></div>
+
+        <!-- Special Dedicated Section: Mayor & Deputy Mayor Status Table -->
+        <div id="mayorCandidatesSectionContainer" class="mayor-candidates-container" style="display: none; margin-top: 32px;"></div>
+      </div>
       </main>
 
       <!-- ================= WARD COUNCILLOR REPORTS SECTION ================= -->
@@ -1064,6 +1024,110 @@
         </div>
       </section>
 
+      <!-- ================= 2.5 INTERACTIVE ASSEMBLY & WARD GIS MAP VIEW ================= -->
+      <section class="map-section-view" id="mapSectionView" style="display: none;">
+        <div class="map-view-header">
+          <div class="map-header-title-group">
+            <h2><i class="fa-solid fa-map-location-dot text-blue"></i> Patna Mahanagar Assembly & Ward GIS Map</h2>
+            <p>Interactive geographic visualization of all 4 Assembly Constituencies and 75 Municipal Wards with booth counts, registered electors, and direct Google Maps navigation.</p>
+          </div>
+          <div class="map-header-stats">
+            <div class="map-stat-chip"><i class="fa-solid fa-landmark text-blue"></i> 4 Assemblies</div>
+            <div class="map-stat-chip"><i class="fa-solid fa-check-to-slot text-green"></i> 1,763 Booths</div>
+            <div class="map-stat-chip"><i class="fa-solid fa-building-user text-amber"></i> 75 Wards / Units</div>
+            <div class="map-stat-chip"><i class="fa-solid fa-users text-purple"></i> 16,66,121 Voters</div>
+          </div>
+        </div>
+
+        <div class="map-layout-container">
+          <!-- Left Control & Inspection Sidebar -->
+          <div class="map-sidebar">
+            <div class="map-search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="mapWardSearchInput" placeholder="Search ward or locality (e.g. Ward 25, Kadamkuan, Digha)...">
+              <button id="mapClearSearchBtn" class="search-clear-btn" style="display: none;">&times;</button>
+            </div>
+
+            <div class="map-control-card">
+              <span class="map-filter-label"><i class="fa-solid fa-filter"></i> Filter by Assembly:</span>
+              <div class="map-filter-buttons" id="mapAsmFilterButtons">
+                <button class="map-asm-btn active" data-asm="all">All 4 Assemblies</button>
+                <button class="map-asm-btn asm-digha" data-asm="181_digha"><span class="color-dot bg-green"></span> 181 - Digha (501)</button>
+                <button class="map-asm-btn asm-bankipur" data-asm="182_bankipur"><span class="color-dot bg-amber"></span> 182 - Bankipur (422)</button>
+                <button class="map-asm-btn asm-kumhrar" data-asm="183_kumhrar"><span class="color-dot bg-purple"></span> 183 - Kumhrar (435)</button>
+                <button class="map-asm-btn asm-patnasahib" data-asm="184_patna_sahib"><span class="color-dot bg-blue"></span> 184 - Patna Sahib (405)</button>
+              </div>
+            </div>
+
+            <div class="map-control-card">
+              <span class="map-filter-label"><i class="fa-solid fa-layer-group"></i> Basemap Style:</span>
+              <div class="map-layer-options" id="mapLayerOptions">
+                <button class="map-layer-btn active" data-layer="dark"><i class="fa-solid fa-moon"></i> Dark GIS</button>
+                <button class="map-layer-btn" data-layer="google_hybrid"><i class="fa-solid fa-satellite"></i> Google Satellite</button>
+                <button class="map-layer-btn" data-layer="google_streets"><i class="fa-solid fa-road"></i> Google Streets</button>
+                <button class="map-layer-btn" data-layer="osm"><i class="fa-solid fa-map"></i> OpenStreetMap</button>
+              </div>
+            </div>
+
+            <!-- Inspected Ward Card -->
+            <div class="map-inspected-card" id="mapInspectedCard">
+              <div class="inspected-card-header">
+                <span class="inspected-tag" id="inspectedAsmTag">182 - Bankipur Assembly</span>
+                <span class="inspected-booth-badge" id="inspectedBoothBadge"><i class="fa-solid fa-check-to-slot"></i> 14 Booths</span>
+              </div>
+              <h3 class="inspected-ward-title" id="inspectedWardTitle">Ward 25: Kadamkuan</h3>
+              <p class="inspected-ward-area" id="inspectedWardArea">KadamKua / Rajendra Nagar</p>
+              
+              <div class="inspected-metrics-grid">
+                <div class="inspected-metric">
+                  <span class="metric-label">Polling Booths</span>
+                  <span class="metric-value" id="inspectedMetricBooths">14</span>
+                </div>
+                <div class="inspected-metric">
+                  <span class="metric-label">Assembly</span>
+                  <span class="metric-value" id="inspectedMetricAc">182 - Bankipur</span>
+                </div>
+                <div class="inspected-metric">
+                  <span class="metric-label">Circle</span>
+                  <span class="metric-value" id="inspectedMetricCircle">Bankipur Circle</span>
+                </div>
+                <div class="inspected-metric">
+                  <span class="metric-label">Voters Covered</span>
+                  <span class="metric-value" id="inspectedMetricVoters">Official Listed</span>
+                </div>
+              </div>
+
+              <div class="inspected-actions">
+                <a id="btnOpenInGoogleMaps" href="https://www.google.com/maps/search/?api=1&query=25.6090,85.1560" target="_blank" class="btn btn-primary btn-block btn-gmaps">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i> Open in Google Maps 📍
+                </a>
+              </div>
+            </div>
+
+            <!-- Quick Wards List (Click to fly to ward) -->
+            <div class="map-quick-wards-wrap">
+              <div class="quick-wards-heading">
+                <span><i class="fa-solid fa-list-ol text-blue"></i> QUICK WARD SELECTOR (<span id="mapFilteredWardsCount">75</span> WARDS)</span>
+              </div>
+              <div class="map-quick-wards-list" id="mapQuickWardsList">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Interactive Map Canvas -->
+          <div class="map-canvas-wrapper">
+            <div id="patnaGisMap" class="patna-gis-map"></div>
+            <div class="map-floating-legend">
+              <div class="legend-item"><span class="legend-dot" style="background:#10b981;"></span> 181-Digha (501 Booths)</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#f59e0b;"></span> 182-Bankipur (422 Booths)</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#8b5cf6;"></span> 183-Kumhrar (435 Booths)</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#0284c7;"></span> 184-Patna Sahib (405 Booths)</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ================= 3. LEADER SEARCH & DIRECTORY VIEW ================= -->
       <section class="search-directory-view" id="searchDirectoryView" style="display: none;">
         <div class="search-hero-box">
@@ -1123,188 +1187,6 @@
         <!-- Leader Cards / Table Grid -->
         <div class="leader-results-container" id="leaderResultsContainer">
           <!-- Populated by JS -->
-        </div>
-      </section>
-
-      <!-- ================= 5. INTERACTIVE GEOSPATIAL MAP VIEW ================= -->
-      <section class="map-view-section" id="interactiveMapView" style="display: none;">
-        <div class="map-view-header">
-          <div class="map-title-box">
-            <div class="map-title-row">
-              <h2 class="map-title"><i class="fa-solid fa-map-location-dot text-indigo"></i> Patna Mahanagar Interactive GIS Ward Map</h2>
-              <span class="badge-ac-live"><i class="fa-solid fa-circle-dot"></i> Interactive Polygons & Booths</span>
-            </div>
-            <p class="map-subtitle">Fully interactive boundary map of Patna Municipal Corporation across all 4 Assembly Constituencies. Click any ward polygon to inspect covered localities, booth totals, registered voters, and 2022/2017 councillor election results.</p>
-          </div>
-          <div class="map-header-actions">
-            <a href="map_combined_patna.html" target="_blank" class="btn btn-outline btn-sm">
-              <i class="fa-solid fa-expand"></i> Standalone Fullscreen
-            </a>
-          </div>
-        </div>
-
-        <!-- Map Control Bar -->
-        <div class="map-toolbar">
-          <!-- Assembly Filter Pills -->
-          <div class="map-filter-group" id="mapAcFilterGroup">
-            <button class="map-filter-pill active" data-ac="all">
-              <i class="fa-solid fa-border-all"></i> All Patna (75 Wards)
-            </button>
-            <button class="map-filter-pill pill-digha" data-ac="181">
-              <span class="pill-dot"></span> 181 - Digha
-            </button>
-            <button class="map-filter-pill pill-bankipur" data-ac="182">
-              <span class="pill-dot"></span> 182 - Bankipur
-            </button>
-            <button class="map-filter-pill pill-kumhrar" data-ac="183">
-              <span class="pill-dot"></span> 183 - Kumhrar
-            </button>
-            <button class="map-filter-pill pill-patnasahib" data-ac="184">
-              <span class="pill-dot"></span> 184 - Patna Sahib
-            </button>
-          </div>
-
-          <div class="map-tools-right">
-            <!-- Ward Search Box -->
-            <div class="map-search-box">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <input type="text" id="mapWardSearchInput" placeholder="Search Ward (e.g. 22) or Locality (e.g. Kankarbagh)..." autocomplete="off">
-              <div class="map-search-dropdown" id="mapSearchDropdown" style="display: none;"></div>
-            </div>
-
-            <!-- Base Layer Switcher -->
-            <div class="map-layer-selector">
-              <button class="layer-btn active" id="layerStreetBtn" title="Clean Street Map">
-                <i class="fa-solid fa-road"></i> Street
-              </button>
-              <button class="layer-btn" id="layerSatBtn" title="Satellite Hybrid">
-                <i class="fa-solid fa-satellite"></i> Satellite
-              </button>
-              <button class="layer-btn" id="layerDarkBtn" title="Dark Canvas">
-                <i class="fa-solid fa-moon"></i> Dark
-              </button>
-            </div>
-
-            <!-- Polling Stations Toggle Button -->
-            <button class="btn-map-action active" id="btnTogglePollingStations" title="Toggle Polling Station Markers">
-              <i class="fa-solid fa-person-booth text-amber"></i> Booths (<span id="psCountBadge">1,008</span>)
-            </button>
-
-            <!-- Polling Stations Side Drawer Toggle Button -->
-            <button class="btn-map-action" id="btnTogglePsDrawer" title="Open Assembly Polling Station Drawer">
-              <i class="fa-solid fa-list-ol text-blue"></i> Booths Drawer
-            </button>
-
-            <!-- Map Actions -->
-            <button class="btn-map-action" id="btnResetMapBounds" title="Reset View to Patna">
-              <i class="fa-solid fa-crosshairs"></i> Reset
-            </button>
-            <button class="btn-map-action" id="btnToggleMapFullscreen" title="Toggle Fullscreen">
-              <i class="fa-solid fa-maximize"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- Map Container & Floating Detail Overlay -->
-        <div class="map-viewport-wrapper" id="mapViewportWrapper">
-          <div id="patnaMap" class="patna-leaflet-map"></div>
-
-          <!-- Dynamic Zoom Notice Badge (Wards vs Booths visibility indicator) -->
-          <div class="map-zoom-status-pill" id="mapZoomStatusPill">
-            <i class="fa-solid fa-magnifying-glass-location"></i>
-            <span id="mapZoomStatusText">Wards View (Zoom in level 14+ for Booths)</span>
-          </div>
-
-          <!-- Polling Stations Side Drawer (by Assembly Constituency) -->
-          <div class="ps-side-drawer" id="psSideDrawer">
-            <div class="ps-drawer-header">
-              <div class="ps-drawer-title">
-                <i class="fa-solid fa-person-booth text-amber"></i>
-                <span>Polling Station Directory</span>
-              </div>
-              <button class="ps-drawer-close" id="closePsDrawerBtn" title="Close Drawer">&times;</button>
-            </div>
-
-            <!-- Assembly Constituency Tabs -->
-            <div class="ps-drawer-ac-tabs" id="psDrawerAcTabs">
-              <button class="ps-ac-tab active" data-ac="181">
-                <span>181 Digha</span> <span class="tab-cnt">310</span>
-              </button>
-              <button class="ps-ac-tab" data-ac="182">
-                <span>182 Bankipur</span> <span class="tab-cnt">126</span>
-              </button>
-              <button class="ps-ac-tab" data-ac="183">
-                <span>183 Kumhrar</span> <span class="tab-cnt">269</span>
-              </button>
-              <button class="ps-ac-tab" data-ac="184">
-                <span>184 Patna Sahib</span> <span class="tab-cnt">303</span>
-              </button>
-            </div>
-
-            <!-- Drawer Quick Search -->
-            <div class="ps-drawer-search-box">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <input type="text" id="psDrawerSearchInput" placeholder="Search booth #, building name, ward..." autocomplete="off">
-            </div>
-
-            <!-- Drawer List Container -->
-            <div class="ps-drawer-list" id="psDrawerList">
-              <!-- Populated by JS -->
-            </div>
-          </div>
-
-          <!-- Floating Info Card (Shows clicked ward) -->
-          <div class="ward-floating-card" id="wardFloatingCard" style="display: none;">
-            <button class="card-close-btn" id="closeWardCardBtn">&times;</button>
-            <div class="ward-card-header">
-              <span class="ward-badge" id="cardWardBadge">Ward 22</span>
-              <span class="ward-ac-tag" id="cardWardAcTag">183 - Kumhrar</span>
-            </div>
-            <h4 class="ward-area-name" id="cardWardAreaName">Kankarbagh Colony</h4>
-            
-            <div class="ward-card-stats-grid">
-              <div class="ward-stat-box">
-                <span class="stat-num" id="cardBoothsTotal">--</span>
-                <span class="stat-lbl">Polling Booths</span>
-              </div>
-              <div class="ward-stat-box">
-                <span class="stat-num" id="cardVotersTotal">--</span>
-                <span class="stat-lbl">Registered Voters</span>
-              </div>
-            </div>
-
-            <!-- Councillor preview in card -->
-            <div class="ward-councillor-preview" id="cardCouncillorPreview">
-              <!-- Populated by JS -->
-            </div>
-
-            <div class="ward-card-actions">
-              <button class="btn btn-xs btn-primary" id="cardViewCouncillorBtn">
-                <i class="fa-solid fa-user-check"></i> Councillor Matrix
-              </button>
-              <button class="btn btn-xs btn-outline" id="cardZoomWardBtn">
-                <i class="fa-solid fa-magnifying-glass-plus"></i> Center Ward
-              </button>
-            </div>
-          </div>
-
-          <!-- Map Legend -->
-          <div class="map-legend-box">
-            <div class="legend-title">Constituency Color Key</div>
-            <div class="legend-items">
-              <span class="legend-item"><span class="legend-color bg-digha"></span> 181 Digha</span>
-              <span class="legend-item"><span class="legend-color bg-bankipur"></span> 182 Bankipur</span>
-              <span class="legend-item"><span class="legend-color bg-kumhrar"></span> 183 Kumhrar</span>
-              <span class="legend-item"><span class="legend-color bg-patnasahib"></span> 184 Patna Sahib</span>
-              <span class="legend-item" style="display: inline-flex; align-items: center; gap: 4px;">
-                <svg viewBox="0 0 24 32.2" width="13" height="17" style="vertical-align: middle; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));">
-                  <path d="M12 0C5.373 0 0 5.373 0 12c0 8.5 12 20.2 12 20.2s12-11.7 12-20.2c0-6.627-5.373-12-12-12z" fill="#fbbf24" stroke="#ffffff" stroke-width="1.3"/>
-                  <text x="12" y="11.8" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="7" font-weight="800">#</text>
-                </svg>
-                Polling Station (मतदान केंद्र)
-              </span>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -1653,7 +1535,6 @@
 
   <!-- Preloaded Data -->
   <script src="councillors_data.js"></script>
-  <script src="data/polling_stations_data.js"></script>
 
   <!-- Main JavaScript Logic -->
   <script src="app.js"></script>
