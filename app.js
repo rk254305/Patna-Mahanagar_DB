@@ -331,7 +331,6 @@ const DOM = {
   drawerReportsList: document.getElementById('drawerReportsList'),
   drawerReportsCount: document.getElementById('drawerReportsCount'),
   drawerNavLanding: document.getElementById('drawerNavLanding'),
-  drawerNavMap: document.getElementById('drawerNavMap'),
   drawerNavCouncillors: document.getElementById('drawerNavCouncillors'),
   drawerNavBoothsWards: document.getElementById('drawerNavBoothsWards'),
   drawerDownloadAllCsvBtn: document.getElementById('drawerDownloadAllCsvBtn'),
@@ -344,7 +343,6 @@ const DOM = {
   searchDirectoryView: document.getElementById('searchDirectoryView'),
   councillorSectionView: document.getElementById('councillorSectionView'),
   pillLandingView: document.getElementById('pillLandingView'),
-  pillMapView: document.getElementById('pillMapView'),
   pillDashboardView: document.getElementById('pillDashboardView'),
   pillCouncillorsView: document.getElementById('pillCouncillorsView'),
   pillSearchView: document.getElementById('pillSearchView'),
@@ -354,9 +352,36 @@ const DOM = {
   viewAssemblyWardsDetailBtn: document.getElementById('viewAssemblyWardsDetailBtn'),
   downloadCurrentPdfBtn: document.getElementById('downloadCurrentPdfBtn'),
   downloadCurrentPngBtn: document.getElementById('downloadCurrentPngBtn'),
-  openBoothsWardsBtn: document.getElementById('openBoothsWardsBtn'),
   landingCouncillorCard: document.getElementById('landingCouncillorCard'),
   btnExploreCouncillors: document.getElementById('btnExploreCouncillors'),
+
+  // Interactive Map Elements
+  drawerNavMaps: document.getElementById('drawerNavMaps'),
+  interactiveMapView: document.getElementById('interactiveMapView'),
+  pillMapView: document.getElementById('pillMapView'),
+  btnExploreMaps: document.getElementById('btnExploreMaps'),
+  landingMapsCard: document.getElementById('landingMapsCard'),
+  mapWardSearchInput: document.getElementById('mapWardSearchInput'),
+  mapSearchDropdown: document.getElementById('mapSearchDropdown'),
+  layerStreetBtn: document.getElementById('layerStreetBtn'),
+  layerSatBtn: document.getElementById('layerSatBtn'),
+  layerDarkBtn: document.getElementById('layerDarkBtn'),
+  btnResetMapBounds: document.getElementById('btnResetMapBounds'),
+  btnToggleMapFullscreen: document.getElementById('btnToggleMapFullscreen'),
+  mapViewportWrapper: document.getElementById('mapViewportWrapper'),
+  wardFloatingCard: document.getElementById('wardFloatingCard'),
+  closeWardCardBtn: document.getElementById('closeWardCardBtn'),
+  cardWardBadge: document.getElementById('cardWardBadge'),
+  cardWardAcTag: document.getElementById('cardWardAcTag'),
+  cardWardAreaName: document.getElementById('cardWardAreaName'),
+  cardBoothsTotal: document.getElementById('cardBoothsTotal'),
+  cardVotersTotal: document.getElementById('cardVotersTotal'),
+  cardCouncillorPreview: document.getElementById('cardCouncillorPreview'),
+  cardViewCouncillorBtn: document.getElementById('cardViewCouncillorBtn'),
+  cardZoomWardBtn: document.getElementById('cardZoomWardBtn'),
+  mapAcFilterGroup: document.getElementById('mapAcFilterGroup'),
+  btnTogglePollingStations: document.getElementById('btnTogglePollingStations'),
+  psCountBadge: document.getElementById('psCountBadge'),
 
   // Councillor Section Controls & Elements
   exportCouncillorCsvBtn: document.getElementById('exportCouncillorCsvBtn'),
@@ -527,7 +552,23 @@ const DOM = {
   pickerPurpleAccent: document.getElementById('pickerPurpleAccent'),
   codePurpleAccent: document.getElementById('codePurpleAccent'),
   pickerTeaAmber: document.getElementById('pickerTeaAmber'),
-  codeTeaAmber: document.getElementById('codeTeaAmber')
+  codeTeaAmber: document.getElementById('codeTeaAmber'),
+
+  // Hero Quick Navigation Hub
+  heroNavReports: document.getElementById('heroNavReports'),
+  heroNavCouncillors: document.getElementById('heroNavCouncillors'),
+  heroNavCoverage: document.getElementById('heroNavCoverage'),
+  heroNavMap: document.getElementById('heroNavMap'),
+
+  // Map Polling Stations Side Drawer & Zoom Indicator
+  btnTogglePsDrawer: document.getElementById('btnTogglePsDrawer'),
+  closePsDrawerBtn: document.getElementById('closePsDrawerBtn'),
+  psSideDrawer: document.getElementById('psSideDrawer'),
+  psDrawerAcTabs: document.getElementById('psDrawerAcTabs'),
+  psDrawerSearchInput: document.getElementById('psDrawerSearchInput'),
+  psDrawerList: document.getElementById('psDrawerList'),
+  mapZoomStatusPill: document.getElementById('mapZoomStatusPill'),
+  mapZoomStatusText: document.getElementById('mapZoomStatusText')
 };
 
 // ==========================================================================
@@ -585,15 +626,18 @@ function switchView(viewName, targetReportId = null) {
   if (DOM.dashboardDetailView) DOM.dashboardDetailView.style.display = 'none';
   if (DOM.searchDirectoryView) DOM.searchDirectoryView.style.display = 'none';
   if (DOM.councillorSectionView) DOM.councillorSectionView.style.display = 'none';
+  if (DOM.interactiveMapView) DOM.interactiveMapView.style.display = 'none';
 
   if (DOM.pillLandingView) DOM.pillLandingView.classList.remove('active');
   if (DOM.pillDashboardView) DOM.pillDashboardView.classList.remove('active');
   if (DOM.pillCouncillorsView) DOM.pillCouncillorsView.classList.remove('active');
   if (DOM.pillSearchView) DOM.pillSearchView.classList.remove('active');
+  if (DOM.pillMapView) DOM.pillMapView.classList.remove('active');
 
   if (DOM.drawerNavLanding) DOM.drawerNavLanding.classList.remove('active');
   if (DOM.drawerNavCouncillors) DOM.drawerNavCouncillors.classList.remove('active');
   if (DOM.drawerNavBoothsWards) DOM.drawerNavBoothsWards.classList.remove('active');
+  if (DOM.drawerNavMaps) DOM.drawerNavMaps.classList.remove('active');
 
   if (viewName === 'landing') {
     if (DOM.landingPageView) DOM.landingPageView.style.display = 'block';
@@ -612,6 +656,12 @@ function switchView(viewName, targetReportId = null) {
     if (DOM.pillSearchView) DOM.pillSearchView.classList.add('active');
     if (DOM.navReportSelectorWrapper) DOM.navReportSelectorWrapper.style.display = 'none';
     renderLeaderSearchResults();
+  } else if (viewName === 'map' || viewName === 'maps') {
+    if (DOM.interactiveMapView) DOM.interactiveMapView.style.display = 'block';
+    if (DOM.pillMapView) DOM.pillMapView.classList.add('active');
+    if (DOM.navReportSelectorWrapper) DOM.navReportSelectorWrapper.style.display = 'none';
+    if (DOM.drawerNavMaps) DOM.drawerNavMaps.classList.add('active');
+    initOrUpdatePatnaMap();
   } else {
     if (DOM.dashboardDetailView) DOM.dashboardDetailView.style.display = 'block';
     if (DOM.pillDashboardView) DOM.pillDashboardView.classList.add('active');
@@ -815,14 +865,6 @@ function renderBoothsWardsDirectory(searchQuery = '') {
   DOM.assemblyWardGrid.innerHTML = '';
   const query = searchQuery.trim().toLowerCase();
 
-  // Populate overall KPI counts from official data
-  const kpiTotalBooths = document.getElementById('kpiTotalBooths');
-  const kpiTotalWards = document.getElementById('kpiTotalWards');
-  const kpiTotalElectors = document.getElementById('kpiTotalElectors');
-  if (kpiTotalBooths) kpiTotalBooths.textContent = '1,763';
-  if (kpiTotalWards) kpiTotalWards.textContent = '75';
-  if (kpiTotalElectors) kpiTotalElectors.textContent = '16,66,121';
-
   Object.keys(ASSEMBLY_DEMOGRAPHICS).forEach(key => {
     const asm = ASSEMBLY_DEMOGRAPHICS[key];
     
@@ -846,10 +888,9 @@ function renderBoothsWardsDirectory(searchQuery = '') {
       asm.wards.forEach(w => {
         const isHighlighted = query && (w.name.toLowerCase().includes(query) || w.wardNo.toString() === query || w.area.toLowerCase().includes(query));
         wardPillsHtml += `
-          <div class="ward-pill ${isHighlighted ? 'active' : ''}" title="${w.name}: ${w.area} (${w.booths} Booths)" data-ward="${w.wardNo}" data-asmkey="${key}">
+          <div class="ward-pill ${isHighlighted ? 'active' : ''}" title="${w.name}: ${w.area}" data-ward="${w.wardNo}" data-asmkey="${key}">
             <span class="ward-pill-num">${w.name}</span>
-            <span class="ward-pill-area">${w.area.split('/')[0].trim()}</span>
-            <span class="ward-pill-booths" style="font-size:0.72rem; font-weight:800; color:var(--color-blue); margin-left:3px;" title="${w.booths} Booths">• ${w.booths}</span>
+            <span class="ward-pill-area">${w.area.split(',')[0]}</span>
           </div>
         `;
       });
@@ -902,6 +943,9 @@ function renderBoothsWardsDirectory(searchQuery = '') {
           <button class="btn btn-outline btn-sm btn-open-ward-modal" data-key="${key}">
             <i class="fa-solid fa-list-check"></i> Full Ward Breakdown
           </button>
+          <button class="btn btn-outline btn-sm btn-open-asm-map" data-ac="${asm.acNo || key}">
+            <i class="fa-solid fa-map-location-dot text-indigo"></i> View on Map
+          </button>
           <button class="btn btn-primary btn-sm btn-open-asm-dashboard" data-asm="${asm.id}">
             <i class="fa-solid fa-chart-pie"></i> View IDI Analytics
           </button>
@@ -912,6 +956,12 @@ function renderBoothsWardsDirectory(searchQuery = '') {
     card.querySelector('.btn-open-asm-dashboard').addEventListener('click', () => {
       const matchReport = AppState.reports.find(r => r.id === asm.id) || AppState.reports[0];
       switchView('dashboard', matchReport.id);
+    });
+
+    card.querySelector('.btn-open-asm-map').addEventListener('click', () => {
+      const acNum = asm.acNo || (key.includes('181') ? '181' : key.includes('182') ? '182' : key.includes('183') ? '183' : '184');
+      switchView('map');
+      setTimeout(() => filterMapByAc(acNum), 150);
     });
 
     card.querySelector('.btn-open-ward-modal').addEventListener('click', () => {
@@ -968,16 +1018,11 @@ function renderModalAssemblyAccordion(searchQuery = '', focusAsmKey = null, focu
       
       wardsTableRows += `
         <tr style="${isFocused || isSearchMatch ? 'background:rgba(2, 132, 199, 0.12); font-weight:bold;' : ''}">
-          <td style="padding:8px 12px; font-weight:800; color:var(--color-blue); width:95px; white-space:nowrap;">
+          <td style="padding:8px 12px; font-weight:800; color:var(--color-blue); width:90px;">
             <i class="fa-solid fa-map-pin"></i> ${w.name}
           </td>
           <td style="padding:8px 12px; font-size:0.84rem; color:var(--text-primary);">
             ${w.area}
-          </td>
-          <td style="padding:8px 12px; font-size:0.82rem; font-weight:700; color:var(--text-secondary); text-align:right; width:120px; white-space:nowrap;">
-            <span class="booth-count-badge" style="display:inline-flex; align-items:center; gap:5px; padding:3px 9px; font-size:0.75rem; border-radius:12px; background:var(--tint-blue); color:var(--color-blue); border:1px solid rgba(2,132,199,0.25);">
-              <i class="fa-solid fa-check-to-slot"></i> ${w.booths || '--'} Booths
-            </span>
           </td>
         </tr>
       `;
@@ -1008,15 +1053,8 @@ function renderModalAssemblyAccordion(searchQuery = '', focusAsmKey = null, focu
           <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px;">
             <i class="fa-solid fa-table-list text-blue"></i> MUNICIPAL WARDS LIST (${asm.wardsCount} WARDS):
           </div>
-          <div class="table-responsive" style="border:1px solid var(--border-color); border-radius:var(--radius-sm); max-height:240px; overflow-y:auto;">
+          <div class="table-responsive" style="border:1px solid var(--border-color); border-radius:var(--radius-sm); max-height:220px; overflow-y:auto;">
             <table style="width:100%; border-collapse:collapse; text-align:left;">
-              <thead>
-                <tr style="background:var(--bg-card-alt, #f8fafc); border-bottom:1px solid var(--border-color); font-size:0.74rem; color:var(--text-muted); text-transform:uppercase; position:sticky; top:0; z-index:1;">
-                  <th style="padding:7px 12px; font-weight:700;">Ward</th>
-                  <th style="padding:7px 12px; font-weight:700;">Locality / Area Covered</th>
-                  <th style="padding:7px 12px; font-weight:700; text-align:right;">No. of Booths</th>
-                </tr>
-              </thead>
               <tbody>${wardsTableRows}</tbody>
             </table>
           </div>
@@ -3202,18 +3240,11 @@ function setupEventListeners() {
   }
 
   if (DOM.pillLandingView) DOM.pillLandingView.addEventListener('click', () => switchView('landing'));
-  if (DOM.pillMapView) DOM.pillMapView.addEventListener('click', () => { window.location.href = 'maps.html'; });
   if (DOM.pillDashboardView) DOM.pillDashboardView.addEventListener('click', () => switchView('dashboard'));
   if (DOM.pillCouncillorsView) DOM.pillCouncillorsView.addEventListener('click', () => switchView('councillors'));
   if (DOM.pillSearchView) DOM.pillSearchView.addEventListener('click', () => switchView('search'));
   if (DOM.backToLandingBtn) DOM.backToLandingBtn.addEventListener('click', () => switchView('landing'));
   if (DOM.navBrandLogo) DOM.navBrandLogo.addEventListener('click', () => switchView('landing'));
-
-  if (DOM.drawerNavMap) {
-    DOM.drawerNavMap.addEventListener('click', () => {
-      window.location.href = 'maps.html';
-    });
-  }
 
   if (DOM.drawerNavCouncillors) {
     DOM.drawerNavCouncillors.addEventListener('click', () => {
@@ -3225,6 +3256,31 @@ function setupEventListeners() {
   if (DOM.btnExploreCouncillors) {
     DOM.btnExploreCouncillors.addEventListener('click', () => switchView('councillors'));
   }
+
+  // Interactive Map Navigation Listeners
+  if (DOM.drawerNavMaps) {
+    DOM.drawerNavMaps.addEventListener('click', () => {
+      switchView('map');
+      closeDrawer();
+    });
+  }
+
+  if (DOM.pillMapView) {
+    DOM.pillMapView.addEventListener('click', () => switchView('map'));
+  }
+
+  if (DOM.btnExploreMaps) {
+    DOM.btnExploreMaps.addEventListener('click', () => switchView('map'));
+  }
+
+  document.querySelectorAll('.map-chip').forEach(chip => {
+    chip.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const ac = chip.getAttribute('data-ac');
+      switchView('map');
+      setTimeout(() => filterMapByAc(ac), 150);
+    });
+  });
 
   // Councillor Section Controls
   if (DOM.exportCouncillorCsvBtn) {
@@ -3387,6 +3443,979 @@ function setupEventListeners() {
 }
 
 // ==========================================================================
+// 12B. Patna GIS Interactive Ward & Assembly Map Engine (Leaflet)
+// ==========================================================================
+
+let patnaMapInstance = null;
+let geojsonLayer = null;
+let patnaGeojsonData = null;
+let currentMapAc = 'all';
+let currentActiveLayer = 'street';
+let wardLayersMap = {}; // key: wardNo (string) -> Leaflet polygon layer
+let baseTileLayers = {};
+let selectedWardFeature = null;
+
+// Polling Stations State
+let pollingStationsData = null;
+let pollingStationsLayerGroup = null;
+let showPollingStations = true;
+let stationMarkersMap = {}; // key: stationId -> Leaflet marker
+
+const WARD_COLOR_MAP = {
+  // Digha (181)
+  "1": "#10b981", "2": "#3b82f6", "3": "#f59e0b", "4": "#8b5cf6", "5": "#ec4899",
+  "6": "#06b6d4", "7": "#ef4444", "8": "#14b8a6", "9": "#f97316", "10": "#6366f1",
+  "11": "#84cc16", "12": "#0284c7", "13": "#d946ef", "14": "#e11d48", "15": "#0891b2",
+  "16": "#7c3aed", "17": "#d97706", "18": "#dc2626", "19": "#059669", "20": "#a855f7",
+  "21": "#db2777", "22": "#2563eb", "22A": "#047857", "22B": "#1d4ed8", "22C": "#b45309",
+  "Panchayat": "#15803d",
+  // Bankipur (182)
+  "23": "#06b6d4", "24": "#8b5cf6", "25": "#f97316", "26": "#14b8a6", "27": "#6366f1",
+  "28": "#d946ef", "29": "#059669", "30": "#e11d48", "31": "#2563eb", "35": "#84cc16",
+  "36": "#d97706", "37": "#7c3aed", "38": "#dc2626", "39": "#0891b2", "40": "#db2777",
+  "41": "#4f46e5", "42": "#0d9488",
+  // Kumhrar (183)
+  "32": "#f59e0b", "33": "#3b82f6", "34": "#10b981", "43": "#8b5cf6", "44": "#ef4444",
+  "45": "#06b6d4", "46": "#f97316", "47": "#14b8a6", "48": "#d946ef", "49": "#0284c7",
+  "50": "#e11d48", "51": "#84cc16", "55": "#7c3aed",
+  // Patna Sahib (184)
+  "52": "#10b981", "53": "#3b82f6", "54": "#f59e0b", "56": "#ef4444", "57": "#8b5cf6",
+  "58": "#ec4899", "59": "#06b6d4", "60": "#14b8a6", "61": "#f97316", "62": "#6366f1",
+  "63": "#d946ef", "64": "#0284c7", "65": "#e11d48", "66": "#84cc16", "67": "#059669",
+  "68": "#2563eb", "69": "#d97706", "70": "#7c3aed", "71": "#dc2626", "72": "#0891b2"
+};
+
+function getWardColor(wardNo) {
+  const wStr = String(wardNo || '').trim().toUpperCase();
+  if (WARD_COLOR_MAP[wStr]) return WARD_COLOR_MAP[wStr];
+  const num = parseInt(wStr.replace(/[^0-9]/g, ''), 10);
+  if (!isNaN(num)) {
+    const palette = ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#ef4444', '#14b8a6', '#f97316', '#6366f1'];
+    return palette[num % palette.length];
+  }
+  return '#3b82f6';
+}
+
+// Teardrop Pointer SVG Generator matching Sample.pdf and poster maps
+function getTeardropPinSvg(stId, color, size = 18) {
+  const w = size;
+  const h = Math.round(size * 1.34);
+  const fontSize = stId >= 1000 ? 5.6 : (stId >= 100 ? 6.8 : 8.0);
+  return `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 32.2" width="${w}" height="${h}">
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 8.5 12 20.2 12 20.2s12-11.7 12-20.2c0-6.627-5.373-12-12-12z" fill="${color}" stroke="#ffffff" stroke-width="1.3"/>
+      <text x="12" y="11.8" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="${fontSize}" font-weight="800" font-family="'Plus Jakarta Sans', sans-serif">${stId}</text>
+    </svg>
+  `;
+}
+
+function loadAndRenderPollingStations() {
+  if (pollingStationsData) {
+    renderPollingStationsForCurrentAc();
+    return;
+  }
+
+  // Preloaded JS global fallback
+  if (typeof POLLING_STATIONS_DATA !== 'undefined' && POLLING_STATIONS_DATA) {
+    pollingStationsData = POLLING_STATIONS_DATA;
+    renderPollingStationsForCurrentAc();
+    return;
+  }
+
+  fetch('data/polling_stations_data.json')
+    .then(res => {
+      if (!res.ok) throw new Error('Failed to load polling stations data');
+      return res.json();
+    })
+    .then(data => {
+      pollingStationsData = data;
+      renderPollingStationsForCurrentAc();
+    })
+    .catch(err => {
+      console.warn('Polling stations data load warning:', err);
+    });
+}
+
+const BOOTH_ZOOM_THRESHOLD = 13.5;
+let activeDrawerAc = '181'; // Default to 181 Digha
+
+function updateBoothsVisibilityByZoom() {
+  if (!patnaMapInstance || !pollingStationsLayerGroup) return;
+  const currentZoom = patnaMapInstance.getZoom();
+  const shouldShow = currentZoom >= BOOTH_ZOOM_THRESHOLD && showPollingStations;
+
+  if (shouldShow && !patnaMapInstance.hasLayer(pollingStationsLayerGroup)) {
+    patnaMapInstance.addLayer(pollingStationsLayerGroup);
+  } else if (!shouldShow && patnaMapInstance.hasLayer(pollingStationsLayerGroup)) {
+    patnaMapInstance.removeLayer(pollingStationsLayerGroup);
+  }
+
+  // Update zoom status indicator badge
+  if (DOM.mapZoomStatusPill && DOM.mapZoomStatusText) {
+    if (currentZoom >= BOOTH_ZOOM_THRESHOLD) {
+      DOM.mapZoomStatusPill.classList.add('booths-active');
+      DOM.mapZoomStatusText.innerHTML = `<strong>Booths Active</strong> &bull; Level ${Math.round(currentZoom)}`;
+    } else {
+      DOM.mapZoomStatusPill.classList.remove('booths-active');
+      DOM.mapZoomStatusText.innerHTML = `<strong>Wards View</strong> (Zoom in Lv 14+ for Booths)`;
+    }
+  }
+}
+
+function renderPsDrawerList() {
+  if (!DOM.psDrawerList) return;
+  if (!pollingStationsData) {
+    DOM.psDrawerList.innerHTML = '<div style="padding: 24px; text-align: center; color: #94a3b8;"><i class="fa-solid fa-spinner fa-spin"></i> Loading polling booth data...</div>';
+    return;
+  }
+
+  const query = (DOM.psDrawerSearchInput ? DOM.psDrawerSearchInput.value : '').trim().toLowerCase();
+
+  // 1. Filter stations by active assembly
+  const allStations = pollingStationsData.combined || [];
+  let stations = allStations.filter(st => String(st.ac_id) === String(activeDrawerAc));
+
+  // 2. Filter by search query if present
+  if (query) {
+    stations = stations.filter(st => {
+      const stId = String(st.master_id || st.station_id || '');
+      const bRange = String(st.booth_range || '');
+      const ward = String(st.ward || '');
+      const nameHi = String(st.name_hi || '').toLowerCase();
+      const nameEn = String(st.name_en || '').toLowerCase();
+      return stId === query || stId.includes(query) || bRange.includes(query) || ward === query || nameHi.includes(query) || nameEn.includes(query);
+    });
+  }
+
+  if (stations.length === 0) {
+    DOM.psDrawerList.innerHTML = '<div style="padding: 24px 12px; text-align: center; color: #94a3b8; font-size: 0.85rem;">No polling stations match your filter in this assembly.</div>';
+    return;
+  }
+
+  // 3. Render cards with teardrop icons matching Sample.pdf
+  DOM.psDrawerList.innerHTML = stations.map(st => {
+    const stId = st.master_id || st.station_id;
+    const pinColor = st.ward_color || getWardColor(st.ward);
+
+    return `
+      <div class="ps-station-card" data-station-id="${stId}" data-lat="${st.lat}" data-lon="${st.lon}">
+        <div class="ps-card-pin">
+          <svg viewBox="0 0 24 32.2" width="20" height="27" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));">
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 8.5 12 20.2 12 20.2s12-11.7 12-20.2c0-6.627-5.373-12-12-12z" fill="${pinColor}" stroke="#ffffff" stroke-width="1.3"/>
+            <text x="12" y="11.8" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="${stId >= 1000 ? 5.6 : (stId >= 100 ? 6.8 : 8.0)}" font-weight="800" font-family="'Plus Jakarta Sans', sans-serif">${stId}</text>
+          </svg>
+        </div>
+        <div class="ps-card-info">
+          <div class="ps-card-title">${st.name_hi || st.name_en || 'मतदान केंद्र भवन'}</div>
+          <div class="ps-card-sub">
+            <span class="ps-card-badge badge-booth">Booth ${st.booth_range || stId}</span>
+            <span class="ps-card-badge" style="background: ${pinColor}22; color: ${pinColor}; border: 1px solid ${pinColor}66; font-weight: 800;">Ward ${st.ward}</span>
+            <span class="ps-card-badge badge-voters">${Number(st.voters || 0).toLocaleString()} Voters</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // 4. Click event on card to fly to station
+  DOM.psDrawerList.querySelectorAll('.ps-station-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const stId = card.getAttribute('data-station-id');
+      const lat = parseFloat(card.getAttribute('data-lat'));
+      const lon = parseFloat(card.getAttribute('data-lon'));
+
+      DOM.psDrawerList.querySelectorAll('.ps-station-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+
+      if (lat && lon && patnaMapInstance) {
+        // Fly directly to station coordinates at zoom 16
+        patnaMapInstance.flyTo([lat, lon], 16, { duration: 1.2 });
+
+        // Ensure booths layer is on the map
+        if (pollingStationsLayerGroup && !patnaMapInstance.hasLayer(pollingStationsLayerGroup)) {
+          patnaMapInstance.addLayer(pollingStationsLayerGroup);
+        }
+
+        setTimeout(() => {
+          const marker = stationMarkersMap[String(stId)];
+          if (marker) marker.openPopup();
+        }, 1250);
+      }
+    });
+  });
+}
+
+function setupPsDrawerEvents() {
+  if (DOM.btnTogglePsDrawer && DOM.psSideDrawer) {
+    DOM.btnTogglePsDrawer.addEventListener('click', () => {
+      DOM.psSideDrawer.classList.toggle('open');
+      DOM.btnTogglePsDrawer.classList.toggle('active', DOM.psSideDrawer.classList.contains('open'));
+      renderPsDrawerList();
+    });
+  }
+
+  if (DOM.closePsDrawerBtn && DOM.psSideDrawer) {
+    DOM.closePsDrawerBtn.addEventListener('click', () => {
+      DOM.psSideDrawer.classList.remove('open');
+      if (DOM.btnTogglePsDrawer) DOM.btnTogglePsDrawer.classList.remove('active');
+    });
+  }
+
+  if (DOM.psDrawerAcTabs) {
+    DOM.psDrawerAcTabs.querySelectorAll('.ps-ac-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        DOM.psDrawerAcTabs.querySelectorAll('.ps-ac-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeDrawerAc = tab.getAttribute('data-ac');
+
+        // Sync map filter with selected assembly
+        filterMapByAc(activeDrawerAc);
+        renderPsDrawerList();
+      });
+    });
+  }
+
+  if (DOM.psDrawerSearchInput) {
+    DOM.psDrawerSearchInput.addEventListener('input', () => {
+      renderPsDrawerList();
+    });
+  }
+}
+
+function setupHeroNavEvents() {
+  if (DOM.heroNavReports) {
+    DOM.heroNavReports.addEventListener('click', () => switchView('dashboard'));
+  }
+  if (DOM.heroNavCouncillors) {
+    DOM.heroNavCouncillors.addEventListener('click', () => switchView('councillors'));
+  }
+  if (DOM.heroNavCoverage) {
+    DOM.heroNavCoverage.addEventListener('click', () => {
+      switchView('landing');
+      const target = document.getElementById('boothsWardsSection');
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+  if (DOM.heroNavMap) {
+    DOM.heroNavMap.addEventListener('click', () => {
+      switchView('map');
+      if (DOM.psSideDrawer) {
+        DOM.psSideDrawer.classList.add('open');
+        if (DOM.btnTogglePsDrawer) DOM.btnTogglePsDrawer.classList.add('active');
+      }
+      setTimeout(() => {
+        renderPsDrawerList();
+        if (patnaMapInstance) patnaMapInstance.invalidateSize();
+      }, 250);
+    });
+  }
+}
+
+function renderPollingStationsForCurrentAc() {
+  if (!pollingStationsData || !patnaMapInstance) return;
+
+  if (!pollingStationsLayerGroup) {
+    pollingStationsLayerGroup = L.layerGroup();
+  } else {
+    pollingStationsLayerGroup.clearLayers();
+  }
+
+  stationMarkersMap = {};
+  const allStations = pollingStationsData.combined || [];
+  let filtered = allStations;
+
+  if (currentMapAc !== 'all') {
+    filtered = allStations.filter(st => String(st.ac_id) === String(currentMapAc));
+  }
+
+  if (DOM.psCountBadge) {
+    DOM.psCountBadge.textContent = filtered.length.toLocaleString();
+  }
+
+  const pinSize = 19;
+  const pinW = pinSize;
+  const pinH = Math.round(pinSize * 1.34);
+
+  filtered.forEach(st => {
+    if (!st.lat || !st.lon) return;
+
+    const stId = st.master_id || st.station_id || '';
+    
+    // Color teardrop pin by its specific Ward color so every ward has a distinct, uniform teardrop color!
+    const pinColor = st.ward_color || getWardColor(st.ward);
+    const isTargetWard = selectedWardFeature && String(selectedWardFeature).toLowerCase() === String(st.ward || '').toLowerCase();
+    const isFilteredOut = selectedWardFeature && !isTargetWard;
+
+    const markerHtml = `
+      <div class="ps-teardrop-marker ${isTargetWard ? 'active-ward-pin' : ''} ${isFilteredOut ? 'dimmed-pin' : ''}" id="pin-${stId}">
+        ${getTeardropPinSvg(stId, pinColor, isTargetWard ? 23 : pinSize)}
+      </div>
+    `;
+    
+    const icon = L.divIcon({
+      html: markerHtml,
+      className: '',
+      iconSize: [pinW, pinH],
+      iconAnchor: [pinW / 2, pinH],
+      popupAnchor: [0, -pinH]
+    });
+
+    const marker = L.marker([st.lat, st.lon], { icon: icon });
+
+    marker.bindTooltip(`
+      <div style="font-weight: 800; font-size: 12px;">📍 Station #${stId}: ${st.name_hi || st.name_en || ''}</div>
+      <div style="font-size: 11px; color: #cbd5e1;">Booth(s): ${st.booth_range || stId} &bull; Ward ${st.ward} (${st.ac_name || ''})</div>
+    `, {
+      direction: 'top',
+      offset: [0, -pinH]
+    });
+
+    const popupHtml = `
+      <div class="map-popup-header">
+        <div class="map-popup-title" style="font-size: 0.95rem; color: #fff;">
+          <span style="color: ${pinColor}; font-size: 1.1rem;">📍</span> ${st.name_hi || 'मतदान केंद्र'}
+        </div>
+        <div class="map-popup-ac">${st.ac_name || ''} (${st.ac_id || ''}) &bull; Municipal Ward ${st.ward || ''}</div>
+      </div>
+      <div class="map-popup-stats" style="margin-top: 8px;">
+        <div style="margin-bottom: 4px;"><strong>Station No:</strong> <span style="color: #fbbf24; font-weight: 800; font-size: 1rem;">#${stId}</span></div>
+        <div style="margin-bottom: 4px;"><strong>Assigned Booths:</strong> <span style="color: #60a5fa; font-weight: 700;">${st.booth_range || stId}</span></div>
+        <div style="margin-bottom: 4px;"><strong>Total Voters:</strong> <span style="font-weight: 700;">${Number(st.voters || 0).toLocaleString()}</span></div>
+        ${st.name_en ? `<div style="font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">Locality / Area: ${st.name_en}</div>` : ''}
+      </div>
+      <div class="map-popup-actions" style="margin-top: 10px;">
+        <a href="https://www.google.com/maps/search/?api=1&query=${st.lat},${st.lon}" target="_blank" class="btn btn-xs btn-outline" style="text-decoration: none;">
+          <i class="fa-solid fa-diamond-turn-right"></i> Navigate Directions
+        </a>
+      </div>
+    `;
+
+    marker.bindPopup(popupHtml, { maxWidth: 320 });
+
+    stationMarkersMap[String(stId)] = marker;
+    pollingStationsLayerGroup.addLayer(marker);
+  });
+
+  // Apply zoom culling so low zoom never lags!
+  updateBoothsVisibilityByZoom();
+
+  // Also update drawer list
+  renderPsDrawerList();
+}
+
+const AC_META_CONFIG = {
+  all: { name: 'All Patna (75 Wards)', color: '#6366f1', bounds: [[25.53, 85.02], [25.68, 85.28]] },
+  '181': { name: '181 - Digha', color: '#10b981', filter: 'digha', acNo: '181' },
+  '182': { name: '182 - Bankipur', color: '#3b82f6', filter: 'bankipur', acNo: '182' },
+  '183': { name: '183 - Kumhrar', color: '#f59e0b', filter: 'kumhrar', acNo: '183' },
+  '184': { name: '184 - Patna Sahib', color: '#ec4899', filter: 'patna sahib', acNo: '184' }
+};
+
+function getWardStyle(feature, isSelected = false) {
+  const props = feature.properties || {};
+  const ac = (props.primary_ac || '').toLowerCase();
+  
+  let baseColor = '#6366f1';
+  if (ac.includes('digha')) baseColor = '#10b981';
+  else if (ac.includes('bankipur')) baseColor = '#3b82f6';
+  else if (ac.includes('kumhrar')) baseColor = '#f59e0b';
+  else if (ac.includes('patna sahib') || ac.includes('sahib')) baseColor = '#ec4899';
+
+  let isDimmed = false;
+  if (currentMapAc !== 'all') {
+    const targetFilter = AC_META_CONFIG[currentMapAc]?.filter || '';
+    if (!ac.includes(targetFilter)) {
+      isDimmed = true;
+    }
+  }
+
+  if (isSelected) {
+    return {
+      fillColor: baseColor,
+      weight: 3,
+      opacity: 1,
+      color: '#0284c7',
+      fillOpacity: 0.16,
+      dashArray: ''
+    };
+  }
+
+  if (isDimmed) {
+    return {
+      fillColor: '#94a3b8',
+      weight: 1,
+      opacity: 0.35,
+      color: '#94a3b8',
+      fillOpacity: 0.02,
+      dashArray: '2, 3'
+    };
+  }
+
+  // Clean ward boundary outline - streets, roads & places stay completely visible!
+  return {
+    fillColor: baseColor,
+    weight: 1.6,
+    opacity: 0.85,
+    color: '#334155',
+    fillOpacity: 0.04,
+    dashArray: '4, 2'
+  };
+}
+
+function initOrUpdatePatnaMap() {
+  if (typeof L === 'undefined') {
+    console.error('Leaflet library is not loaded.');
+    return;
+  }
+
+  const mapContainer = document.getElementById('patnaMap');
+  if (!mapContainer) return;
+
+  if (!patnaMapInstance) {
+    // 1. Initialize Leaflet Map with full interactive zoom & pan capabilities
+    patnaMapInstance = L.map('patnaMap', {
+      center: [25.609, 85.1376],
+      zoom: 12,
+      minZoom: 10,
+      maxZoom: 18,
+      zoomControl: true,
+      scrollWheelZoom: true,
+      doubleClickZoom: true,
+      touchZoom: true,
+      boxZoom: true,
+      keyboard: true
+    });
+
+    // 2. Base Tile Layers (100% Free & Open-Source, NO API KEY, NO WATERMARK)
+    baseTileLayers.street = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19
+    });
+
+    baseTileLayers.satellite = L.layerGroup([
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; Esri &mdash; High-Res Satellite',
+        maxZoom: 19
+      }),
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19
+      })
+    ]);
+
+    baseTileLayers.dark = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '&copy; Esri &mdash; Dark Gray Canvas',
+      maxZoom: 16
+    });
+
+    // Add default street layer
+    baseTileLayers.street.addTo(patnaMapInstance);
+
+    // Setup Toolbar Events
+    setupMapToolbarEvents();
+    setupMapSearch();
+    setupPsDrawerEvents();
+
+    // Zoom listener for zero-lag booth visibility culling
+    patnaMapInstance.on('zoomend', updateBoothsVisibilityByZoom);
+  }
+
+  // Load GeoJSON Data if not already loaded
+  if (!patnaGeojsonData) {
+    fetch('data/data_combined_all.geojson')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load combined GeoJSON');
+        return res.json();
+      })
+      .then(geojson => {
+        patnaGeojsonData = geojson;
+        renderGeojsonLayers();
+      })
+      .catch(err => {
+        console.warn('GeoJSON fetch error, falling back:', err);
+      });
+  } else {
+    renderGeojsonLayers();
+  }
+
+  // Load Polling Stations with Teardrop Markers
+  loadAndRenderPollingStations();
+
+  // Invalidate size for proper display
+  setTimeout(() => {
+    if (patnaMapInstance) {
+      patnaMapInstance.invalidateSize();
+      if (geojsonLayer && currentMapAc === 'all') {
+        patnaMapInstance.fitBounds(geojsonLayer.getBounds(), { padding: [30, 30] });
+      }
+    }
+  }, 180);
+}
+
+function renderGeojsonLayers() {
+  if (!patnaGeojsonData || !patnaMapInstance) return;
+
+  if (geojsonLayer) {
+    patnaMapInstance.removeLayer(geojsonLayer);
+  }
+
+  wardLayersMap = {};
+
+  geojsonLayer = L.geoJSON(patnaGeojsonData, {
+    style: (feature) => getWardStyle(feature, false),
+    onEachFeature: (feature, layer) => {
+      const p = feature.properties || {};
+      const wardNo = String(p.ward || '');
+      wardLayersMap[wardNo] = layer;
+
+      // Tooltip on Hover
+      layer.bindTooltip(`
+        <div style="font-weight: 700; font-size: 13px;">Ward ${p.ward}: ${p.area || ''}</div>
+        <div style="font-size: 11px; opacity: 0.85;">${p.primary_ac || ''} &bull; ${p.total_ward_booths || ''} Booths</div>
+      `, {
+        direction: 'center',
+        className: 'ward-polygon-tooltip',
+        sticky: true
+      });
+
+      // Mouse Events
+      layer.on({
+        mouseover: (e) => {
+          const l = e.target;
+          if (selectedWardFeature !== p.ward) {
+            l.setStyle({
+              weight: 2.6,
+              color: '#0284c7',
+              dashArray: '',
+              fillOpacity: 0.1
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+              l.bringToFront();
+            }
+          }
+        },
+        mouseout: (e) => {
+          const l = e.target;
+          if (selectedWardFeature !== p.ward) {
+            geojsonLayer.resetStyle(l);
+            l.setStyle(getWardStyle(feature, false));
+          }
+        },
+        click: (e) => {
+          L.DomEvent.stopPropagation(e);
+          selectWardLayer(wardNo, layer, p);
+        }
+      });
+    }
+  }).addTo(patnaMapInstance);
+
+  if (currentMapAc === 'all') {
+    patnaMapInstance.fitBounds(geojsonLayer.getBounds(), { padding: [30, 30] });
+  } else {
+    filterMapByAc(currentMapAc);
+  }
+}
+
+
+function updateWardTeardropHighlight(targetWardNo) {
+  if (!stationMarkersMap || !pollingStationsData) return;
+  const targetStr = String(targetWardNo || '').toLowerCase();
+  
+  const allStations = pollingStationsData.combined || [];
+  allStations.forEach(st => {
+    const stId = st.master_id || st.station_id;
+    const marker = stationMarkersMap[String(stId)];
+    if (!marker) return;
+
+    const el = document.getElementById(`pin-${stId}`);
+    if (el) {
+      const isMatch = targetStr && String(st.ward || '').toLowerCase() === targetStr;
+      if (isMatch) {
+        el.classList.add('active-ward-pin');
+        el.classList.remove('dimmed-pin');
+      } else if (targetStr) {
+        el.classList.remove('active-ward-pin');
+        el.classList.add('dimmed-pin');
+      } else {
+        el.classList.remove('active-ward-pin', 'dimmed-pin');
+      }
+    }
+  });
+}
+
+function selectWardLayer(wardNo, layer, props) {
+  selectedWardFeature = wardNo;
+
+  // Reset all layer styles
+  if (geojsonLayer) {
+    geojsonLayer.eachLayer(l => {
+      l.setStyle(getWardStyle(l.feature, l.feature.properties.ward === wardNo));
+    });
+  }
+
+  // Highlight selected layer
+  layer.setStyle(getWardStyle(layer.feature, true));
+  layer.bringToFront();
+
+  // Create & open rich popup
+  const popupContent = `
+    <div class="map-popup-header">
+      <div class="map-popup-title">Ward ${props.ward}: ${props.area || ''}</div>
+      <div class="map-popup-ac">${props.primary_ac || 'Patna'} Assembly Constituency</div>
+    </div>
+    <div class="map-popup-stats">
+      <div><strong>Booths:</strong> ${props.total_ward_booths || '--'} | <strong>Voters:</strong> ${props.total_ward_voters || '--'}</div>
+    </div>
+    <div class="map-popup-actions">
+      <button class="btn btn-xs btn-primary" onclick="window.viewWardInCouncillors('${props.ward}')">
+        <i class="fa-solid fa-users"></i> Councillor Details
+      </button>
+    </div>
+  `;
+
+  layer.bindPopup(popupContent, { maxWidth: 320, offset: [0, -10] }).openPopup();
+
+  // Show floating details card
+  showWardFloatingCard(props);
+  updateWardTeardropHighlight(wardNo);
+}
+
+function showWardFloatingCard(props) {
+  const card = DOM.wardFloatingCard;
+  if (!card) return;
+
+  if (DOM.cardWardBadge) DOM.cardWardBadge.textContent = `Ward ${props.ward}`;
+  if (DOM.cardWardAcTag) DOM.cardWardAcTag.textContent = `${props.primary_ac || 'Patna'} Assembly`;
+  if (DOM.cardWardAreaName) DOM.cardWardAreaName.textContent = props.area || 'Covered Area';
+  if (DOM.cardBoothsTotal) DOM.cardBoothsTotal.textContent = props.total_ward_booths || '--';
+  if (DOM.cardVotersTotal) DOM.cardVotersTotal.textContent = props.total_ward_voters || '--';
+
+  // Lookup councillor data
+  if (DOM.cardCouncillorPreview) {
+    const list = window.DEFAULT_COUNCILLORS_DATA || (AppState && AppState.councillorsData) || [];
+    const councillor = list.find(c => String(c.wardNo) === String(props.ward));
+
+    if (councillor) {
+      const w22 = councillor.w2022 || {};
+      DOM.cardCouncillorPreview.innerHTML = `
+        <div class="councillor-row">
+          <span class="c-label">2022 Winner Mtg:</span>
+          <span class="c-val">${w22.winnerMtg ? '<span class="text-green"><i class="fa-solid fa-check"></i> Done</span>' : '<span class="text-muted">Pending</span>'} (Onboard: ${w22.winnerOnboard ? '<strong class="text-green">Yes</strong>' : 'No'})</span>
+        </div>
+        <div class="councillor-row">
+          <span class="c-label">2022 Runner Mtg:</span>
+          <span class="c-val">${w22.runnerMtg ? '<span class="text-green"><i class="fa-solid fa-check"></i> Done</span>' : '<span class="text-muted">Pending</span>'} (Onboard: ${w22.runnerOnboard ? '<strong class="text-green">Yes</strong>' : 'No'})</span>
+        </div>
+        <div class="councillor-row" style="margin-top: 4px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 4px;">
+          <span class="c-label">Field POC:</span>
+          <span class="c-val" style="font-size: 0.72rem; color: #a5b4fc;">${councillor.poc || 'Assigned Team'}</span>
+        </div>
+      `;
+    } else {
+      DOM.cardCouncillorPreview.innerHTML = `
+        <div style="color: #94a3b8; font-style: italic;">No specific councillor survey logged for this ward.</div>
+      `;
+    }
+  }
+
+  // Setup Actions on card
+  if (DOM.cardViewCouncillorBtn) {
+    DOM.cardViewCouncillorBtn.onclick = () => {
+      window.viewWardInCouncillors(props.ward);
+    };
+  }
+
+  if (DOM.cardZoomWardBtn) {
+    DOM.cardZoomWardBtn.onclick = () => {
+      flyToWard(props.ward);
+    };
+  }
+
+  card.style.display = 'block';
+}
+
+window.viewWardInCouncillors = function(wardNumber) {
+  switchView('councillors');
+  if (DOM.councillorSearchInput) {
+    DOM.councillorSearchInput.value = String(wardNumber);
+    renderCouncillorSection(String(wardNumber));
+  }
+};
+
+function flyToWard(wardNumber) {
+  const wardStr = String(wardNumber).trim();
+  const layer = wardLayersMap[wardStr];
+  if (layer && patnaMapInstance) {
+    patnaMapInstance.flyToBounds(layer.getBounds(), {
+      maxZoom: 15,
+      duration: 1.2,
+      padding: [40, 40]
+    });
+    layer.fire('click');
+  }
+}
+
+function filterMapByAc(acId) {
+  currentMapAc = String(acId);
+  selectedWardFeature = null;
+  updateWardTeardropHighlight(null);
+
+  // Update pills active state
+  if (DOM.mapAcFilterGroup) {
+    DOM.mapAcFilterGroup.querySelectorAll('.map-filter-pill').forEach(pill => {
+      if (pill.getAttribute('data-ac') === String(acId)) {
+        pill.classList.add('active');
+      } else {
+        pill.classList.remove('active');
+      }
+    });
+  }
+
+  if (!geojsonLayer || !patnaMapInstance) return;
+
+  const targetBounds = L.latLngBounds();
+  let foundAny = false;
+
+  geojsonLayer.eachLayer(layer => {
+    const props = layer.feature.properties || {};
+    const ac = (props.primary_ac || '').toLowerCase();
+    
+    layer.setStyle(getWardStyle(layer.feature, selectedWardFeature === props.ward));
+
+    if (acId === 'all') {
+      targetBounds.extend(layer.getBounds());
+      foundAny = true;
+    } else {
+      const cfg = AC_META_CONFIG[acId];
+      if (cfg && ac.includes(cfg.filter)) {
+        targetBounds.extend(layer.getBounds());
+        foundAny = true;
+      }
+    }
+  });
+
+  if (foundAny) {
+    patnaMapInstance.flyToBounds(targetBounds, {
+      duration: 1.0,
+      padding: [30, 30]
+    });
+  }
+
+  // Re-filter polling stations to current constituency
+  renderPollingStationsForCurrentAc();
+}
+
+function switchMapBaseLayer(layerType) {
+  if (!patnaMapInstance) return;
+  currentActiveLayer = layerType;
+
+  // Remove all base layers
+  Object.values(baseTileLayers).forEach(layer => {
+    if (patnaMapInstance.hasLayer(layer)) {
+      patnaMapInstance.removeLayer(layer);
+    }
+  });
+
+  // Add requested base layer
+  if (baseTileLayers[layerType]) {
+    baseTileLayers[layerType].addTo(patnaMapInstance);
+    if (baseTileLayers[layerType].bringToBack) {
+      baseTileLayers[layerType].bringToBack();
+    }
+  }
+
+  // Update button active state
+  if (DOM.layerStreetBtn) DOM.layerStreetBtn.classList.toggle('active', layerType === 'street');
+  if (DOM.layerSatBtn) DOM.layerSatBtn.classList.toggle('active', layerType === 'satellite');
+  if (DOM.layerDarkBtn) DOM.layerDarkBtn.classList.toggle('active', layerType === 'dark');
+}
+
+function setupMapToolbarEvents() {
+  // AC Filter Pills
+  if (DOM.mapAcFilterGroup) {
+    DOM.mapAcFilterGroup.querySelectorAll('.map-filter-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const ac = pill.getAttribute('data-ac');
+        filterMapByAc(ac);
+      });
+    });
+  }
+
+  // Layer buttons
+  if (DOM.layerStreetBtn) {
+    DOM.layerStreetBtn.addEventListener('click', () => switchMapBaseLayer('street'));
+  }
+  if (DOM.layerSatBtn) {
+    DOM.layerSatBtn.addEventListener('click', () => switchMapBaseLayer('satellite'));
+  }
+  if (DOM.layerDarkBtn) {
+    DOM.layerDarkBtn.addEventListener('click', () => switchMapBaseLayer('dark'));
+  }
+
+  // Reset Bounds button
+  if (DOM.btnResetMapBounds) {
+    DOM.btnResetMapBounds.addEventListener('click', () => {
+      filterMapByAc(currentMapAc);
+    });
+  }
+
+  // Fullscreen toggle
+  if (DOM.btnToggleMapFullscreen && DOM.mapViewportWrapper) {
+    DOM.btnToggleMapFullscreen.addEventListener('click', () => {
+      DOM.mapViewportWrapper.classList.toggle('is-fullscreen');
+      const isFull = DOM.mapViewportWrapper.classList.contains('is-fullscreen');
+      DOM.btnToggleMapFullscreen.innerHTML = isFull ? '<i class="fa-solid fa-compress"></i>' : '<i class="fa-solid fa-maximize"></i>';
+      setTimeout(() => {
+        if (patnaMapInstance) patnaMapInstance.invalidateSize();
+      }, 250);
+    });
+  }
+
+  // Polling Stations Toggle Button
+  if (DOM.btnTogglePollingStations) {
+    DOM.btnTogglePollingStations.addEventListener('click', () => {
+      showPollingStations = !showPollingStations;
+      DOM.btnTogglePollingStations.classList.toggle('active', showPollingStations);
+      if (pollingStationsLayerGroup && patnaMapInstance) {
+        if (showPollingStations) {
+          patnaMapInstance.addLayer(pollingStationsLayerGroup);
+        } else {
+          patnaMapInstance.removeLayer(pollingStationsLayerGroup);
+        }
+      }
+    });
+  }
+
+  // Close floating ward card
+  if (DOM.closeWardCardBtn && DOM.wardFloatingCard) {
+    DOM.closeWardCardBtn.addEventListener('click', () => {
+      DOM.wardFloatingCard.style.display = 'none';
+      selectedWardFeature = null;
+      if (geojsonLayer) {
+        geojsonLayer.eachLayer(l => l.setStyle(getWardStyle(l.feature, false)));
+      }
+    });
+  }
+}
+
+function setupMapSearch() {
+  const input = DOM.mapWardSearchInput;
+  const dropdown = DOM.mapSearchDropdown;
+  if (!input || !dropdown) return;
+
+  input.addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    if (!q) {
+      dropdown.style.display = 'none';
+      dropdown.innerHTML = '';
+      return;
+    }
+
+    let resultsHtml = '';
+
+    // 1. Search Wards
+    if (patnaGeojsonData) {
+      const wardMatches = patnaGeojsonData.features.filter(f => {
+        const p = f.properties || {};
+        const wMatch = String(p.ward).toLowerCase() === q || String(p.ward).toLowerCase().includes(q);
+        const aMatch = String(p.area || '').toLowerCase().includes(q);
+        const acMatch = String(p.primary_ac || '').toLowerCase().includes(q);
+        return wMatch || aMatch || acMatch;
+      }).slice(0, 6);
+
+      if (wardMatches.length > 0) {
+        resultsHtml += '<div style="padding: 4px 10px; font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; background: rgba(0,0,0,0.2);">Municipal Wards</div>';
+        resultsHtml += wardMatches.map(f => {
+          const p = f.properties;
+          return `
+            <div class="map-search-item" data-type="ward" data-id="${p.ward}">
+              <div>
+                <strong>Ward ${p.ward}</strong> &bull; <span>${p.area || ''}</span>
+              </div>
+              <span style="font-size: 11px; opacity: 0.75;">${p.primary_ac || ''}</span>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    // 2. Search Polling Stations
+    if (pollingStationsData && pollingStationsData.combined) {
+      const psMatches = pollingStationsData.combined.filter(st => {
+        const idMatch = String(st.master_id || st.station_id) === q || `station ${st.master_id}`.includes(q) || `booth ${st.booth_range}`.includes(q);
+        const nameHiMatch = String(st.name_hi || '').toLowerCase().includes(q);
+        const nameEnMatch = String(st.name_en || '').toLowerCase().includes(q);
+        return idMatch || nameHiMatch || nameEnMatch;
+      }).slice(0, 6);
+
+      if (psMatches.length > 0) {
+        resultsHtml += '<div style="padding: 4px 10px; font-size: 10px; font-weight: 800; color: #fbbf24; text-transform: uppercase; background: rgba(0,0,0,0.2);">Polling Stations (मतदान केंद्र)</div>';
+        resultsHtml += psMatches.map(st => {
+          const stId = st.master_id || st.station_id;
+          return `
+            <div class="map-search-item" data-type="station" data-id="${stId}">
+              <div>
+                <strong style="color: #fbbf24;">📍 #${stId}</strong> &bull; <span>${st.name_hi || st.name_en || ''}</span>
+              </div>
+              <span style="font-size: 11px; opacity: 0.75;">Booth ${st.booth_range || stId} (${st.ac_name || ''})</span>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    if (!resultsHtml) {
+      dropdown.innerHTML = '<div style="padding: 10px; font-size: 12px; color: #94a3b8; text-align: center;">No matching ward or polling station found</div>';
+      dropdown.style.display = 'block';
+      return;
+    }
+
+    dropdown.innerHTML = resultsHtml;
+    dropdown.style.display = 'block';
+
+    dropdown.querySelectorAll('.map-search-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const type = item.getAttribute('data-type');
+        const id = item.getAttribute('data-id');
+        dropdown.style.display = 'none';
+
+        if (type === 'ward') {
+          input.value = `Ward ${id}`;
+          flyToWard(id);
+        } else if (type === 'station') {
+          input.value = `Station #${id}`;
+          const marker = stationMarkersMap[String(id)];
+          if (marker && patnaMapInstance) {
+            patnaMapInstance.flyTo(marker.getLatLng(), 16, { duration: 1.2 });
+            setTimeout(() => marker.openPopup(), 1200);
+            const stObj = (pollingStationsData && pollingStationsData.combined || []).find(s => String(s.master_id || s.station_id) === String(id));
+            if (stObj && stObj.ward) {
+              updateWardTeardropHighlight(stObj.ward);
+            }
+          }
+        }
+      });
+    });
+  });
+
+  // Hide dropdown on click outside
+  document.addEventListener('click', (e) => {
+    if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.style.display = 'none';
+    }
+  });
+
+  // Enter key support
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const firstItem = dropdown.querySelector('.map-search-item');
+      if (firstItem) {
+        firstItem.click();
+      }
+    }
+  });
+}
+
+// ==========================================================================
 // 13. App Initialization
 // ==========================================================================
 
@@ -3395,6 +4424,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const reportParam = urlParams.get('report');
   const viewParam = urlParams.get('view');
   const queryParam = urlParams.get('q');
+  const acParam = urlParams.get('ac');
+  const wardParam = urlParams.get('ward');
 
   let shouldOpenDashboard = false;
 
@@ -3422,10 +4453,19 @@ window.addEventListener('DOMContentLoaded', () => {
   updateLastSyncTimeText();
   setupModals();
   setupEventListeners();
+  setupHeroNavEvents();
   startAutoRefreshLoop();
 
   if (viewParam === 'search' || queryParam) {
     switchView('search');
+  } else if (viewParam === 'map' || viewParam === 'maps') {
+    switchView('map');
+    if (acParam) {
+      setTimeout(() => filterMapByAc(acParam), 250);
+    }
+    if (wardParam) {
+      setTimeout(() => flyToWard(wardParam), 400);
+    }
   } else if (shouldOpenDashboard || viewParam === 'dashboard') {
     switchView('dashboard');
   } else {
