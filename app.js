@@ -3461,6 +3461,41 @@ let pollingStationsLayerGroup = null;
 let showPollingStations = true;
 let stationMarkersMap = {}; // key: stationId -> Leaflet marker
 
+const WARD_COLOR_MAP = {
+  // Digha (181)
+  "1": "#10b981", "2": "#3b82f6", "3": "#f59e0b", "4": "#8b5cf6", "5": "#ec4899",
+  "6": "#06b6d4", "7": "#ef4444", "8": "#14b8a6", "9": "#f97316", "10": "#6366f1",
+  "11": "#84cc16", "12": "#0284c7", "13": "#d946ef", "14": "#e11d48", "15": "#0891b2",
+  "16": "#7c3aed", "17": "#d97706", "18": "#dc2626", "19": "#059669", "20": "#a855f7",
+  "21": "#db2777", "22": "#2563eb", "22A": "#047857", "22B": "#1d4ed8", "22C": "#b45309",
+  "Panchayat": "#15803d",
+  // Bankipur (182)
+  "23": "#06b6d4", "24": "#8b5cf6", "25": "#f97316", "26": "#14b8a6", "27": "#6366f1",
+  "28": "#d946ef", "29": "#059669", "30": "#e11d48", "31": "#2563eb", "35": "#84cc16",
+  "36": "#d97706", "37": "#7c3aed", "38": "#dc2626", "39": "#0891b2", "40": "#db2777",
+  "41": "#4f46e5", "42": "#0d9488",
+  // Kumhrar (183)
+  "32": "#f59e0b", "33": "#3b82f6", "34": "#10b981", "43": "#8b5cf6", "44": "#ef4444",
+  "45": "#06b6d4", "46": "#f97316", "47": "#14b8a6", "48": "#d946ef", "49": "#0284c7",
+  "50": "#e11d48", "51": "#84cc16", "55": "#7c3aed",
+  // Patna Sahib (184)
+  "52": "#10b981", "53": "#3b82f6", "54": "#f59e0b", "56": "#ef4444", "57": "#8b5cf6",
+  "58": "#ec4899", "59": "#06b6d4", "60": "#14b8a6", "61": "#f97316", "62": "#6366f1",
+  "63": "#d946ef", "64": "#0284c7", "65": "#e11d48", "66": "#84cc16", "67": "#059669",
+  "68": "#2563eb", "69": "#d97706", "70": "#7c3aed", "71": "#dc2626", "72": "#0891b2"
+};
+
+function getWardColor(wardNo) {
+  const wStr = String(wardNo || '').trim().toUpperCase();
+  if (WARD_COLOR_MAP[wStr]) return WARD_COLOR_MAP[wStr];
+  const num = parseInt(wStr.replace(/[^0-9]/g, ''), 10);
+  if (!isNaN(num)) {
+    const palette = ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#ef4444', '#14b8a6', '#f97316', '#6366f1'];
+    return palette[num % palette.length];
+  }
+  return '#3b82f6';
+}
+
 // Teardrop Pointer SVG Generator matching Sample.pdf and poster maps
 function getTeardropPinSvg(stId, color, size = 18) {
   const w = size;
@@ -3560,10 +3595,7 @@ function renderPsDrawerList() {
   // 3. Render cards with teardrop icons matching Sample.pdf
   DOM.psDrawerList.innerHTML = stations.map(st => {
     const stId = st.master_id || st.station_id;
-    let pinColor = '#10b981';
-    if (String(st.ac_id) === '182') pinColor = '#3b82f6';
-    else if (String(st.ac_id) === '183') pinColor = '#f59e0b';
-    else if (String(st.ac_id) === '184') pinColor = '#ec4899';
+    const pinColor = st.ward_color || getWardColor(st.ward);
 
     return `
       <div class="ps-station-card" data-station-id="${stId}" data-lat="${st.lat}" data-lon="${st.lon}">
@@ -3577,7 +3609,7 @@ function renderPsDrawerList() {
           <div class="ps-card-title">${st.name_hi || st.name_en || 'मतदान केंद्र भवन'}</div>
           <div class="ps-card-sub">
             <span class="ps-card-badge badge-booth">Booth ${st.booth_range || stId}</span>
-            <span class="ps-card-badge">Ward ${st.ward}</span>
+            <span class="ps-card-badge" style="background: ${pinColor}22; color: ${pinColor}; border: 1px solid ${pinColor}66; font-weight: 800;">Ward ${st.ward}</span>
             <span class="ps-card-badge badge-voters">${Number(st.voters || 0).toLocaleString()} Voters</span>
           </div>
         </div>
@@ -3709,17 +3741,16 @@ function renderPollingStationsForCurrentAc() {
 
     const stId = st.master_id || st.station_id || '';
     
-    // Color pin by Assembly or Ward color
-    let pinColor = st.ward_color;
-    if (!pinColor) {
-      if (String(st.ac_id) === '181') pinColor = '#10b981';
-      else if (String(st.ac_id) === '182') pinColor = '#3b82f6';
-      else if (String(st.ac_id) === '183') pinColor = '#f59e0b';
-      else if (String(st.ac_id) === '184') pinColor = '#ec4899';
-      else pinColor = '#6366f1';
-    }
+    // Color teardrop pin by its specific Ward color so every ward has a distinct, uniform teardrop color!
+    const pinColor = st.ward_color || getWardColor(st.ward);
+    const isTargetWard = selectedWardFeature && String(selectedWardFeature).toLowerCase() === String(st.ward || '').toLowerCase();
+    const isFilteredOut = selectedWardFeature && !isTargetWard;
 
-    const markerHtml = `<div class="ps-teardrop-marker" id="pin-${stId}">${getTeardropPinSvg(stId, pinColor, pinSize)}</div>`;
+    const markerHtml = `
+      <div class="ps-teardrop-marker ${isTargetWard ? 'active-ward-pin' : ''} ${isFilteredOut ? 'dimmed-pin' : ''}" id="pin-${stId}">
+        ${getTeardropPinSvg(stId, pinColor, isTargetWard ? 23 : pinSize)}
+      </div>
+    `;
     
     const icon = L.divIcon({
       html: markerHtml,
@@ -3984,6 +4015,33 @@ function renderGeojsonLayers() {
   }
 }
 
+
+function updateWardTeardropHighlight(targetWardNo) {
+  if (!stationMarkersMap || !pollingStationsData) return;
+  const targetStr = String(targetWardNo || '').toLowerCase();
+  
+  const allStations = pollingStationsData.combined || [];
+  allStations.forEach(st => {
+    const stId = st.master_id || st.station_id;
+    const marker = stationMarkersMap[String(stId)];
+    if (!marker) return;
+
+    const el = document.getElementById(`pin-${stId}`);
+    if (el) {
+      const isMatch = targetStr && String(st.ward || '').toLowerCase() === targetStr;
+      if (isMatch) {
+        el.classList.add('active-ward-pin');
+        el.classList.remove('dimmed-pin');
+      } else if (targetStr) {
+        el.classList.remove('active-ward-pin');
+        el.classList.add('dimmed-pin');
+      } else {
+        el.classList.remove('active-ward-pin', 'dimmed-pin');
+      }
+    }
+  });
+}
+
 function selectWardLayer(wardNo, layer, props) {
   selectedWardFeature = wardNo;
 
@@ -4018,6 +4076,7 @@ function selectWardLayer(wardNo, layer, props) {
 
   // Show floating details card
   showWardFloatingCard(props);
+  updateWardTeardropHighlight(wardNo);
 }
 
 function showWardFloatingCard(props) {
@@ -4097,6 +4156,8 @@ function flyToWard(wardNumber) {
 
 function filterMapByAc(acId) {
   currentMapAc = String(acId);
+  selectedWardFeature = null;
+  updateWardTeardropHighlight(null);
 
   // Update pills active state
   if (DOM.mapAcFilterGroup) {
@@ -4326,6 +4387,10 @@ function setupMapSearch() {
           if (marker && patnaMapInstance) {
             patnaMapInstance.flyTo(marker.getLatLng(), 16, { duration: 1.2 });
             setTimeout(() => marker.openPopup(), 1200);
+            const stObj = (pollingStationsData && pollingStationsData.combined || []).find(s => String(s.master_id || s.station_id) === String(id));
+            if (stObj && stObj.ward) {
+              updateWardTeardropHighlight(stObj.ward);
+            }
           }
         }
       });

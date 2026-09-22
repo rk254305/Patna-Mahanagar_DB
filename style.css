@@ -5039,3 +5039,17 @@ body.theme-dark .locality-chip {
   }
 }
 
+
+/* Active Ward Highlight for Polling Station Teardrop Pins */
+.ps-teardrop-marker.active-ward-pin {
+  transform: scale(1.4) translateY(-4px) !important;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.75)) brightness(1.2) !important;
+  z-index: 99999 !important;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.25s ease !important;
+}
+
+.ps-teardrop-marker.dimmed-pin {
+  opacity: 0.28 !important;
+  filter: grayscale(0.4) opacity(0.35) !important;
+  transform: scale(0.85) !important;
+}
