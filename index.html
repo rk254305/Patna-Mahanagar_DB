@@ -240,6 +240,53 @@
                   <i class="fa-solid fa-folder-open"></i> Browse All Reports & Downloads
                 </button>
               </div>
+
+              <!-- Quick Command & Navigation Hub -->
+              <div class="hero-nav-hub">
+                <button class="hero-nav-card" id="heroNavReports">
+                  <div class="hero-nav-icon bg-blue-subtle text-blue">
+                    <i class="fa-solid fa-chart-pie"></i>
+                  </div>
+                  <div class="hero-nav-info">
+                    <h4>IDI Analytics & Reports</h4>
+                    <p>Vidhan Sabha breakdown & team meetings</p>
+                  </div>
+                  <i class="fa-solid fa-chevron-right hero-nav-arrow"></i>
+                </button>
+
+                <button class="hero-nav-card" id="heroNavCouncillors">
+                  <div class="hero-nav-icon bg-amber-subtle text-amber">
+                    <i class="fa-solid fa-users-rectangle"></i>
+                  </div>
+                  <div class="hero-nav-info">
+                    <h4>Ward Councillors (75 Wards)</h4>
+                    <p>2017 & 2022 winners, meetings & onboarding</p>
+                  </div>
+                  <i class="fa-solid fa-chevron-right hero-nav-arrow"></i>
+                </button>
+
+                <button class="hero-nav-card" id="heroNavCoverage">
+                  <div class="hero-nav-icon bg-green-subtle text-green">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                  </div>
+                  <div class="hero-nav-info">
+                    <h4>Today's IDI & Ward Coverage</h4>
+                    <p>किसने कौन सा वार्ड कवर किया & बूथ डेटा</p>
+                  </div>
+                  <i class="fa-solid fa-chevron-right hero-nav-arrow"></i>
+                </button>
+
+                <button class="hero-nav-card hero-nav-card-accent" id="heroNavMap">
+                  <div class="hero-nav-icon bg-purple-subtle text-purple">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                  </div>
+                  <div class="hero-nav-info">
+                    <h4>Interactive Map & Booths</h4>
+                    <p>1,008 Polling stations with teardrop pins</p>
+                  </div>
+                  <i class="fa-solid fa-chevron-right hero-nav-arrow"></i>
+                </button>
+              </div>
             </div>
             
             <div class="hero-stat-pill-group">
@@ -1138,6 +1185,16 @@
               </button>
             </div>
 
+            <!-- Polling Stations Toggle Button -->
+            <button class="btn-map-action active" id="btnTogglePollingStations" title="Toggle Polling Station Markers">
+              <i class="fa-solid fa-person-booth text-amber"></i> Booths (<span id="psCountBadge">1,008</span>)
+            </button>
+
+            <!-- Polling Stations Side Drawer Toggle Button -->
+            <button class="btn-map-action" id="btnTogglePsDrawer" title="Open Assembly Polling Station Drawer">
+              <i class="fa-solid fa-list-ol text-blue"></i> Booths Drawer
+            </button>
+
             <!-- Map Actions -->
             <button class="btn-map-action" id="btnResetMapBounds" title="Reset View to Patna">
               <i class="fa-solid fa-crosshairs"></i> Reset
@@ -1151,6 +1208,50 @@
         <!-- Map Container & Floating Detail Overlay -->
         <div class="map-viewport-wrapper" id="mapViewportWrapper">
           <div id="patnaMap" class="patna-leaflet-map"></div>
+
+          <!-- Dynamic Zoom Notice Badge (Wards vs Booths visibility indicator) -->
+          <div class="map-zoom-status-pill" id="mapZoomStatusPill">
+            <i class="fa-solid fa-magnifying-glass-location"></i>
+            <span id="mapZoomStatusText">Wards View (Zoom in level 14+ for Booths)</span>
+          </div>
+
+          <!-- Polling Stations Side Drawer (by Assembly Constituency) -->
+          <div class="ps-side-drawer" id="psSideDrawer">
+            <div class="ps-drawer-header">
+              <div class="ps-drawer-title">
+                <i class="fa-solid fa-person-booth text-amber"></i>
+                <span>Polling Station Directory</span>
+              </div>
+              <button class="ps-drawer-close" id="closePsDrawerBtn" title="Close Drawer">&times;</button>
+            </div>
+
+            <!-- Assembly Constituency Tabs -->
+            <div class="ps-drawer-ac-tabs" id="psDrawerAcTabs">
+              <button class="ps-ac-tab active" data-ac="181">
+                <span>181 Digha</span> <span class="tab-cnt">310</span>
+              </button>
+              <button class="ps-ac-tab" data-ac="182">
+                <span>182 Bankipur</span> <span class="tab-cnt">126</span>
+              </button>
+              <button class="ps-ac-tab" data-ac="183">
+                <span>183 Kumhrar</span> <span class="tab-cnt">269</span>
+              </button>
+              <button class="ps-ac-tab" data-ac="184">
+                <span>184 Patna Sahib</span> <span class="tab-cnt">303</span>
+              </button>
+            </div>
+
+            <!-- Drawer Quick Search -->
+            <div class="ps-drawer-search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="psDrawerSearchInput" placeholder="Search booth #, building name, ward..." autocomplete="off">
+            </div>
+
+            <!-- Drawer List Container -->
+            <div class="ps-drawer-list" id="psDrawerList">
+              <!-- Populated by JS -->
+            </div>
+          </div>
 
           <!-- Floating Info Card (Shows clicked ward) -->
           <div class="ward-floating-card" id="wardFloatingCard" style="display: none;">
@@ -1195,6 +1296,13 @@
               <span class="legend-item"><span class="legend-color bg-bankipur"></span> 182 Bankipur</span>
               <span class="legend-item"><span class="legend-color bg-kumhrar"></span> 183 Kumhrar</span>
               <span class="legend-item"><span class="legend-color bg-patnasahib"></span> 184 Patna Sahib</span>
+              <span class="legend-item" style="display: inline-flex; align-items: center; gap: 4px;">
+                <svg viewBox="0 0 24 32.2" width="13" height="17" style="vertical-align: middle; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));">
+                  <path d="M12 0C5.373 0 0 5.373 0 12c0 8.5 12 20.2 12 20.2s12-11.7 12-20.2c0-6.627-5.373-12-12-12z" fill="#fbbf24" stroke="#ffffff" stroke-width="1.3"/>
+                  <text x="12" y="11.8" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="7" font-weight="800">#</text>
+                </svg>
+                Polling Station (मतदान केंद्र)
+              </span>
             </div>
           </div>
         </div>
@@ -1545,6 +1653,7 @@
 
   <!-- Preloaded Data -->
   <script src="councillors_data.js"></script>
+  <script src="data/polling_stations_data.js"></script>
 
   <!-- Main JavaScript Logic -->
   <script src="app.js"></script>

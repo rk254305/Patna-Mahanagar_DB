@@ -348,6 +348,8 @@ const DOM = {
   cardViewCouncillorBtn: document.getElementById('cardViewCouncillorBtn'),
   cardZoomWardBtn: document.getElementById('cardZoomWardBtn'),
   mapAcFilterGroup: document.getElementById('mapAcFilterGroup'),
+  btnTogglePollingStations: document.getElementById('btnTogglePollingStations'),
+  psCountBadge: document.getElementById('psCountBadge'),
 
   // Councillor Section Controls & Elements
   exportCouncillorCsvBtn: document.getElementById('exportCouncillorCsvBtn'),
@@ -518,7 +520,23 @@ const DOM = {
   pickerPurpleAccent: document.getElementById('pickerPurpleAccent'),
   codePurpleAccent: document.getElementById('codePurpleAccent'),
   pickerTeaAmber: document.getElementById('pickerTeaAmber'),
-  codeTeaAmber: document.getElementById('codeTeaAmber')
+  codeTeaAmber: document.getElementById('codeTeaAmber'),
+
+  // Hero Quick Navigation Hub
+  heroNavReports: document.getElementById('heroNavReports'),
+  heroNavCouncillors: document.getElementById('heroNavCouncillors'),
+  heroNavCoverage: document.getElementById('heroNavCoverage'),
+  heroNavMap: document.getElementById('heroNavMap'),
+
+  // Map Polling Stations Side Drawer & Zoom Indicator
+  btnTogglePsDrawer: document.getElementById('btnTogglePsDrawer'),
+  closePsDrawerBtn: document.getElementById('closePsDrawerBtn'),
+  psSideDrawer: document.getElementById('psSideDrawer'),
+  psDrawerAcTabs: document.getElementById('psDrawerAcTabs'),
+  psDrawerSearchInput: document.getElementById('psDrawerSearchInput'),
+  psDrawerList: document.getElementById('psDrawerList'),
+  mapZoomStatusPill: document.getElementById('mapZoomStatusPill'),
+  mapZoomStatusText: document.getElementById('mapZoomStatusText')
 };
 
 // ==========================================================================
@@ -3405,6 +3423,323 @@ let wardLayersMap = {}; // key: wardNo (string) -> Leaflet polygon layer
 let baseTileLayers = {};
 let selectedWardFeature = null;
 
+// Polling Stations State
+let pollingStationsData = null;
+let pollingStationsLayerGroup = null;
+let showPollingStations = true;
+let stationMarkersMap = {}; // key: stationId -> Leaflet marker
+
+// Teardrop Pointer SVG Generator matching Sample.pdf and poster maps
+function getTeardropPinSvg(stId, color, size = 18) {
+  const w = size;
+  const h = Math.round(size * 1.34);
+  const fontSize = stId >= 1000 ? 5.6 : (stId >= 100 ? 6.8 : 8.0);
+  return `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 32.2" width="${w}" height="${h}">
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 8.5 12 20.2 12 20.2s12-11.7 12-20.2c0-6.627-5.373-12-12-12z" fill="${color}" stroke="#ffffff" stroke-width="1.3"/>
+      <text x="12" y="11.8" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="${fontSize}" font-weight="800" font-family="'Plus Jakarta Sans', sans-serif">${stId}</text>
+    </svg>
+  `;
+}
+
+function loadAndRenderPollingStations() {
+  if (pollingStationsData) {
+    renderPollingStationsForCurrentAc();
+    return;
+  }
+
+  // Preloaded JS global fallback
+  if (typeof POLLING_STATIONS_DATA !== 'undefined' && POLLING_STATIONS_DATA) {
+    pollingStationsData = POLLING_STATIONS_DATA;
+    renderPollingStationsForCurrentAc();
+    return;
+  }
+
+  fetch('data/polling_stations_data.json')
+    .then(res => {
+      if (!res.ok) throw new Error('Failed to load polling stations data');
+      return res.json();
+    })
+    .then(data => {
+      pollingStationsData = data;
+      renderPollingStationsForCurrentAc();
+    })
+    .catch(err => {
+      console.warn('Polling stations data load warning:', err);
+    });
+}
+
+const BOOTH_ZOOM_THRESHOLD = 13.5;
+let activeDrawerAc = '181'; // Default to 181 Digha
+
+function updateBoothsVisibilityByZoom() {
+  if (!patnaMapInstance || !pollingStationsLayerGroup) return;
+  const currentZoom = patnaMapInstance.getZoom();
+  const shouldShow = currentZoom >= BOOTH_ZOOM_THRESHOLD && showPollingStations;
+
+  if (shouldShow && !patnaMapInstance.hasLayer(pollingStationsLayerGroup)) {
+    patnaMapInstance.addLayer(pollingStationsLayerGroup);
+  } else if (!shouldShow && patnaMapInstance.hasLayer(pollingStationsLayerGroup)) {
+    patnaMapInstance.removeLayer(pollingStationsLayerGroup);
+  }
+
+  // Update zoom status indicator badge
+  if (DOM.mapZoomStatusPill && DOM.mapZoomStatusText) {
+    if (currentZoom >= BOOTH_ZOOM_THRESHOLD) {
+      DOM.mapZoomStatusPill.classList.add('booths-active');
+      DOM.mapZoomStatusText.innerHTML = `<strong>Booths Active</strong> &bull; Level ${Math.round(currentZoom)}`;
+    } else {
+      DOM.mapZoomStatusPill.classList.remove('booths-active');
+      DOM.mapZoomStatusText.innerHTML = `<strong>Wards View</strong> (Zoom in Lv 14+ for Booths)`;
+    }
+  }
+}
+
+function renderPsDrawerList() {
+  if (!DOM.psDrawerList) return;
+  if (!pollingStationsData) {
+    DOM.psDrawerList.innerHTML = '<div style="padding: 24px; text-align: center; color: #94a3b8;"><i class="fa-solid fa-spinner fa-spin"></i> Loading polling booth data...</div>';
+    return;
+  }
+
+  const query = (DOM.psDrawerSearchInput ? DOM.psDrawerSearchInput.value : '').trim().toLowerCase();
+
+  // 1. Filter stations by active assembly
+  const allStations = pollingStationsData.combined || [];
+  let stations = allStations.filter(st => String(st.ac_id) === String(activeDrawerAc));
+
+  // 2. Filter by search query if present
+  if (query) {
+    stations = stations.filter(st => {
+      const stId = String(st.master_id || st.station_id || '');
+      const bRange = String(st.booth_range || '');
+      const ward = String(st.ward || '');
+      const nameHi = String(st.name_hi || '').toLowerCase();
+      const nameEn = String(st.name_en || '').toLowerCase();
+      return stId === query || stId.includes(query) || bRange.includes(query) || ward === query || nameHi.includes(query) || nameEn.includes(query);
+    });
+  }
+
+  if (stations.length === 0) {
+    DOM.psDrawerList.innerHTML = '<div style="padding: 24px 12px; text-align: center; color: #94a3b8; font-size: 0.85rem;">No polling stations match your filter in this assembly.</div>';
+    return;
+  }
+
+  // 3. Render cards with teardrop icons matching Sample.pdf
+  DOM.psDrawerList.innerHTML = stations.map(st => {
+    const stId = st.master_id || st.station_id;
+    let pinColor = '#10b981';
+    if (String(st.ac_id) === '182') pinColor = '#3b82f6';
+    else if (String(st.ac_id) === '183') pinColor = '#f59e0b';
+    else if (String(st.ac_id) === '184') pinColor = '#ec4899';
+
+    return `
+      <div class="ps-station-card" data-station-id="${stId}" data-lat="${st.lat}" data-lon="${st.lon}">
+        <div class="ps-card-pin">
+          <svg viewBox="0 0 24 32.2" width="20" height="27" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));">
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 8.5 12 20.2 12 20.2s12-11.7 12-20.2c0-6.627-5.373-12-12-12z" fill="${pinColor}" stroke="#ffffff" stroke-width="1.3"/>
+            <text x="12" y="11.8" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="${stId >= 1000 ? 5.6 : (stId >= 100 ? 6.8 : 8.0)}" font-weight="800" font-family="'Plus Jakarta Sans', sans-serif">${stId}</text>
+          </svg>
+        </div>
+        <div class="ps-card-info">
+          <div class="ps-card-title">${st.name_hi || st.name_en || 'मतदान केंद्र भवन'}</div>
+          <div class="ps-card-sub">
+            <span class="ps-card-badge badge-booth">Booth ${st.booth_range || stId}</span>
+            <span class="ps-card-badge">Ward ${st.ward}</span>
+            <span class="ps-card-badge badge-voters">${Number(st.voters || 0).toLocaleString()} Voters</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // 4. Click event on card to fly to station
+  DOM.psDrawerList.querySelectorAll('.ps-station-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const stId = card.getAttribute('data-station-id');
+      const lat = parseFloat(card.getAttribute('data-lat'));
+      const lon = parseFloat(card.getAttribute('data-lon'));
+
+      DOM.psDrawerList.querySelectorAll('.ps-station-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+
+      if (lat && lon && patnaMapInstance) {
+        // Fly directly to station coordinates at zoom 16
+        patnaMapInstance.flyTo([lat, lon], 16, { duration: 1.2 });
+
+        // Ensure booths layer is on the map
+        if (pollingStationsLayerGroup && !patnaMapInstance.hasLayer(pollingStationsLayerGroup)) {
+          patnaMapInstance.addLayer(pollingStationsLayerGroup);
+        }
+
+        setTimeout(() => {
+          const marker = stationMarkersMap[String(stId)];
+          if (marker) marker.openPopup();
+        }, 1250);
+      }
+    });
+  });
+}
+
+function setupPsDrawerEvents() {
+  if (DOM.btnTogglePsDrawer && DOM.psSideDrawer) {
+    DOM.btnTogglePsDrawer.addEventListener('click', () => {
+      DOM.psSideDrawer.classList.toggle('open');
+      DOM.btnTogglePsDrawer.classList.toggle('active', DOM.psSideDrawer.classList.contains('open'));
+      renderPsDrawerList();
+    });
+  }
+
+  if (DOM.closePsDrawerBtn && DOM.psSideDrawer) {
+    DOM.closePsDrawerBtn.addEventListener('click', () => {
+      DOM.psSideDrawer.classList.remove('open');
+      if (DOM.btnTogglePsDrawer) DOM.btnTogglePsDrawer.classList.remove('active');
+    });
+  }
+
+  if (DOM.psDrawerAcTabs) {
+    DOM.psDrawerAcTabs.querySelectorAll('.ps-ac-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        DOM.psDrawerAcTabs.querySelectorAll('.ps-ac-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeDrawerAc = tab.getAttribute('data-ac');
+
+        // Sync map filter with selected assembly
+        filterMapByAc(activeDrawerAc);
+        renderPsDrawerList();
+      });
+    });
+  }
+
+  if (DOM.psDrawerSearchInput) {
+    DOM.psDrawerSearchInput.addEventListener('input', () => {
+      renderPsDrawerList();
+    });
+  }
+}
+
+function setupHeroNavEvents() {
+  if (DOM.heroNavReports) {
+    DOM.heroNavReports.addEventListener('click', () => switchView('dashboard'));
+  }
+  if (DOM.heroNavCouncillors) {
+    DOM.heroNavCouncillors.addEventListener('click', () => switchView('councillors'));
+  }
+  if (DOM.heroNavCoverage) {
+    DOM.heroNavCoverage.addEventListener('click', () => {
+      switchView('landing');
+      const target = document.getElementById('boothsWardsSection');
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+  if (DOM.heroNavMap) {
+    DOM.heroNavMap.addEventListener('click', () => {
+      switchView('map');
+      if (DOM.psSideDrawer) {
+        DOM.psSideDrawer.classList.add('open');
+        if (DOM.btnTogglePsDrawer) DOM.btnTogglePsDrawer.classList.add('active');
+      }
+      setTimeout(() => {
+        renderPsDrawerList();
+        if (patnaMapInstance) patnaMapInstance.invalidateSize();
+      }, 250);
+    });
+  }
+}
+
+function renderPollingStationsForCurrentAc() {
+  if (!pollingStationsData || !patnaMapInstance) return;
+
+  if (!pollingStationsLayerGroup) {
+    pollingStationsLayerGroup = L.layerGroup();
+  } else {
+    pollingStationsLayerGroup.clearLayers();
+  }
+
+  stationMarkersMap = {};
+  const allStations = pollingStationsData.combined || [];
+  let filtered = allStations;
+
+  if (currentMapAc !== 'all') {
+    filtered = allStations.filter(st => String(st.ac_id) === String(currentMapAc));
+  }
+
+  if (DOM.psCountBadge) {
+    DOM.psCountBadge.textContent = filtered.length.toLocaleString();
+  }
+
+  const pinSize = 19;
+  const pinW = pinSize;
+  const pinH = Math.round(pinSize * 1.34);
+
+  filtered.forEach(st => {
+    if (!st.lat || !st.lon) return;
+
+    const stId = st.master_id || st.station_id || '';
+    
+    // Color pin by Assembly or Ward color
+    let pinColor = st.ward_color;
+    if (!pinColor) {
+      if (String(st.ac_id) === '181') pinColor = '#10b981';
+      else if (String(st.ac_id) === '182') pinColor = '#3b82f6';
+      else if (String(st.ac_id) === '183') pinColor = '#f59e0b';
+      else if (String(st.ac_id) === '184') pinColor = '#ec4899';
+      else pinColor = '#6366f1';
+    }
+
+    const markerHtml = `<div class="ps-teardrop-marker" id="pin-${stId}">${getTeardropPinSvg(stId, pinColor, pinSize)}</div>`;
+    
+    const icon = L.divIcon({
+      html: markerHtml,
+      className: '',
+      iconSize: [pinW, pinH],
+      iconAnchor: [pinW / 2, pinH],
+      popupAnchor: [0, -pinH]
+    });
+
+    const marker = L.marker([st.lat, st.lon], { icon: icon });
+
+    marker.bindTooltip(`
+      <div style="font-weight: 800; font-size: 12px;">📍 Station #${stId}: ${st.name_hi || st.name_en || ''}</div>
+      <div style="font-size: 11px; color: #cbd5e1;">Booth(s): ${st.booth_range || stId} &bull; Ward ${st.ward} (${st.ac_name || ''})</div>
+    `, {
+      direction: 'top',
+      offset: [0, -pinH]
+    });
+
+    const popupHtml = `
+      <div class="map-popup-header">
+        <div class="map-popup-title" style="font-size: 0.95rem; color: #fff;">
+          <span style="color: ${pinColor}; font-size: 1.1rem;">📍</span> ${st.name_hi || 'मतदान केंद्र'}
+        </div>
+        <div class="map-popup-ac">${st.ac_name || ''} (${st.ac_id || ''}) &bull; Municipal Ward ${st.ward || ''}</div>
+      </div>
+      <div class="map-popup-stats" style="margin-top: 8px;">
+        <div style="margin-bottom: 4px;"><strong>Station No:</strong> <span style="color: #fbbf24; font-weight: 800; font-size: 1rem;">#${stId}</span></div>
+        <div style="margin-bottom: 4px;"><strong>Assigned Booths:</strong> <span style="color: #60a5fa; font-weight: 700;">${st.booth_range || stId}</span></div>
+        <div style="margin-bottom: 4px;"><strong>Total Voters:</strong> <span style="font-weight: 700;">${Number(st.voters || 0).toLocaleString()}</span></div>
+        ${st.name_en ? `<div style="font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">Locality / Area: ${st.name_en}</div>` : ''}
+      </div>
+      <div class="map-popup-actions" style="margin-top: 10px;">
+        <a href="https://www.google.com/maps/search/?api=1&query=${st.lat},${st.lon}" target="_blank" class="btn btn-xs btn-outline" style="text-decoration: none;">
+          <i class="fa-solid fa-diamond-turn-right"></i> Navigate Directions
+        </a>
+      </div>
+    `;
+
+    marker.bindPopup(popupHtml, { maxWidth: 320 });
+
+    stationMarkersMap[String(stId)] = marker;
+    pollingStationsLayerGroup.addLayer(marker);
+  });
+
+  // Apply zoom culling so low zoom never lags!
+  updateBoothsVisibilityByZoom();
+
+  // Also update drawer list
+  renderPsDrawerList();
+}
+
 const AC_META_CONFIG = {
   all: { name: 'All Patna (75 Wards)', color: '#6366f1', bounds: [[25.53, 85.02], [25.68, 85.28]] },
   '181': { name: '181 - Digha', color: '#10b981', filter: 'digha', acNo: '181' },
@@ -3434,32 +3769,33 @@ function getWardStyle(feature, isSelected = false) {
   if (isSelected) {
     return {
       fillColor: baseColor,
-      weight: 3.5,
+      weight: 3,
       opacity: 1,
-      color: '#ffffff',
-      fillOpacity: 0.65,
+      color: '#0284c7',
+      fillOpacity: 0.16,
       dashArray: ''
     };
   }
 
   if (isDimmed) {
     return {
-      fillColor: '#64748b',
+      fillColor: '#94a3b8',
       weight: 1,
-      opacity: 0.4,
-      color: '#475569',
-      fillOpacity: 0.1,
-      dashArray: '2'
+      opacity: 0.35,
+      color: '#94a3b8',
+      fillOpacity: 0.02,
+      dashArray: '2, 3'
     };
   }
 
+  // Clean ward boundary outline - streets, roads & places stay completely visible!
   return {
     fillColor: baseColor,
-    weight: 1.5,
-    opacity: 0.9,
-    color: '#ffffff',
-    fillOpacity: 0.28,
-    dashArray: '2'
+    weight: 1.6,
+    opacity: 0.85,
+    color: '#334155',
+    fillOpacity: 0.04,
+    dashArray: '4, 2'
   };
 }
 
@@ -3514,6 +3850,10 @@ function initOrUpdatePatnaMap() {
     // Setup Toolbar Events
     setupMapToolbarEvents();
     setupMapSearch();
+    setupPsDrawerEvents();
+
+    // Zoom listener for zero-lag booth visibility culling
+    patnaMapInstance.on('zoomend', updateBoothsVisibilityByZoom);
   }
 
   // Load GeoJSON Data if not already loaded
@@ -3533,6 +3873,9 @@ function initOrUpdatePatnaMap() {
   } else {
     renderGeojsonLayers();
   }
+
+  // Load Polling Stations with Teardrop Markers
+  loadAndRenderPollingStations();
 
   // Invalidate size for proper display
   setTimeout(() => {
@@ -3577,10 +3920,10 @@ function renderGeojsonLayers() {
           const l = e.target;
           if (selectedWardFeature !== p.ward) {
             l.setStyle({
-              weight: 3,
-              color: '#ffffff',
+              weight: 2.6,
+              color: '#0284c7',
               dashArray: '',
-              fillOpacity: 0.55
+              fillOpacity: 0.1
             });
             if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
               l.bringToFront();
@@ -3763,6 +4106,9 @@ function filterMapByAc(acId) {
       padding: [30, 30]
     });
   }
+
+  // Re-filter polling stations to current constituency
+  renderPollingStationsForCurrentAc();
 }
 
 function switchMapBaseLayer(layerType) {
@@ -3831,6 +4177,21 @@ function setupMapToolbarEvents() {
     });
   }
 
+  // Polling Stations Toggle Button
+  if (DOM.btnTogglePollingStations) {
+    DOM.btnTogglePollingStations.addEventListener('click', () => {
+      showPollingStations = !showPollingStations;
+      DOM.btnTogglePollingStations.classList.toggle('active', showPollingStations);
+      if (pollingStationsLayerGroup && patnaMapInstance) {
+        if (showPollingStations) {
+          patnaMapInstance.addLayer(pollingStationsLayerGroup);
+        } else {
+          patnaMapInstance.removeLayer(pollingStationsLayerGroup);
+        }
+      }
+    });
+  }
+
   // Close floating ward card
   if (DOM.closeWardCardBtn && DOM.wardFloatingCard) {
     DOM.closeWardCardBtn.addEventListener('click', () => {
@@ -3850,46 +4211,91 @@ function setupMapSearch() {
 
   input.addEventListener('input', (e) => {
     const q = e.target.value.trim().toLowerCase();
-    if (!q || !patnaGeojsonData) {
+    if (!q) {
       dropdown.style.display = 'none';
       dropdown.innerHTML = '';
       return;
     }
 
-    const matches = patnaGeojsonData.features.filter(f => {
-      const p = f.properties || {};
-      const wMatch = String(p.ward).toLowerCase().includes(q);
-      const aMatch = String(p.area || '').toLowerCase().includes(q);
-      const acMatch = String(p.primary_ac || '').toLowerCase().includes(q);
-      return wMatch || aMatch || acMatch;
-    }).slice(0, 10);
+    let resultsHtml = '';
 
-    if (matches.length === 0) {
-      dropdown.innerHTML = '<div style="padding: 10px; font-size: 12px; color: #94a3b8; text-align: center;">No matching ward found</div>';
+    // 1. Search Wards
+    if (patnaGeojsonData) {
+      const wardMatches = patnaGeojsonData.features.filter(f => {
+        const p = f.properties || {};
+        const wMatch = String(p.ward).toLowerCase() === q || String(p.ward).toLowerCase().includes(q);
+        const aMatch = String(p.area || '').toLowerCase().includes(q);
+        const acMatch = String(p.primary_ac || '').toLowerCase().includes(q);
+        return wMatch || aMatch || acMatch;
+      }).slice(0, 6);
+
+      if (wardMatches.length > 0) {
+        resultsHtml += '<div style="padding: 4px 10px; font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; background: rgba(0,0,0,0.2);">Municipal Wards</div>';
+        resultsHtml += wardMatches.map(f => {
+          const p = f.properties;
+          return `
+            <div class="map-search-item" data-type="ward" data-id="${p.ward}">
+              <div>
+                <strong>Ward ${p.ward}</strong> &bull; <span>${p.area || ''}</span>
+              </div>
+              <span style="font-size: 11px; opacity: 0.75;">${p.primary_ac || ''}</span>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    // 2. Search Polling Stations
+    if (pollingStationsData && pollingStationsData.combined) {
+      const psMatches = pollingStationsData.combined.filter(st => {
+        const idMatch = String(st.master_id || st.station_id) === q || `station ${st.master_id}`.includes(q) || `booth ${st.booth_range}`.includes(q);
+        const nameHiMatch = String(st.name_hi || '').toLowerCase().includes(q);
+        const nameEnMatch = String(st.name_en || '').toLowerCase().includes(q);
+        return idMatch || nameHiMatch || nameEnMatch;
+      }).slice(0, 6);
+
+      if (psMatches.length > 0) {
+        resultsHtml += '<div style="padding: 4px 10px; font-size: 10px; font-weight: 800; color: #fbbf24; text-transform: uppercase; background: rgba(0,0,0,0.2);">Polling Stations (मतदान केंद्र)</div>';
+        resultsHtml += psMatches.map(st => {
+          const stId = st.master_id || st.station_id;
+          return `
+            <div class="map-search-item" data-type="station" data-id="${stId}">
+              <div>
+                <strong style="color: #fbbf24;">📍 #${stId}</strong> &bull; <span>${st.name_hi || st.name_en || ''}</span>
+              </div>
+              <span style="font-size: 11px; opacity: 0.75;">Booth ${st.booth_range || stId} (${st.ac_name || ''})</span>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    if (!resultsHtml) {
+      dropdown.innerHTML = '<div style="padding: 10px; font-size: 12px; color: #94a3b8; text-align: center;">No matching ward or polling station found</div>';
       dropdown.style.display = 'block';
       return;
     }
 
-    dropdown.innerHTML = matches.map(f => {
-      const p = f.properties;
-      return `
-        <div class="map-search-item" data-ward="${p.ward}">
-          <div>
-            <strong>Ward ${p.ward}</strong> &bull; <span>${p.area || ''}</span>
-          </div>
-          <span style="font-size: 11px; opacity: 0.75;">${p.primary_ac || ''}</span>
-        </div>
-      `;
-    }).join('');
-
+    dropdown.innerHTML = resultsHtml;
     dropdown.style.display = 'block';
 
     dropdown.querySelectorAll('.map-search-item').forEach(item => {
       item.addEventListener('click', () => {
-        const wardNo = item.getAttribute('data-ward');
-        input.value = `Ward ${wardNo}`;
+        const type = item.getAttribute('data-type');
+        const id = item.getAttribute('data-id');
         dropdown.style.display = 'none';
-        flyToWard(wardNo);
+
+        if (type === 'ward') {
+          input.value = `Ward ${id}`;
+          flyToWard(id);
+        } else if (type === 'station') {
+          input.value = `Station #${id}`;
+          const marker = stationMarkersMap[String(id)];
+          if (marker && patnaMapInstance) {
+            patnaMapInstance.flyTo(marker.getLatLng(), 16, { duration: 1.2 });
+            setTimeout(() => marker.openPopup(), 1200);
+          }
+        }
       });
     });
   });
@@ -3950,6 +4356,7 @@ window.addEventListener('DOMContentLoaded', () => {
   updateLastSyncTimeText();
   setupModals();
   setupEventListeners();
+  setupHeroNavEvents();
   startAutoRefreshLoop();
 
   if (viewParam === 'search' || queryParam) {
