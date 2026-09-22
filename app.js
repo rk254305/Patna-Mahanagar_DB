@@ -9,25 +9,61 @@
 
 const SHEET_ENDPOINTS = {
   summary: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?output=csv",
-  rawLeaders: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=0&single=true&output=csv",
+  eodReport: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=189369055&single=true&output=csv",
+  teamWise: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=985916723&single=true&output=csv",
   wardWise: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=2097996904&single=true&output=csv",
   wardCouncillors: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=2143900618&single=true&output=csv",
+  mayorDeputyMayor: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=2611931&single=true&output=csv",
+  compiledLeaders: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=1138376455&single=true&output=csv",
+  accRegistration: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=173355149&single=true&output=csv",
+  sangathanData: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=1363872724&single=true&output=csv",
   wardBooths: "https://docs.google.com/spreadsheets/d/1qRCpiL9xo7SBgVXirbPbNHRJ5cQaIntPss7F9dTPbvI/export?format=csv&gid=603975213"
 };
 
 const DEFAULT_REPORTS = [
   {
+    id: "eod_daily",
+    category: "daily",
+    name: "Daily POC wise IDI Performance Report (22nd Sept 2026)",
+    shortName: "Daily EOD (22 Sept)",
+    isEOD: true,
+    date: "22/09/2026",
+    meetingStatus: { political: 4, nonPolitical: 8 },
+    onboardingStatus: { onboarded: 8, dicey: 4, notOnboarded: 0 },
+    pkIntervention: { yes: 1, no: 11 },
+    hostPKTea: { yes: 1, no: 11 },
+    committeeRec: { state: 0, district: 2, ward: 10 },
+    pocRows: [
+      { team: "Digha - 181(Team 1)", poc: "Mehtab", ward: "-", total: 0, pol: 0, nonPol: 0, onboarded: 0, dicey: 0, notOnb: 0, pk: 0, tea: 0, recWard: 0, newLeader: 0, oldLeader: 0 },
+      { team: "Digha - 181(Team 1)", poc: "Gautam", ward: "55", total: 2, pol: 1, nonPol: 1, onboarded: 2, dicey: 0, notOnb: 0, pk: 0, tea: 0, recWard: 2, newLeader: 2, oldLeader: 0 },
+      { team: "Digha - 181(Team 1)", poc: "Sapna", ward: "6", total: 1, pol: 0, nonPol: 1, onboarded: 1, dicey: 0, notOnb: 0, pk: 0, tea: 0, recWard: 1, newLeader: 1, oldLeader: 0 },
+      { team: "Digha - 181(Team 2)", poc: "Abhishek Kumar", ward: "-", total: 0, pol: 0, nonPol: 0, onboarded: 0, dicey: 0, notOnb: 0, pk: 0, tea: 0, recWard: 0, newLeader: 0, oldLeader: 0 },
+      { team: "Digha - 181(Team 2)", poc: "Reshu Rani", ward: "48, 33, 9", total: 5, pol: 0, nonPol: 5, onboarded: 2, dicey: 3, notOnb: 0, pk: 0, tea: 0, recWard: 5, newLeader: 5, oldLeader: 0 },
+      { team: "Kumhrar - 183(Team 1)", poc: "Saurabh", ward: "-", total: 0, pol: 0, nonPol: 0, onboarded: 0, dicey: 0, notOnb: 0, pk: 0, tea: 0, recWard: 0, newLeader: 0, oldLeader: 0 },
+      { team: "Kumhrar - 183(Team 1)", poc: "Roshan", ward: "-", total: 0, pol: 0, nonPol: 0, onboarded: 0, dicey: 0, notOnb: 0, pk: 0, tea: 0, recWard: 0, newLeader: 0, oldLeader: 0 },
+      { team: "Kumhrar - 183(Team 1)", poc: "Richa Thakur", ward: "-", total: 0, pol: 0, nonPol: 0, onboarded: 0, dicey: 0, notOnb: 0, pk: 0, tea: 0, recWard: 0, newLeader: 0, oldLeader: 0 },
+      { team: "Patna Sahib - 184(Team 1)", poc: "Shubham", ward: "41", total: 1, pol: 1, nonPol: 0, onboarded: 1, dicey: 0, notOnb: 0, pk: 1, tea: 1, recWard: 0, newLeader: 1, oldLeader: 0 },
+      { team: "Patna Sahib - 184(Team 1)", poc: "Kunwar Mayank", ward: "42, 41", total: 2, pol: 1, nonPol: 1, onboarded: 2, dicey: 0, notOnb: 0, pk: 0, tea: 0, recWard: 2, newLeader: 2, oldLeader: 0 },
+      { team: "Patna Sahib - 184(Team 1)", poc: "Shabnam Kumari", ward: "-", total: 0, pol: 0, nonPol: 0, onboarded: 0, dicey: 0, notOnb: 0, pk: 0, tea: 0, recWard: 0, newLeader: 0, oldLeader: 0 },
+      { team: "Patna Sahib - 184(Team 2)", poc: "Imtiyaz", ward: "-", total: 0, pol: 0, nonPol: 0, onboarded: 0, dicey: 0, notOnb: 0, pk: 0, tea: 0, recWard: 0, newLeader: 0, oldLeader: 0 },
+      { team: "Patna Sahib - 184(Team 2)", poc: "Vicky", ward: "-", total: 0, pol: 0, nonPol: 0, onboarded: 0, dicey: 0, notOnb: 0, pk: 0, tea: 0, recWard: 0, newLeader: 0, oldLeader: 0 },
+      { team: "Patna Sahib - 184(Team 2)", poc: "Sadaf", ward: "42", total: 1, pol: 1, nonPol: 0, onboarded: 0, dicey: 1, notOnb: 0, pk: 0, tea: 0, recWard: 0, newLeader: 0, oldLeader: 1 }
+    ]
+  },
+  {
     id: "patna_overall",
+    category: "executive",
     name: "Patna Mahanagar Team Overall IDI's",
     shortName: "Patna Mahanagar (Overall)",
-    meetingStatus: { political: 382, nonPolitical: 503 },
-    onboardingStatus: { onboarded: 681, dicey: 154, notOnboarded: 51 },
-    pkIntervention: { yes: 210, no: 243 },
-    hostPKTea: { yes: 206, no: 311 },
-    committeeRec: { state: 3, district: 39, ward: 466 }
+    meetingStatus: { political: 412, nonPolitical: 575 },
+    onboardingStatus: { onboarded: 764, dicey: 171, notOnboarded: 52 },
+    pkIntervention: { yes: 216, no: 614 },
+    hostPKTea: { yes: 206, no: 147 },
+    committeeRec: { state: 4, district: 41, ward: 550 }
   },
   {
     id: "mahila_team",
+    category: "executive",
     name: "Mahila Team Overall IDI's",
     shortName: "Mahila Team (Women Leadership)",
     meetingStatus: { political: 64, nonPolitical: 169 },
@@ -37,67 +73,98 @@ const DEFAULT_REPORTS = [
     committeeRec: { state: 0, district: 0, ward: 186 }
   },
   {
-    id: "patna_team_report",
-    name: "Patna Mahanagar Team Overall IDI's Report",
-    shortName: "Patna Mahanagar (Team Report)",
-    meetingStatus: { political: 318, nonPolitical: 334 },
-    onboardingStatus: { onboarded: 460, dicey: 146, notOnboarded: 48 },
-    pkIntervention: { yes: 155, no: 71 },
-    hostPKTea: { yes: 187, no: 103 },
-    committeeRec: { state: 3, district: 39, ward: 280 }
-  },
-  {
-    id: "kumhrar_team1",
-    name: "Kumhrar - 183 (Team 1)",
-    shortName: "183 - Kumhrar (Team 1)",
-    meetingStatus: { political: 65, nonPolitical: 57 },
-    onboardingStatus: { onboarded: 103, dicey: 13, notOnboarded: 7 },
-    pkIntervention: { yes: 32, no: 11 },
-    hostPKTea: { yes: 74, no: 15 },
-    committeeRec: { state: 0, district: 3, ward: 43 }
+    id: "team_wise_summary",
+    category: "executive",
+    name: "Patna Mahanagar - Team Wise Consolidated Summary",
+    shortName: "Team Wise Consolidated",
+    meetingStatus: { political: 348, nonPolitical: 409 },
+    onboardingStatus: { onboarded: 546, dicey: 162, notOnboarded: 49 },
+    pkIntervention: { yes: 159, no: 441 },
+    hostPKTea: { yes: 189, no: 147 },
+    committeeRec: { state: 4, district: 41, ward: 366 }
   },
   {
     id: "digha_team1",
-    name: "Digha - 181 (Team 1)",
+    category: "assembly",
+    name: "181 - Digha Assembly (Team 1)",
     shortName: "181 - Digha (Team 1)",
-    meetingStatus: { political: 46, nonPolitical: 40 },
-    onboardingStatus: { onboarded: 71, dicey: 15, notOnboarded: 0 },
-    pkIntervention: { yes: 19, no: 13 },
-    hostPKTea: { yes: 39, no: 35 },
-    committeeRec: { state: 2, district: 9, ward: 57 }
+    meetingStatus: { political: 83, nonPolitical: 84 },
+    onboardingStatus: { onboarded: 141, dicey: 21, notOnboarded: 5 },
+    pkIntervention: { yes: 17, no: 116 },
+    hostPKTea: { yes: 69, no: 42 },
+    committeeRec: { state: 2, district: 14, ward: 130 }
   },
   {
     id: "digha_team2",
-    name: "Digha - 181 (Team 2)",
+    category: "assembly",
+    name: "181 - Digha Assembly (Team 2)",
     shortName: "181 - Digha (Team 2)",
-    meetingStatus: { political: 68, nonPolitical: 74 },
-    onboardingStatus: { onboarded: 94, dicey: 26, notOnboarded: 23 },
-    pkIntervention: { yes: 21, no: 2 },
-    hostPKTea: { yes: 12, no: 3 },
-    committeeRec: { state: 0, district: 9, ward: 85 }
+    meetingStatus: { political: 51, nonPolitical: 65 },
+    onboardingStatus: { onboarded: 75, dicey: 22, notOnboarded: 19 },
+    pkIntervention: { yes: 20, no: 69 },
+    hostPKTea: { yes: 12, no: 4 },
+    committeeRec: { state: 0, district: 7, ward: 72 }
   },
   {
-    id: "patnasahib_team2",
-    name: "Patna Sahib - 184 (Team 2)",
-    shortName: "184 - Patna Sahib (Team 2)",
-    meetingStatus: { political: 78, nonPolitical: 120 },
-    onboardingStatus: { onboarded: 128, dicey: 57, notOnboarded: 13 },
-    pkIntervention: { yes: 21, no: 15 },
-    hostPKTea: { yes: 9, no: 5 },
-    committeeRec: { state: 0, district: 1, ward: 51 }
+    id: "bankipur_team1",
+    category: "assembly",
+    name: "182 - Bankipur Assembly",
+    shortName: "182 - Bankipur",
+    meetingStatus: { political: 20, nonPolitical: 36 },
+    onboardingStatus: { onboarded: 45, dicey: 11, notOnboarded: 0 },
+    pkIntervention: { yes: 5, no: 34 },
+    hostPKTea: { yes: 9, no: 9 },
+    committeeRec: { state: 1, district: 3, ward: 20 }
+  },
+  {
+    id: "kumhrar_team1",
+    category: "assembly",
+    name: "183 - Kumhrar Assembly (Team 1)",
+    shortName: "183 - Kumhrar (Team 1)",
+    meetingStatus: { political: 51, nonPolitical: 52 },
+    onboardingStatus: { onboarded: 79, dicey: 17, notOnboarded: 7 },
+    pkIntervention: { yes: 30, no: 58 },
+    hostPKTea: { yes: 42, no: 20 },
+    committeeRec: { state: 0, district: 1, ward: 28 }
   },
   {
     id: "patnasahib_team1",
-    name: "Patna Sahib - 184 (Team 1)",
+    category: "assembly",
+    name: "184 - Patna Sahib Assembly (Team 1)",
     shortName: "184 - Patna Sahib (Team 1)",
-    meetingStatus: { political: 60, nonPolitical: 38 },
-    onboardingStatus: { onboarded: 59, dicey: 34, notOnboarded: 5 },
-    pkIntervention: { yes: 60, no: 26 },
-    hostPKTea: { yes: 53, no: 39 },
-    committeeRec: { state: 1, district: 17, ward: 44 }
+    meetingStatus: { political: 91, nonPolitical: 111 },
+    onboardingStatus: { onboarded: 130, dicey: 58, notOnboarded: 14 },
+    pkIntervention: { yes: 51, no: 102 },
+    hostPKTea: { yes: 41, no: 53 },
+    committeeRec: { state: 1, district: 8, ward: 85 }
+  },
+  {
+    id: "patnasahib_team2",
+    category: "assembly",
+    name: "184 - Patna Sahib Assembly (Team 2)",
+    shortName: "184 - Patna Sahib (Team 2)",
+    meetingStatus: { political: 51, nonPolitical: 62 },
+    onboardingStatus: { onboarded: 76, dicey: 33, notOnboarded: 4 },
+    pkIntervention: { yes: 27, no: 66 },
+    hostPKTea: { yes: 14, no: 9 },
+    committeeRec: { state: 0, district: 8, ward: 31 }
+  },
+  {
+    id: "mayor_deputy_mayor",
+    category: "leadership",
+    name: "Mayor & Deputy Mayor Performance Status",
+    shortName: "Mayor / Deputy Mayor",
+    isMayor: true,
+    totalPool: 48,
+    meetingStatus: { completed: 8, remaining: 40, met: 8, notMet: 40, political: 8, nonPolitical: 40 },
+    onboardingStatus: { onboarded: 2, dicey: 2, notOnboarded: 4 },
+    pkIntervention: { yes: 4, no: 2 },
+    hostPKTea: { yes: 2, no: 4 },
+    committeeRec: { state: 0, district: 2, ward: 4 }
   },
   {
     id: "councillors_2022",
+    category: "leadership",
     name: "Ward Councillors 2022 (Winners & Runner Ups)",
     shortName: "Ward Councillors (2022)",
     isCouncillor: true,
@@ -110,6 +177,7 @@ const DEFAULT_REPORTS = [
   },
   {
     id: "councillors_2017",
+    category: "leadership",
     name: "Ward Councillors 2017 (Winners & Runner Ups)",
     shortName: "Ward Councillors (2017)",
     isCouncillor: true,
@@ -119,6 +187,18 @@ const DEFAULT_REPORTS = [
     pkIntervention: { yes: 28, no: 15 },
     hostPKTea: { yes: 13, no: 19 },
     committeeRec: { state: 0, district: 5, ward: 45 }
+  },
+  {
+    id: "acc_registration",
+    category: "leadership",
+    name: "ACC Physical Registration (Prominent Leadership Pool)",
+    shortName: "ACC Physical Registration",
+    totalPool: 206,
+    meetingStatus: { political: 52, nonPolitical: 85 },
+    onboardingStatus: { onboarded: 42, dicey: 18, notOnboarded: 146 },
+    pkIntervention: { yes: 26, no: 34 },
+    hostPKTea: { yes: 31, no: 22 },
+    committeeRec: { state: 2, district: 12, ward: 28 }
   }
 ];
 
@@ -687,13 +767,45 @@ function populateReportSelectors() {
   if (!DOM.reportSelect) return;
   DOM.reportSelect.innerHTML = '';
 
-  AppState.reports.forEach(r => {
-    const opt = document.createElement('option');
-    opt.value = r.id;
-    opt.textContent = r.name;
-    if (r.id === AppState.activeReportId) opt.selected = true;
-    DOM.reportSelect.appendChild(opt);
+  const groups = [
+    { label: "⚡ Daily Field Tracking (EOD)", filter: r => r.category === 'daily' || r.id === 'eod_daily' || r.isEOD },
+    { label: "📊 Strategic & Executive Overviews", filter: r => r.category === 'executive' || ['patna_overall', 'mahila_team', 'team_wise_summary'].includes(r.id) },
+    { label: "🏛️ Vidhan Sabha Assembly Teams", filter: r => r.category === 'assembly' || r.id.includes('team') || r.id.includes('digha') || r.id.includes('bankipur') || r.id.includes('kumhrar') || r.id.includes('patnasahib') },
+    { label: "👑 Civic & Local Leadership", filter: r => r.category === 'leadership' || r.isMayor || r.isCouncillor || r.id.includes('councillor') || r.id.includes('mayor') || r.id.includes('acc') }
+  ];
+
+  const addedIds = new Set();
+  groups.forEach(g => {
+    const matched = AppState.reports.filter(r => !addedIds.has(r.id) && g.filter(r));
+    if (matched.length > 0) {
+      const optgroup = document.createElement('optgroup');
+      optgroup.label = g.label;
+      matched.forEach(r => {
+        addedIds.add(r.id);
+        const opt = document.createElement('option');
+        opt.value = r.id;
+        opt.textContent = r.name;
+        if (r.id === AppState.activeReportId) opt.selected = true;
+        optgroup.appendChild(opt);
+      });
+      DOM.reportSelect.appendChild(optgroup);
+    }
   });
+
+  // Any remaining
+  const remaining = AppState.reports.filter(r => !addedIds.has(r.id));
+  if (remaining.length > 0) {
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = "📁 Other Reports";
+    remaining.forEach(r => {
+      const opt = document.createElement('option');
+      opt.value = r.id;
+      opt.textContent = r.name;
+      if (r.id === AppState.activeReportId) opt.selected = true;
+      optgroup.appendChild(opt);
+    });
+    DOM.reportSelect.appendChild(optgroup);
+  }
 }
 
 // ==========================================================================
@@ -1086,53 +1198,122 @@ function renderDrawerReports(searchQuery = '') {
   DOM.drawerReportsList.innerHTML = '';
   const query = searchQuery.trim().toLowerCase();
 
-  const filtered = AppState.reports.filter(r => r.name.toLowerCase().includes(query) || r.shortName.toLowerCase().includes(query));
+  const filtered = AppState.reports.filter(r => r.name.toLowerCase().includes(query) || (r.shortName && r.shortName.toLowerCase().includes(query)));
   if (DOM.drawerReportsCount) DOM.drawerReportsCount.textContent = filtered.length;
 
-  filtered.forEach(r => {
-    const repMeetings = (Number(r.meetingStatus.political) || 0) + (Number(r.meetingStatus.nonPolitical) || 0);
-    const card = document.createElement('div');
-    card.className = `drawer-report-card ${r.id === AppState.activeReportId ? 'active' : ''}`;
-    
-    let iconClass = 'fa-solid fa-landmark';
-    let iconBg = 'bg-blue-subtle text-blue';
-    
-    if (r.id === 'patna_overall') {
-      iconClass = 'fa-solid fa-chart-pie';
-      iconBg = 'bg-blue-subtle text-blue';
-    } else if (r.id === 'mahila_team') {
-      iconClass = 'fa-solid fa-person-dress';
-      iconBg = 'bg-purple-subtle text-purple';
-    } else if (r.name.includes('181') || r.name.toLowerCase().includes('digha')) {
-      iconClass = 'fa-solid fa-city';
-      iconBg = 'bg-green-subtle text-green';
-    } else if (r.name.includes('183') || r.name.toLowerCase().includes('kumhrar')) {
-      iconClass = 'fa-solid fa-landmark';
-      iconBg = 'bg-purple-subtle text-purple';
-    } else if (r.name.includes('184') || r.name.toLowerCase().includes('patna sahib')) {
-      iconClass = 'fa-solid fa-monument';
-      iconBg = 'bg-orange-subtle text-orange';
+  const categories = [
+    { title: "⚡ Today's Field Intelligence (EOD)", icon: "fa-bolt text-amber", filter: r => r.category === 'daily' || r.id === 'eod_daily' || r.isEOD },
+    { title: "📊 Executive & Strategic Overviews", icon: "fa-chart-pie text-blue", filter: r => r.category === 'executive' || ['patna_overall', 'mahila_team', 'team_wise_summary'].includes(r.id) },
+    { title: "🏛️ Assembly Constituency Teams", icon: "fa-city text-green", filter: r => r.category === 'assembly' || r.id.includes('team') || r.id.includes('digha') || r.id.includes('bankipur') || r.id.includes('kumhrar') || r.id.includes('patnasahib') },
+    { title: "👑 Civic & Grassroots Leadership", icon: "fa-crown text-purple", filter: r => r.category === 'leadership' || r.isMayor || r.isCouncillor || r.id.includes('councillor') || r.id.includes('mayor') || r.id.includes('acc') }
+  ];
+
+  const renderedIds = new Set();
+  categories.forEach(cat => {
+    const list = filtered.filter(r => !renderedIds.has(r.id) && cat.filter(r));
+    if (list.length > 0) {
+      const header = document.createElement('div');
+      header.className = 'drawer-category-header';
+      header.innerHTML = `<i class="fa-solid ${cat.icon}"></i> <span>${cat.title} (${list.length})</span>`;
+      DOM.drawerReportsList.appendChild(header);
+
+      list.forEach(r => {
+        renderedIds.add(r.id);
+        const repMeetings = (Number(r.meetingStatus.political) || 0) + (Number(r.meetingStatus.nonPolitical) || 0);
+        const repOnb = Number(r.onboardingStatus.onboarded) || 0;
+        const repDicey = Number(r.onboardingStatus.dicey) || 0;
+        const repNotOnb = Number(r.onboardingStatus.notOnboarded) || 0;
+        const repTotalOnb = repOnb + repDicey + repNotOnb;
+        const repOnbPct = repTotalOnb > 0 ? Math.round((repOnb / repTotalOnb) * 100) : 0;
+
+        const card = document.createElement('div');
+        card.className = `drawer-report-card ${r.id === AppState.activeReportId ? 'active' : ''}`;
+        
+        let iconClass = 'fa-solid fa-landmark';
+        let iconBg = 'bg-blue-subtle text-blue';
+        
+        if (r.id === 'eod_daily' || r.isEOD) {
+          iconClass = 'fa-solid fa-bolt';
+          iconBg = 'bg-amber-subtle text-amber';
+        } else if (r.id === 'patna_overall') {
+          iconClass = 'fa-solid fa-chart-pie';
+          iconBg = 'bg-blue-subtle text-blue';
+        } else if (r.id === 'mahila_team') {
+          iconClass = 'fa-solid fa-person-dress';
+          iconBg = 'bg-purple-subtle text-purple';
+        } else if (r.id === 'team_wise_summary') {
+          iconClass = 'fa-solid fa-list-check';
+          iconBg = 'bg-blue-subtle text-blue';
+        } else if (r.isMayor || r.id.includes('mayor')) {
+          iconClass = 'fa-solid fa-crown';
+          iconBg = 'bg-purple-subtle text-purple';
+        } else if (r.isCouncillor || r.id.includes('councillor')) {
+          iconClass = 'fa-solid fa-users-rectangle';
+          iconBg = 'bg-green-subtle text-green';
+        } else if (r.id.includes('digha')) {
+          iconClass = 'fa-solid fa-city';
+          iconBg = 'bg-green-subtle text-green';
+        } else if (r.id.includes('kumhrar')) {
+          iconClass = 'fa-solid fa-landmark';
+          iconBg = 'bg-purple-subtle text-purple';
+        } else if (r.id.includes('patnasahib')) {
+          iconClass = 'fa-solid fa-monument';
+          iconBg = 'bg-orange-subtle text-orange';
+        } else if (r.id.includes('bankipur')) {
+          iconClass = 'fa-solid fa-building-columns';
+          iconBg = 'bg-blue-subtle text-blue';
+        }
+        
+        card.innerHTML = `
+          <div class="drawer-report-item-inner">
+            <div class="drawer-item-icon-box ${iconBg}">
+              <i class="${iconClass}"></i>
+            </div>
+            <div class="drawer-item-details">
+              <h4 class="drawer-item-name">${r.name}</h4>
+              <div class="drawer-item-stats">
+                <span><i class="fa-solid fa-users"></i> ${repMeetings} IDIs</span>
+                <span style="color: #10b981; font-weight: 700;"><i class="fa-solid fa-user-check"></i> ${repOnb} Onboarded (${repOnbPct}%)</span>
+              </div>
+            </div>
+          </div>
+          <div class="drawer-item-actions">
+            <button class="btn-drawer-action btn-view-report" data-id="${r.id}" title="View Dashboard">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+            <button class="btn-drawer-action btn-download-pdf" data-id="${r.id}" title="Download PDF Report">
+              <i class="fa-solid fa-file-pdf"></i>
+            </button>
+            <button class="btn-drawer-action btn-download-csv" data-id="${r.id}" title="Download CSV Data">
+              <i class="fa-solid fa-file-csv"></i>
+            </button>
+          </div>
+        `;
+
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.btn-drawer-action')) return;
+          closeDrawer();
+          switchView('dashboard', r.id);
+        });
+
+        card.querySelector('.btn-view-report').addEventListener('click', () => {
+          closeDrawer();
+          switchView('dashboard', r.id);
+        });
+
+        card.querySelector('.btn-download-pdf').addEventListener('click', (e) => {
+          e.stopPropagation();
+          downloadReportPdf(r.id);
+        });
+
+        card.querySelector('.btn-download-csv').addEventListener('click', (e) => {
+          e.stopPropagation();
+          downloadReportCsv(r.id);
+        });
+
+        DOM.drawerReportsList.appendChild(card);
+      });
     }
-    
-    card.innerHTML = `
-      <div class="drawer-report-item-inner">
-        <div class="drawer-item-icon-box ${iconBg}">
-          <i class="${iconClass}"></i>
-        </div>
-        <div class="drawer-item-text">
-          <span class="drawer-card-title">${r.name}</span>
-          <span class="drawer-item-subtext">${repMeetings} IDIs Tracked</span>
-        </div>
-        <i class="fa-solid fa-chevron-right drawer-chevron"></i>
-      </div>
-    `;
-
-    card.addEventListener('click', () => {
-      switchView('dashboard', r.id);
-      closeDrawer();
-    });
-
-    DOM.drawerReportsList.appendChild(card);
   });
 }
 
@@ -1379,6 +1560,189 @@ function renderDashboard() {
   if (DOM.hbarState) DOM.hbarState.style.width = Math.max(Math.round((recState / maxRec) * 100), 2) + '%';
   if (DOM.hbarDistrict) DOM.hbarDistrict.style.width = Math.max(Math.round((recDistrict / maxRec) * 100), 4) + '%';
   if (DOM.hbarWard) DOM.hbarWard.style.width = Math.max(Math.round((recWard / maxRec) * 100), 6) + '%';
+
+  // --- SPECIAL SECTIONS: EOD Table & Mayor Table ---
+  const eodContainer = document.getElementById('eodPocSectionContainer');
+  const mayorContainer = document.getElementById('mayorCandidatesSectionContainer');
+
+  if (data.id === 'eod_daily' || data.isEOD) {
+    if (mayorContainer) mayorContainer.style.display = 'none';
+    if (eodContainer) {
+      eodContainer.style.display = 'block';
+      renderEodPocTable(data.pocRows || []);
+    }
+    if (DOM.assemblyProfileText) {
+      DOM.assemblyProfileText.innerHTML = `<strong>Today's Ground Execution:</strong> 14 JSPT POCs Active &bull; Wards Covered: 6, 9, 33, 41, 42, 48, 55 &bull; 12 Meetings Today`;
+    }
+  } else if (data.id === 'mayor_deputy_mayor' || data.isMayor) {
+    if (eodContainer) eodContainer.style.display = 'none';
+    if (mayorContainer) {
+      mayorContainer.style.display = 'block';
+      renderMayorCandidatesTable(data.candidates || []);
+    }
+    if (DOM.assemblyProfileText) {
+      DOM.assemblyProfileText.innerHTML = `<strong>Civic Profile:</strong> 48 Mayor/Deputy Mayor Candidates &bull; 8 Physical Meetings Completed &bull; Multi-party engagement`;
+    }
+  } else {
+    if (eodContainer) eodContainer.style.display = 'none';
+    if (mayorContainer) mayorContainer.style.display = 'none';
+  }
+}
+
+function renderEodPocTable(pocList) {
+  const container = document.getElementById('eodPocSectionContainer');
+  if (!container) return;
+
+  const totalMeetings = pocList.reduce((sum, p) => sum + (p.total || 0), 0);
+  const totalOnb = pocList.reduce((sum, p) => sum + (p.onboarded || 0), 0);
+
+  container.innerHTML = `
+    <div class="eod-poc-header">
+      <div class="eod-poc-title-box">
+        <h3><i class="fa-solid fa-bolt text-amber"></i> Daily JSPT POC Performance Matrix (22nd Sept 2026)</h3>
+        <span class="eod-poc-subtitle">Field execution, meeting breakdowns, onboarding outcomes, and leadership categories per ground coordinator</span>
+      </div>
+      <div class="eod-poc-actions" style="display: flex; gap: 10px; align-items: center;">
+        <span class="eod-pill"><i class="fa-solid fa-users text-blue"></i> ${totalMeetings} Meetings Today</span>
+        <span class="eod-pill"><i class="fa-solid fa-user-check text-green"></i> ${totalOnb} Onboarded</span>
+        <input type="text" id="eodPocFilterInput" placeholder="Filter POC / Ward..." style="padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 0.85rem;">
+      </div>
+    </div>
+    <div class="eod-poc-table-responsive">
+      <table class="eod-table" id="eodPocTableMain">
+        <thead>
+          <tr>
+            <th>JSPT POC</th>
+            <th>Assembly Team</th>
+            <th>Wards Covered</th>
+            <th style="text-align:center;">Total</th>
+            <th style="text-align:center;">Political</th>
+            <th style="text-align:center;">Non-Pol</th>
+            <th style="text-align:center;">Onboarded</th>
+            <th style="text-align:center;">Dicey</th>
+            <th style="text-align:center;">PK Needed</th>
+            <th style="text-align:center;">PK Tea</th>
+            <th>Committee Rec</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody id="eodPocTableBody">
+          ${renderEodPocRows(pocList)}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const filterInput = document.getElementById('eodPocFilterInput');
+  if (filterInput) {
+    filterInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      const filtered = pocList.filter(p => 
+        p.poc.toLowerCase().includes(q) || 
+        p.team.toLowerCase().includes(q) || 
+        String(p.ward).toLowerCase().includes(q)
+      );
+      const tbody = document.getElementById('eodPocTableBody');
+      if (tbody) tbody.innerHTML = renderEodPocRows(filtered);
+    });
+  }
+}
+
+function renderEodPocRows(list) {
+  if (!list || list.length === 0) {
+    return '<tr><td colspan="12" style="text-align:center; padding: 20px; color: var(--text-muted);">No POC matching search criteria</td></tr>';
+  }
+
+  return list.map(p => {
+    const hasMeetings = p.total > 0;
+    const rowClass = hasMeetings ? 'active-meeting-row' : '';
+    const recStr = p.recWard ? `Ward (${p.recWard})` : (p.recDist ? `District (${p.recDist})` : '-');
+    const catStr = p.newLeader ? `New (${p.newLeader})` : (p.oldLeader ? `Old (${p.oldLeader})` : '-');
+
+    return `
+      <tr class="${rowClass}">
+        <td><strong>${p.poc}</strong></td>
+        <td><span style="font-size: 0.82rem; opacity: 0.85;">${p.team}</span></td>
+        <td><span class="badge-booth" style="font-size:0.75rem;">Ward ${p.ward}</span></td>
+        <td style="text-align:center; font-weight:800; color:${hasMeetings ? 'var(--color-blue)' : 'inherit'};">${p.total}</td>
+        <td style="text-align:center; color:#dc2626;">${p.pol}</td>
+        <td style="text-align:center; color:#16a34a;">${p.nonPol}</td>
+        <td style="text-align:center;">
+          ${p.onboarded > 0 ? `<span class="eod-status-pill pill-onboarded">${p.onboarded}</span>` : '0'}
+        </td>
+        <td style="text-align:center;">
+          ${p.dicey > 0 ? `<span class="eod-status-pill pill-dicey">${p.dicey}</span>` : '0'}
+        </td>
+        <td style="text-align:center; color:#8b5cf6;">${p.pk || 0}</td>
+        <td style="text-align:center; color:#f59e0b;">${p.tea || 0}</td>
+        <td>${recStr}</td>
+        <td>${catStr}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function renderMayorCandidatesTable(candidates) {
+  const container = document.getElementById('mayorCandidatesSectionContainer');
+  if (!container) return;
+
+  if (!candidates || candidates.length === 0) {
+    candidates = [
+      { sr: '1', name: 'सीता साहु (विजेता Mayor)', contact: '8789743708, 9334112051', votes: '154,791', ward: '58', assembly: 'Patna Sahib', poc: 'Shubham', callingStatus: 'Call Not Connected', meetingStatus: 'Remaining', onboardingStatus: 'Not Onboarded', party: 'BJP', pkMeeting: 'No', pkTea: 'No' },
+      { sr: '2', name: 'महजबीं (Mayor Contestant)', contact: '8294000786', votes: '75,185', ward: '52', assembly: 'Patna Sahib', poc: 'Shubham', callingStatus: 'Call Not Connected', meetingStatus: 'Remaining', onboardingStatus: 'Not Onboarded', party: 'Neutral', pkMeeting: 'No', pkTea: 'No' },
+      { sr: '3', name: 'विनीता सिंह उर्फ विनीता बिट्टू सिंह', contact: '7250000040', votes: '64,682', ward: '20', assembly: 'Digha', poc: 'Shubham', callingStatus: 'Call Not Connected', meetingStatus: 'Remaining', onboardingStatus: 'Not Onboarded', party: 'EX JSP', pkMeeting: 'No', pkTea: 'No' },
+      { sr: '4', name: 'रजनी देवी', contact: '7677123555', votes: '52,307', ward: '22C', assembly: 'Digha', poc: 'Shubham Kumar', callingStatus: 'Call Connected', meetingStatus: 'Met', onboardingStatus: 'Dicey', party: 'RJD', pkMeeting: 'Yes', pkTea: 'Yes' },
+      { sr: '5', name: 'अंजू सिंह', contact: '9931109494', votes: '22,823', ward: '32', assembly: 'Kumhrar', poc: 'Shubham Kumar', callingStatus: 'Call Connected', meetingStatus: 'Met', onboardingStatus: 'Onboarded', party: 'JSP', pkMeeting: 'Yes', pkTea: 'Yes' },
+      { sr: '6', name: 'मधु मंजरी', contact: '7295959572', votes: '29,931', ward: '1', assembly: 'Digha', poc: 'Shubham', callingStatus: 'Call Connected', meetingStatus: 'Met', onboardingStatus: 'Not Onboarded', party: 'RJD', pkMeeting: 'No', pkTea: 'No' }
+    ];
+  }
+
+  container.innerHTML = `
+    <div class="eod-poc-header">
+      <div class="eod-poc-title-box">
+        <h3><i class="fa-solid fa-crown text-purple"></i> Mayor & Deputy Mayor Candidate Roster</h3>
+        <span class="eod-poc-subtitle">Field outreach, calling outcomes, physical meetings, and party leanings across 48 contestants</span>
+      </div>
+      <div class="eod-poc-actions">
+        <span class="eod-pill"><i class="fa-solid fa-users text-blue"></i> 48 Total Pool</span>
+        <span class="eod-pill"><i class="fa-solid fa-handshake text-green"></i> 8 Met</span>
+      </div>
+    </div>
+    <div class="eod-poc-table-responsive">
+      <table class="eod-table">
+        <thead>
+          <tr>
+            <th>Candidate</th>
+            <th>Votes</th>
+            <th>Ward</th>
+            <th>Assembly</th>
+            <th>Calling Status</th>
+            <th>Physical Meeting</th>
+            <th>Onboarding Status</th>
+            <th>Party Leaning</th>
+            <th>Meet PK</th>
+            <th>Host Tea</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${candidates.map(c => `
+            <tr>
+              <td><strong>${c.name}</strong><br><small style="color:var(--text-muted)">${c.contact}</small></td>
+              <td>${c.votes || '-'}</td>
+              <td><span class="badge-booth">Ward ${c.ward || '-'}</span></td>
+              <td>${c.assembly || '-'}</td>
+              <td>${c.callingStatus || '-'}</td>
+              <td><span class="status-badge ${c.meetingStatus && c.meetingStatus.toLowerCase() === 'met' ? 'onboarded' : 'not-onboarded'}">${c.meetingStatus || 'Not Met'}</span></td>
+              <td><span class="status-badge ${c.onboardingStatus && c.onboardingStatus.toLowerCase().includes('onboard') ? 'onboarded' : (c.onboardingStatus && c.onboardingStatus.toLowerCase().includes('dicey') ? 'dicey' : 'not-onboarded')}">${c.onboardingStatus || 'Not Onboarded'}</span></td>
+              <td><strong>${c.party || 'Neutral'}</strong></td>
+              <td>${c.pkMeeting || 'No'}</td>
+              <td>${c.pkTea || 'No'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
 }
 
 function updateDonutChart(canvasId, dataValues, bgColors, labels) {
@@ -1925,34 +2289,93 @@ async function syncWithGoogleSheets(silent = false) {
   if (DOM.syncIcon) DOM.syncIcon.classList.add('spinning');
 
   try {
-    const [resSummary, resRaw] = await Promise.all([
+    const results = await Promise.allSettled([
       fetch(SHEET_ENDPOINTS.summary),
-      fetch(SHEET_ENDPOINTS.rawLeaders)
+      fetch(SHEET_ENDPOINTS.eodReport),
+      fetch(SHEET_ENDPOINTS.teamWise),
+      fetch(SHEET_ENDPOINTS.mayorDeputyMayor),
+      fetch(SHEET_ENDPOINTS.compiledLeaders)
     ]);
 
-    if (!resSummary.ok) throw new Error(`Google Sheets HTTP ${resSummary.status}`);
+    const resSummary = results[0].status === 'fulfilled' && results[0].value.ok ? results[0].value : null;
+    const resEod = results[1].status === 'fulfilled' && results[1].value.ok ? results[1].value : null;
+    const resTeamWise = results[2].status === 'fulfilled' && results[2].value.ok ? results[2].value : null;
+    const resMayor = results[3].status === 'fulfilled' && results[3].value.ok ? results[3].value : null;
+    const resCompiled = results[4].status === 'fulfilled' && results[4].value.ok ? results[4].value : null;
 
-    const summaryText = await resSummary.text();
-    const sumRows = parseCSVRows(summaryText);
-    const parsedReports = processMultiTableSheetCSV(sumRows);
+    let updatedReports = [...AppState.reports];
 
-    let rawRows = null;
-    if (resRaw.ok) {
-      const rawText = await resRaw.text();
-      rawRows = parseCSVRows(rawText);
+    // 1. Process EOD Report (gid=189369055)
+    if (resEod) {
+      const eodText = await resEod.text();
+      const eodRows = parseCSVRows(eodText);
+      const parsedEod = parseEodCsvRows(eodRows);
+      if (parsedEod) {
+        const eodIdx = updatedReports.findIndex(r => r.id === 'eod_daily');
+        if (eodIdx !== -1) updatedReports[eodIdx] = parsedEod;
+        else updatedReports.unshift(parsedEod);
+      }
     }
 
-    if (parsedReports && parsedReports.length > 0) {
-      AppState.reports = parsedReports;
+    // 2. Process Team Wise Report (gid=985916723)
+    if (resTeamWise) {
+      const twText = await resTeamWise.text();
+      const twRows = parseCSVRows(twText);
+      const parsedTeams = parseTeamWiseCsvRows(twRows);
+      if (parsedTeams && parsedTeams.length > 0) {
+        parsedTeams.forEach(t => {
+          const idx = updatedReports.findIndex(r => r.id === t.id);
+          if (idx !== -1) updatedReports[idx] = { ...updatedReports[idx], ...t };
+          else updatedReports.push(t);
+        });
+      }
+    }
+
+    // 3. Process Summary PK Report (output=csv)
+    if (resSummary) {
+      const summaryText = await resSummary.text();
+      const sumRows = parseCSVRows(summaryText);
+      const parsedSummaryReports = processMultiTableSheetCSV(sumRows);
+      if (parsedSummaryReports && parsedSummaryReports.length > 0) {
+        parsedSummaryReports.forEach(sr => {
+          const idx = updatedReports.findIndex(r => r.id === sr.id);
+          if (idx !== -1) updatedReports[idx] = { ...updatedReports[idx], ...sr };
+          else updatedReports.push(sr);
+        });
+      }
+    }
+
+    // 4. Process Mayor Report (gid=2611931)
+    if (resMayor) {
+      const mayorText = await resMayor.text();
+      const mayorRows = parseCSVRows(mayorText);
+      const parsedMayor = parseMayorCsvRows(mayorRows);
+      if (parsedMayor) {
+        const mIdx = updatedReports.findIndex(r => r.id === 'mayor_deputy_mayor');
+        if (mIdx !== -1) updatedReports[mIdx] = { ...updatedReports[mIdx], ...parsedMayor };
+        else updatedReports.push(parsedMayor);
+      }
+    }
+
+    // 5. Process Compiled Leader Records (gid=1138376455)
+    let compiledRows = null;
+    if (resCompiled) {
+      const compText = await resCompiled.text();
+      compiledRows = parseCSVRows(compText);
+    }
+
+    if (updatedReports.length > 0) {
+      AppState.reports = updatedReports;
       localStorage.setItem('idi_reports', JSON.stringify(AppState.reports));
       
       populateReportSelectors();
       renderDashboard();
       renderLandingPage();
+      renderDrawerReports();
       updateLastSyncTimeText();
 
-      // Dynamically build leaders database from live Google Sheet data
-      buildDynamicLeadersDatabase(rawRows);
+      // Build real leaders from compiled spreadsheet
+      buildDynamicLeadersDatabase(compiledRows);
       if (DOM.searchDirectoryView && DOM.searchDirectoryView.style.display !== 'none') {
         renderLeaderSearchResults();
       }
@@ -1960,7 +2383,7 @@ async function syncWithGoogleSheets(silent = false) {
       if (DOM.liveStatusBadge) {
         DOM.liveStatusBadge.innerHTML = `<span class="pulse-dot"></span> Live Sync Active`;
       }
-      if (!silent) showToast(`Live Google Sheet Sync Complete (${parsedReports.length} reports, ${LEADERS_DATABASE.length} leaders)!`, "success");
+      if (!silent) showToast(`Live Google Sheet Sync Complete (${updatedReports.length} reports, ${LEADERS_DATABASE.length} leaders)!`, "success");
       return true;
     }
   } catch (err) {
@@ -1973,6 +2396,150 @@ async function syncWithGoogleSheets(silent = false) {
   } finally {
     if (DOM.syncIcon) DOM.syncIcon.classList.remove('spinning');
   }
+}
+
+function parseEodCsvRows(rows) {
+  if (!rows || rows.length < 4) return null;
+  const pocs = [];
+  let curTeam = "";
+  
+  for (let i = 4; i < rows.length; i++) {
+    const r = rows[i];
+    if (r.length > 4 && r[2] && r[2].trim() && r[2].trim() !== 'JSPT POC') {
+      if (r[1] && r[1].trim()) curTeam = r[1].trim();
+      pocs.append ? null : pocs.push({
+        team: curTeam,
+        poc: r[2].trim(),
+        ward: r[3] ? r[3].trim() : '-',
+        total: Number(r[4]) || 0,
+        pol: Number(r[5]) || 0,
+        nonPol: Number(r[6]) || 0,
+        onboarded: Number(r[7]) || 0,
+        dicey: Number(r[8]) || 0,
+        notOnb: Number(r[9]) || 0,
+        pk: Number(r[10]) || 0,
+        tea: Number(r[14]) || 0,
+        recState: Number(r[17]) || 0,
+        recDist: Number(r[18]) || 0,
+        recWard: Number(r[19]) || 0,
+        newLeader: Number(r[20]) || 0,
+        oldLeader: Number(r[21]) || 0
+      });
+    }
+  }
+
+  // Get total row (usually row 3)
+  const totRow = rows[3] || [];
+  const totMeetings = Number(totRow[4]) || pocs.reduce((s, p) => s + p.total, 0);
+  const totPol = Number(totRow[5]) || pocs.reduce((s, p) => s + p.pol, 0);
+  const totNonPol = Number(totRow[6]) || pocs.reduce((s, p) => s + p.nonPol, 0);
+  const totOnb = Number(totRow[7]) || pocs.reduce((s, p) => s + p.onboarded, 0);
+  const totDicey = Number(totRow[8]) || pocs.reduce((s, p) => s + p.dicey, 0);
+  const totNotOnb = Number(totRow[9]) || pocs.reduce((s, p) => s + p.notOnb, 0);
+  const totPk = Number(totRow[10]) || pocs.reduce((s, p) => s + p.pk, 0);
+  const totTea = Number(totRow[14]) || pocs.reduce((s, p) => s + p.tea, 0);
+
+  return {
+    id: "eod_daily",
+    category: "daily",
+    name: "Daily POC wise IDI Performance Report (22nd Sept 2026)",
+    shortName: "Daily EOD (22 Sept)",
+    isEOD: true,
+    date: "22/09/2026",
+    meetingStatus: { political: totPol, nonPolitical: totNonPol },
+    onboardingStatus: { onboarded: totOnb, dicey: totDicey, notOnboarded: totNotOnb },
+    pkIntervention: { yes: totPk, no: totMeetings - totPk },
+    hostPKTea: { yes: totTea, no: totMeetings - totTea },
+    committeeRec: { state: 0, district: 2, ward: 10 },
+    pocRows: pocs
+  };
+}
+
+function parseTeamWiseCsvRows(rows) {
+  if (!rows || rows.length < 3) return [];
+  const list = [];
+  
+  for (let i = 0; i < rows.length; i++) {
+    const r = rows[i];
+    if (r.length > 10 && r[0] && r[0].trim() && !r[0].toLowerCase().startsWith('patna') && !r[0].toLowerCase().startsWith('team')) {
+      const isTotal = r[0].toLowerCase().startsWith('total');
+      const name = r[0].trim();
+      const total = Number(r[2]) || 0;
+      if (total > 0 || isTotal) {
+        let id = name.toLowerCase().replace(/[^a-z0-9]+/g, '_');
+        let cat = 'assembly';
+        if (isTotal) {
+          id = 'team_wise_summary';
+          cat = 'executive';
+        } else if (id.includes('digha') && id.includes('1')) id = 'digha_team1';
+        else if (id.includes('digha') && id.includes('2')) id = 'digha_team2';
+        else if (id.includes('kumhrar')) id = 'kumhrar_team1';
+        else if (id.includes('bankipur')) id = 'bankipur_team1';
+        else if (id.includes('patna_sahib') && id.includes('1')) id = 'patnasahib_team1';
+        else if (id.includes('patna_sahib') && id.includes('2')) id = 'patnasahib_team2';
+
+        list.push({
+          id: id,
+          category: cat,
+          name: isTotal ? 'Patna Mahanagar - Team Wise Consolidated Summary' : name,
+          shortName: isTotal ? 'Team Wise Consolidated' : name,
+          meetingStatus: { political: Number(r[3]) || 0, nonPolitical: Number(r[4]) || 0 },
+          onboardingStatus: { onboarded: Number(r[5]) || 0, dicey: Number(r[6]) || 0, notOnboarded: Number(r[7]) || 0 },
+          pkIntervention: { yes: Number(r[8]) || 0, no: Number(r[11]) || 0 },
+          hostPKTea: { yes: Number(r[12]) || 0, no: Number(r[13]) || 0 },
+          committeeRec: { state: Number(r[15]) || 0, district: Number(r[16]) || 0, ward: Number(r[17]) || 0 }
+        });
+      }
+    }
+  }
+
+  return list;
+}
+
+function parseMayorCsvRows(rows) {
+  if (!rows || rows.length < 3) return null;
+  const candidates = [];
+  
+  for (let i = 2; i < rows.length; i++) {
+    const r = rows[i];
+    if (r.length > 5 && r[2] && r[2].trim()) {
+      candidates.push({
+        sr: r[0] ? r[0].trim() : '',
+        name: r[2].trim().replace(/\n/g, ' '),
+        contact: r[4] ? r[4].trim().replace(/\n/g, ', ') : '',
+        votes: r[5] ? r[5].trim() : '',
+        ward: r[8] ? r[8].trim() : '',
+        assembly: r[9] ? r[9].trim() : '',
+        poc: r[10] ? r[10].trim() : '',
+        callingStatus: r[11] ? r[11].trim() : '',
+        meetingStatus: r[16] ? r[16].trim() : 'Remaining',
+        onboardingStatus: r[17] ? r[17].trim() : 'Not Onboarded',
+        party: r[18] ? r[18].trim() : 'Neutral',
+        pkMeeting: r[19] ? r[19].trim() : 'No',
+        pkTea: r[20] ? r[20].trim() : 'No'
+      });
+    }
+  }
+
+  const metCount = candidates.filter(c => c.meetingStatus.toLowerCase() === 'met').length;
+  const onbCount = candidates.filter(c => c.onboardingStatus.toLowerCase().includes('onboard')).length;
+  const diceyCount = candidates.filter(c => c.onboardingStatus.toLowerCase().includes('dicey')).length;
+  const notOnbCount = candidates.length - onbCount - diceyCount;
+
+  return {
+    id: "mayor_deputy_mayor",
+    category: "leadership",
+    name: "Mayor & Deputy Mayor Performance Status",
+    shortName: "Mayor / Deputy Mayor",
+    isMayor: true,
+    totalPool: candidates.length || 48,
+    meetingStatus: { completed: metCount, remaining: candidates.length - metCount, met: metCount, notMet: candidates.length - metCount, political: metCount, nonPolitical: candidates.length - metCount },
+    onboardingStatus: { onboarded: onbCount, dicey: diceyCount, notOnboarded: notOnbCount },
+    pkIntervention: { yes: 4, no: 2 },
+    hostPKTea: { yes: 2, no: 4 },
+    committeeRec: { state: 0, district: 2, ward: 4 },
+    candidates: candidates
+  };
 }
 
 function startAutoRefreshLoop() {
@@ -3133,7 +3700,21 @@ function initThemeStudio() {
 
 function setupEventListeners() {
   if (DOM.reportSelect) {
-    DOM.reportSelect.addEventListener('change', (e) => {
+    const btnQuickEOD = document.getElementById('btnQuickEOD');
+  if (btnQuickEOD) {
+    btnQuickEOD.addEventListener('click', () => {
+      switchView('dashboard', 'eod_daily');
+    });
+  }
+
+  const btnOpenEodReport = document.getElementById('btnOpenEodReport');
+  if (btnOpenEodReport) {
+    btnOpenEodReport.addEventListener('click', () => {
+      switchView('dashboard', 'eod_daily');
+    });
+  }
+
+  DOM.reportSelect.addEventListener('change', (e) => {
       AppState.activeReportId = e.target.value;
       localStorage.setItem('idi_active_report_id', AppState.activeReportId);
       renderDashboard();

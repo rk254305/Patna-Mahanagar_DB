@@ -5053,3 +5053,271 @@ body.theme-dark .locality-chip {
   filter: grayscale(0.4) opacity(0.35) !important;
   transform: scale(0.85) !important;
 }
+
+/* ==========================================================================
+   Daily EOD Report & Live Google Sheet Enhancements
+   ========================================================================== */
+
+.btn-eod-pill {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(234, 88, 12, 0.22)) !important;
+  border: 1.5px solid #f59e0b !important;
+  color: #b45309 !important;
+  font-weight: 700 !important;
+  border-radius: 20px !important;
+  padding: 6px 14px !important;
+  transition: all 0.25s ease !important;
+}
+
+body.theme-dark .btn-eod-pill {
+  color: #fbbf24 !important;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(234, 88, 12, 0.35)) !important;
+  border-color: #fbbf24 !important;
+}
+
+.btn-eod-pill:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+}
+
+.eod-featured-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  border: 2px solid #f59e0b;
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin: 28px 0;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.12);
+  transition: all 0.3s ease;
+}
+
+body.theme-dark .eod-featured-banner {
+  background: linear-gradient(135deg, #1e1b12, #2a220d);
+  border-color: #f59e0b;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.eod-banner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #d97706;
+  background: rgba(245, 158, 11, 0.16);
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.eod-banner-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #78350f;
+  margin: 0 0 6px 0;
+}
+
+body.theme-dark .eod-banner-title {
+  color: #fde68a;
+}
+
+.eod-banner-sub {
+  font-size: 0.92rem;
+  color: #92400e;
+  margin: 0 0 14px 0;
+  line-height: 1.5;
+}
+
+body.theme-dark .eod-banner-sub {
+  color: #fcd34d;
+  opacity: 0.9;
+}
+
+.eod-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.eod-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: #ffffff;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #1e293b;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+body.theme-dark .eod-pill {
+  background: #1e293b;
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #f8fafc;
+}
+
+.eod-banner-right .btn {
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .eod-featured-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* EOD Detailed POC Table Section in Dashboard */
+.eod-poc-container {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+body.theme-dark .eod-poc-container {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.eod-poc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+  padding-bottom: 14px;
+}
+
+.eod-poc-title-box h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main, #0f172a);
+  margin: 0 0 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eod-poc-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted, #64748b);
+}
+
+.eod-poc-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border-color, #e2e8f0);
+}
+
+.eod-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+.eod-table th {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 700;
+  padding: 12px 14px;
+  border-bottom: 2px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+body.theme-dark .eod-table th {
+  background: #0f172a;
+  color: #94a3b8;
+  border-color: #334155;
+}
+
+.eod-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color, #f1f5f9);
+  color: var(--text-main, #1e293b);
+  white-space: nowrap;
+}
+
+body.theme-dark .eod-table td {
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.eod-table tbody tr:hover {
+  background: rgba(59, 130, 246, 0.04);
+}
+
+body.theme-dark .eod-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.eod-table tr.active-meeting-row {
+  background: rgba(16, 185, 129, 0.06);
+  font-weight: 600;
+}
+
+body.theme-dark .eod-table tr.active-meeting-row {
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.eod-status-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.pill-onboarded {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.pill-dicey {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.pill-not-onb {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.drawer-category-header {
+  padding: 12px 14px 6px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  margin-top: 10px;
+}
+
+.drawer-category-header:first-child {
+  border-top: none;
+  margin-top: 0;
+}
+
+body.theme-dark .drawer-category-header {
+  color: #94a3b8;
+  border-color: #334155;
+}
+
