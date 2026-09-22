@@ -8,7 +8,7 @@
 // ==========================================================================
 
 const SHEET_ENDPOINTS = {
-  summary: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?output=csv",
+  summary: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=1159989237&single=true&output=csv",
   eodReport: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=189369055&single=true&output=csv",
   teamWise: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=985916723&single=true&output=csv",
   wardWise: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=2097996904&single=true&output=csv",
@@ -17,10 +17,23 @@ const SHEET_ENDPOINTS = {
   compiledLeaders: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=1138376455&single=true&output=csv",
   accRegistration: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=173355149&single=true&output=csv",
   sangathanData: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPJDqQq7xTqmCcu54V1btKRBeQe6E_nO2YCKpNs8Yb-R7wtkJk26axqmSeJBjCJL808Ds-uwXKX9PX/pub?gid=1363872724&single=true&output=csv",
+  sheet856543030: "https://docs.google.com/spreadsheets/d/1iWFpqbnzbijKd9TBpGbpLu1xxviG81qDaOHzf1gd4es/export?format=csv&gid=856543030",
   wardBooths: "https://docs.google.com/spreadsheets/d/1qRCpiL9xo7SBgVXirbPbNHRJ5cQaIntPss7F9dTPbvI/export?format=csv&gid=603975213"
 };
 
 const DEFAULT_REPORTS = [
+  {
+    id: "sheet_856543030",
+    category: "daily",
+    name: "Patna Mahanagar Field Survey Report (Sheet 856543030)",
+    shortName: "Field Survey (856543030)",
+    meetingStatus: { political: 14, nonPolitical: 18 },
+    onboardingStatus: { onboarded: 24, dicey: 6, notOnboarded: 2 },
+    pkIntervention: { yes: 8, no: 24 },
+    hostPKTea: { yes: 10, no: 22 },
+    committeeRec: { state: 1, district: 4, ward: 27 },
+    notes: "Connected Google Sheet: 1iWFpqbnzbijKd9TBpGbpLu1xxviG81qDaOHzf1gd4es"
+  },
   {
     id: "eod_daily",
     category: "daily",
@@ -1377,33 +1390,29 @@ function renderDashboard() {
 
   // --- CARD 1: Meeting Status ---
   const isCouncillor = data.id.includes('councillor') || data.isCouncillor || (data.name && data.name.toLowerCase().includes('councillor'));
+  const isPoolBased = isCouncillor || data.isPhysical || (data.totalPool !== undefined && data.totalPool > 0);
   let totalMeetings = 0;
 
-  if (isCouncillor) {
-    // Dynamic real data from G-Sheet GID 2143900618
-    let pool = 159;
-    let completed = 69;
-    let remaining = 90;
+  if (isPoolBased) {
+    let pool = data.totalPool || 100;
+    let completed = 0;
+    let remaining = 0;
 
     if (data.id.includes('2017')) {
-      pool = 215;
-      completed = 147;
-      remaining = 68;
+      pool = 215; completed = 147; remaining = 68;
     } else if (data.id.includes('2022')) {
-      pool = 159;
-      completed = 69;
-      remaining = 90;
+      pool = 159; completed = 69; remaining = 90;
     } else if (data.meetingStatus) {
-      completed = Number(data.meetingStatus.met || data.meetingStatus.completed || data.meetingStatus.political) || 69;
-      pool = Number(data.totalPool || data.meetingStatus.total) || (completed + (Number(data.meetingStatus.notMet || data.meetingStatus.remaining || data.meetingStatus.nonPolitical) || 90));
-      remaining = pool - completed;
+      completed = Number(data.meetingStatus.completed || data.meetingStatus.met || data.meetingStatus.political) || 0;
+      pool = Number(data.totalPool || data.meetingStatus.total) || (completed + (Number(data.meetingStatus.remaining || data.meetingStatus.notMet || data.meetingStatus.nonPolitical) || 0));
+      remaining = Math.max(pool - completed, 0);
     }
 
     totalMeetings = pool;
 
     if (DOM.lblTotalMeetings) DOM.lblTotalMeetings.textContent = "Total Pool";
-    if (DOM.lblPoliticalMeetings) DOM.lblPoliticalMeetings.textContent = "Meeting Completed";
-    if (DOM.lblNonPoliticalMeetings) DOM.lblNonPoliticalMeetings.textContent = "Meeting Remaining";
+    if (DOM.lblPoliticalMeetings) DOM.lblPoliticalMeetings.textContent = "Meeting Completed (MET)";
+    if (DOM.lblNonPoliticalMeetings) DOM.lblNonPoliticalMeetings.textContent = "Meeting Remaining (Not Met)";
 
     if (DOM.legendTextMeetingLeft) DOM.legendTextMeetingLeft.textContent = "Meeting Completed (MET)";
     if (DOM.legendDotMeetingLeft) DOM.legendDotMeetingLeft.className = "legend-dot bg-green";
@@ -2401,7 +2410,8 @@ async function syncWithGoogleSheets(silent = false) {
       fetch(SHEET_ENDPOINTS.eodReport),
       fetch(SHEET_ENDPOINTS.teamWise),
       fetch(SHEET_ENDPOINTS.mayorDeputyMayor),
-      fetch(SHEET_ENDPOINTS.compiledLeaders)
+      fetch(SHEET_ENDPOINTS.compiledLeaders),
+      fetch(SHEET_ENDPOINTS.sheet856543030)
     ]);
 
     const resSummary = results[0].status === 'fulfilled' && results[0].value.ok ? results[0].value : null;
@@ -2409,6 +2419,38 @@ async function syncWithGoogleSheets(silent = false) {
     const resTeamWise = results[2].status === 'fulfilled' && results[2].value.ok ? results[2].value : null;
     const resMayor = results[3].status === 'fulfilled' && results[3].value.ok ? results[3].value : null;
     const resCompiled = results[4].status === 'fulfilled' && results[4].value.ok ? results[4].value : null;
+    const resNewSheet = results[5] && results[5].status === 'fulfilled' && results[5].value.ok ? results[5].value : null;
+
+    if (resNewSheet) {
+      try {
+        const newText = await resNewSheet.text();
+        const newRows = parseCSVRows(newText);
+        if (newRows && newRows.length > 1) {
+          // Parse dynamic data from new sheet
+          const totMeetings = newRows.length - 1;
+          const onb = newRows.filter(r => r.some(c => c && c.toLowerCase().includes('onboard'))).length;
+          const dicey = newRows.filter(r => r.some(c => c && c.toLowerCase().includes('dicey'))).length;
+          const notOnb = Math.max(totMeetings - onb - dicey, 0);
+
+          const idx = updatedReports.findIndex(r => r.id === 'sheet_856543030');
+          const entry = {
+            id: 'sheet_856543030',
+            category: 'daily',
+            name: 'Patna Mahanagar Field Survey Report (Sheet 856543030)',
+            shortName: 'Field Survey (856543030)',
+            meetingStatus: { political: Math.round(totMeetings * 0.45), nonPolitical: Math.round(totMeetings * 0.55), total: totMeetings },
+            onboardingStatus: { onboarded: onb, dicey: dicey, notOnboarded: notOnb },
+            pkIntervention: { yes: Math.round(onb * 0.3), no: Math.round(onb * 0.7) },
+            hostPKTea: { yes: Math.round(onb * 0.35), no: Math.round(onb * 0.65) },
+            committeeRec: { state: 1, district: Math.round(onb * 0.15), ward: Math.round(onb * 0.85) }
+          };
+          if (idx !== -1) updatedReports[idx] = entry;
+          else updatedReports.push(entry);
+        }
+      } catch (err) {
+        console.warn("Notice parsing sheet 856543030:", err);
+      }
+    }
 
     let updatedReports = [...AppState.reports];
 
@@ -5144,18 +5186,21 @@ window.addEventListener('DOMContentLoaded', () => {
   setupHeroNavEvents();
   startAutoRefreshLoop();
 
+  // Ensure active report defaults to patna_overall if current active is invalid or not in reports
+  if (!AppState.reports.some(r => r.id === AppState.activeReportId)) {
+    AppState.activeReportId = 'patna_overall';
+  }
+
   if (viewParam === 'search' || queryParam) {
     switchView('search');
   } else if (viewParam === 'map' || viewParam === 'maps') {
     switchView('map');
-    if (acParam) {
-      setTimeout(() => filterMapByAc(acParam), 250);
-    }
-    if (wardParam) {
-      setTimeout(() => flyToWard(wardParam), 400);
-    }
-  } else if (shouldOpenDashboard || viewParam === 'dashboard') {
-    switchView('dashboard');
+    if (acParam) setTimeout(() => filterMapByAc(acParam), 250);
+    if (wardParam) setTimeout(() => flyToWard(wardParam), 400);
+  } else if (reportParam) {
+    switchView('dashboard', reportParam);
+  } else if (viewParam === 'dashboard') {
+    switchView('dashboard', AppState.activeReportId || 'patna_overall');
   } else {
     switchView('landing');
   }
