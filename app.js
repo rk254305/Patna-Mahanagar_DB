@@ -51,15 +51,28 @@ const DEFAULT_REPORTS = [
     ]
   },
   {
+    id: "patna_progress_report",
+    category: "daily",
+    name: "Patna Mahanagar Recent IDI Progress Report (PK Report)",
+    shortName: "Recent IDI Progress (26)",
+    meetingStatus: { political: 11, nonPolitical: 15 },
+    onboardingStatus: { onboarded: 22, dicey: 4, notOnboarded: 0 },
+    pkIntervention: { yes: 1, no: 20 },
+    hostPKTea: { yes: 2, no: 21 },
+    committeeRec: { state: 0, district: 3, ward: 21 },
+    leaderCategory: { newLeader: 23, oldLeader: 3 }
+  },
+  {
     id: "patna_overall",
     category: "executive",
-    name: "Patna Mahanagar Team Overall IDI's",
+    name: "Patna Mahanagar Team Overall IDI's Report",
     shortName: "Patna Mahanagar (Overall)",
-    meetingStatus: { political: 412, nonPolitical: 575 },
-    onboardingStatus: { onboarded: 764, dicey: 171, notOnboarded: 52 },
-    pkIntervention: { yes: 216, no: 614 },
-    hostPKTea: { yes: 206, no: 147 },
-    committeeRec: { state: 4, district: 41, ward: 550 }
+    meetingStatus: { political: 418, nonPolitical: 582 },
+    onboardingStatus: { onboarded: 777, dicey: 171, notOnboarded: 52 },
+    pkIntervention: { yes: 216, no: 626 },
+    hostPKTea: { yes: 207, no: 157 },
+    committeeRec: { state: 4, district: 42, ward: 560 },
+    leaderCategory: { newLeader: 447, oldLeader: 74 }
   },
   {
     id: "mahila_team",
@@ -150,16 +163,51 @@ const DEFAULT_REPORTS = [
     committeeRec: { state: 0, district: 8, ward: 31 }
   },
   {
-    id: "mayor_deputy_mayor",
+    id: "pk_sangathan_status",
     category: "leadership",
-    name: "Mayor & Deputy Mayor Performance Status",
-    shortName: "Mayor / Deputy Mayor",
-    isMayor: true,
+    name: "Sangathan Physical Meeting Status (PK Report)",
+    shortName: "Sangathan Status (284 Pool)",
+    isPhysical: true,
+    totalPool: 284,
+    meetingStatus: { completed: 11, remaining: 273, met: 11, notMet: 273, political: 11, nonPolitical: 273 },
+    onboardingStatus: { onboarded: 5, dicey: 3, notOnboarded: 3 },
+    partyInclination: { JSP: 3, BJP: 1, RJD: 3, JDU: 1, Neutral: 0, INC: 0, HAM: 0 },
+    readyMeetPK: { yes: 4, no: 2 },
+    pkIntervention: { yes: 4, no: 2 },
+    hostPKTea: { yes: 4, no: 2 },
+    engagementStatus: { supporter: 4, notInterested: 3, sympathizer: 0 },
+    committeeRec: { state: 0, district: 3, ward: 5 }
+  },
+  {
+    id: "pk_mayor_deputy_mayor",
+    category: "leadership",
+    name: "Mayor / Deputy Mayor Physical Meeting Status (PK Report)",
+    shortName: "Mayor / Deputy Mayor (PK)",
+    isPhysical: true,
     totalPool: 48,
     meetingStatus: { completed: 8, remaining: 40, met: 8, notMet: 40, political: 8, nonPolitical: 40 },
     onboardingStatus: { onboarded: 2, dicey: 2, notOnboarded: 4 },
+    partyInclination: { JSP: 2, BJP: 2, RJD: 3, JDU: 1, Neutral: 0, INC: 0, HAM: 0 },
+    readyMeetPK: { yes: 4, no: 2 },
     pkIntervention: { yes: 4, no: 2 },
-    hostPKTea: { yes: 2, no: 4 },
+    hostPKTea: { yes: 4, no: 2 },
+    engagementStatus: { supporter: 4, notInterested: 3, sympathizer: 0 },
+    committeeRec: { state: 0, district: 2, ward: 2 }
+  },
+  {
+    id: "pk_acc_status",
+    category: "leadership",
+    name: "ACC Physical Registration Meeting Status (PK Report)",
+    shortName: "ACC Registration Status (31 Pool)",
+    isPhysical: true,
+    totalPool: 31,
+    meetingStatus: { completed: 8, remaining: 23, met: 8, notMet: 23, political: 8, nonPolitical: 23 },
+    onboardingStatus: { onboarded: 4, dicey: 2, notOnboarded: 2 },
+    partyInclination: { JSP: 2, BJP: 1, RJD: 2, JDU: 1, Neutral: 0, INC: 0, HAM: 0 },
+    readyMeetPK: { yes: 3, no: 1 },
+    pkIntervention: { yes: 3, no: 1 },
+    hostPKTea: { yes: 3, no: 1 },
+    engagementStatus: { supporter: 3, notInterested: 2, sympathizer: 0 },
     committeeRec: { state: 0, district: 2, ward: 4 }
   },
   {
@@ -192,7 +240,7 @@ const DEFAULT_REPORTS = [
     id: "acc_registration",
     category: "leadership",
     name: "ACC Physical Registration (Prominent Leadership Pool)",
-    shortName: "ACC Physical Registration",
+    shortName: "ACC Leadership Pool (206)",
     totalPool: 206,
     meetingStatus: { political: 52, nonPolitical: 85 },
     onboardingStatus: { onboarded: 42, dicey: 18, notOnboarded: 146 },
@@ -1561,12 +1609,14 @@ function renderDashboard() {
   if (DOM.hbarDistrict) DOM.hbarDistrict.style.width = Math.max(Math.round((recDistrict / maxRec) * 100), 4) + '%';
   if (DOM.hbarWard) DOM.hbarWard.style.width = Math.max(Math.round((recWard / maxRec) * 100), 6) + '%';
 
-  // --- SPECIAL SECTIONS: EOD Table & Mayor Table ---
+  // --- SPECIAL SECTIONS: EOD Table, Mayor Table & Physical Meeting Status ---
   const eodContainer = document.getElementById('eodPocSectionContainer');
   const mayorContainer = document.getElementById('mayorCandidatesSectionContainer');
+  const physicalContainer = document.getElementById('physicalStatusSectionContainer');
 
   if (data.id === 'eod_daily' || data.isEOD) {
     if (mayorContainer) mayorContainer.style.display = 'none';
+    if (physicalContainer) physicalContainer.style.display = 'none';
     if (eodContainer) {
       eodContainer.style.display = 'block';
       renderEodPocTable(data.pocRows || []);
@@ -1576,6 +1626,7 @@ function renderDashboard() {
     }
   } else if (data.id === 'mayor_deputy_mayor' || data.isMayor) {
     if (eodContainer) eodContainer.style.display = 'none';
+    if (physicalContainer) physicalContainer.style.display = 'none';
     if (mayorContainer) {
       mayorContainer.style.display = 'block';
       renderMayorCandidatesTable(data.candidates || []);
@@ -1583,9 +1634,20 @@ function renderDashboard() {
     if (DOM.assemblyProfileText) {
       DOM.assemblyProfileText.innerHTML = `<strong>Civic Profile:</strong> 48 Mayor/Deputy Mayor Candidates &bull; 8 Physical Meetings Completed &bull; Multi-party engagement`;
     }
+  } else if (data.isPhysical) {
+    if (eodContainer) eodContainer.style.display = 'none';
+    if (mayorContainer) mayorContainer.style.display = 'none';
+    if (physicalContainer) {
+      physicalContainer.style.display = 'block';
+      renderPhysicalStatusBreakdown(data);
+    }
+    if (DOM.assemblyProfileText) {
+      DOM.assemblyProfileText.innerHTML = `<strong>Physical Evaluation:</strong> Total Pool: ${data.totalPool || 0} &bull; Physical Meetings (MET): ${data.meetingStatus ? data.meetingStatus.met : 0} &bull; Onboarded: ${data.onboardingStatus ? data.onboardingStatus.onboarded : 0}`;
+    }
   } else {
     if (eodContainer) eodContainer.style.display = 'none';
     if (mayorContainer) mayorContainer.style.display = 'none';
+    if (physicalContainer) physicalContainer.style.display = 'none';
   }
 }
 
@@ -1686,17 +1748,6 @@ function renderMayorCandidatesTable(candidates) {
   const container = document.getElementById('mayorCandidatesSectionContainer');
   if (!container) return;
 
-  if (!candidates || candidates.length === 0) {
-    candidates = [
-      { sr: '1', name: 'सीता साहु (विजेता Mayor)', contact: '8789743708, 9334112051', votes: '154,791', ward: '58', assembly: 'Patna Sahib', poc: 'Shubham', callingStatus: 'Call Not Connected', meetingStatus: 'Remaining', onboardingStatus: 'Not Onboarded', party: 'BJP', pkMeeting: 'No', pkTea: 'No' },
-      { sr: '2', name: 'महजबीं (Mayor Contestant)', contact: '8294000786', votes: '75,185', ward: '52', assembly: 'Patna Sahib', poc: 'Shubham', callingStatus: 'Call Not Connected', meetingStatus: 'Remaining', onboardingStatus: 'Not Onboarded', party: 'Neutral', pkMeeting: 'No', pkTea: 'No' },
-      { sr: '3', name: 'विनीता सिंह उर्फ विनीता बिट्टू सिंह', contact: '7250000040', votes: '64,682', ward: '20', assembly: 'Digha', poc: 'Shubham', callingStatus: 'Call Not Connected', meetingStatus: 'Remaining', onboardingStatus: 'Not Onboarded', party: 'EX JSP', pkMeeting: 'No', pkTea: 'No' },
-      { sr: '4', name: 'रजनी देवी', contact: '7677123555', votes: '52,307', ward: '22C', assembly: 'Digha', poc: 'Shubham Kumar', callingStatus: 'Call Connected', meetingStatus: 'Met', onboardingStatus: 'Dicey', party: 'RJD', pkMeeting: 'Yes', pkTea: 'Yes' },
-      { sr: '5', name: 'अंजू सिंह', contact: '9931109494', votes: '22,823', ward: '32', assembly: 'Kumhrar', poc: 'Shubham Kumar', callingStatus: 'Call Connected', meetingStatus: 'Met', onboardingStatus: 'Onboarded', party: 'JSP', pkMeeting: 'Yes', pkTea: 'Yes' },
-      { sr: '6', name: 'मधु मंजरी', contact: '7295959572', votes: '29,931', ward: '1', assembly: 'Digha', poc: 'Shubham', callingStatus: 'Call Connected', meetingStatus: 'Met', onboardingStatus: 'Not Onboarded', party: 'RJD', pkMeeting: 'No', pkTea: 'No' }
-    ];
-  }
-
   container.innerHTML = `
     <div class="eod-poc-header">
       <div class="eod-poc-title-box">
@@ -1725,7 +1776,7 @@ function renderMayorCandidatesTable(candidates) {
           </tr>
         </thead>
         <tbody>
-          ${candidates.map(c => `
+          ${(candidates || []).map(c => `
             <tr>
               <td><strong>${c.name}</strong><br><small style="color:var(--text-muted)">${c.contact}</small></td>
               <td>${c.votes || '-'}</td>
@@ -1741,6 +1792,68 @@ function renderMayorCandidatesTable(candidates) {
           `).join('')}
         </tbody>
       </table>
+    </div>
+  `;
+}
+
+function renderPhysicalStatusBreakdown(report) {
+  const container = document.getElementById('physicalStatusSectionContainer');
+  if (!container) return;
+
+  const party = report.partyInclination || {};
+  const eng = report.engagementStatus || {};
+  const readyPk = report.readyMeetPK || { yes: 0, no: 0 };
+  const tea = report.hostPKTea || { yes: 0, no: 0 };
+
+  container.innerHTML = `
+    <div class="eod-poc-header">
+      <div class="eod-poc-title-box">
+        <h3><i class="fa-solid fa-users-rectangle text-purple"></i> ${report.name} &bull; Detailed Physical Evaluation</h3>
+        <span class="eod-poc-subtitle">Political affiliation, physical meeting verification, and Jan Suraaj engagement status</span>
+      </div>
+      <div class="eod-poc-actions">
+        <span class="eod-pill"><i class="fa-solid fa-layer-group text-blue"></i> Pool: ${report.totalPool || 0}</span>
+        <span class="eod-pill"><i class="fa-solid fa-user-check text-green"></i> Met: ${report.meetingStatus ? report.meetingStatus.met : 0}</span>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 14px;">
+      <!-- Party Inclination Box -->
+      <div style="background: var(--bg-subtle, #f8fafc); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px;">
+        <h4 style="font-size: 0.92rem; font-weight: 800; margin: 0 0 12px 0; color: var(--text-main); display:flex; align-items:center; gap:8px;">
+          <i class="fa-solid fa-flag text-blue"></i> Party Inclinations
+        </h4>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="eod-pill" style="border-color:#f59e0b; background:#fffbeb;"><strong>JSP:</strong> ${party.JSP || 0}</span>
+          <span class="eod-pill" style="border-color:#f97316; background:#fff7ed;"><strong>BJP:</strong> ${party.BJP || 0}</span>
+          <span class="eod-pill" style="border-color:#15803d; background:#f0fdf4;"><strong>RJD:</strong> ${party.RJD || 0}</span>
+          <span class="eod-pill" style="border-color:#0284c7; background:#f0f9ff;"><strong>JDU:</strong> ${party.JDU || 0}</span>
+          <span class="eod-pill" style="border-color:#64748b; background:#f8fafc;"><strong>Neutral:</strong> ${party.Neutral || 0}</span>
+        </div>
+      </div>
+
+      <!-- PK Interaction & Tea Box -->
+      <div style="background: var(--bg-subtle, #f8fafc); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px;">
+        <h4 style="font-size: 0.92rem; font-weight: 800; margin: 0 0 12px 0; color: var(--text-main); display:flex; align-items:center; gap:8px;">
+          <i class="fa-solid fa-mug-hot text-amber"></i> PK Meeting & Tea Receptivity
+        </h4>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="eod-pill" style="border-color:#10b981; background:#ecfdf5;"><i class="fa-solid fa-check text-green"></i> <strong>Meet PK:</strong> ${readyPk.yes} Yes / ${readyPk.no} No</span>
+          <span class="eod-pill" style="border-color:#f59e0b; background:#fffbeb;"><i class="fa-solid fa-mug-hot text-amber"></i> <strong>Host Tea:</strong> ${tea.yes} Yes / ${tea.no} No</span>
+        </div>
+      </div>
+
+      <!-- Engagement Status Box -->
+      <div style="background: var(--bg-subtle, #f8fafc); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px;">
+        <h4 style="font-size: 0.92rem; font-weight: 800; margin: 0 0 12px 0; color: var(--text-main); display:flex; align-items:center; gap:8px;">
+          <i class="fa-solid fa-thumbs-up text-green"></i> Engagement Classification
+        </h4>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="eod-status-pill pill-onboarded">JSP Supporter: ${eng.supporter || 0}</span>
+          <span class="eod-status-pill pill-dicey">Sympathizer: ${eng.sympathizer || 0}</span>
+          <span class="eod-status-pill pill-not-onb">Not Interested: ${eng.notInterested || 0}</span>
+        </div>
+      </div>
     </div>
   `;
 }
@@ -1836,112 +1949,106 @@ function processMultiTableSheetCSV(rows) {
 
   const parsedList = [];
 
-  function extractMetricBlock(rowLabel, startIdx, id, name, shortName) {
-    for (let r = startIdx; r < rows.length; r++) {
-      const lineStr = rows[r].join(',').toLowerCase();
-      if (lineStr.includes(rowLabel.toLowerCase())) {
-        let total = 0, pol = 0, nonPol = 0, onb = 0, dicey = 0, notOnb = 0;
-        let pkYes = 0, pkNo = 0, teaYes = 0, teaNo = 0;
-        let state = 0, dist = 0, ward = 0;
-
-        for (let sub = r; sub < Math.min(r + 10, rows.length); sub++) {
-          const row = rows[sub];
-          if (row.some(c => c.toLowerCase().includes('total meetings') || c.toLowerCase().includes('onboarded'))) {
-            const nextRow = rows[sub + 1];
-            if (nextRow) {
-              const nums = nextRow.filter(c => c !== '' && !isNaN(Number(c))).map(Number);
-              if (nums.length >= 6) {
-                total = nums[0]; pol = nums[1]; nonPol = nums[2];
-                onb = nums[3]; dicey = nums[4]; notOnb = nums[5];
-              }
-            }
-          }
-          if (row.some(c => c.toLowerCase().includes('pk intervention') || c.toLowerCase().includes('wants to host pk tea'))) {
-            const nextRow2 = rows[sub + 2] || rows[sub + 1];
-            if (nextRow2) {
-              const nums2 = nextRow2.filter(c => c !== '' && !isNaN(Number(c))).map(Number);
-              if (nums2.length >= 4) {
-                pkYes = nums2[0]; pkNo = nums2[1];
-                teaYes = nums2[2]; teaNo = nums2[3];
-              }
-            }
-          }
-          if (row.some(c => c.toLowerCase().includes('committee recommendation'))) {
-            const nextRow3 = rows[sub + 2] || rows[sub + 1];
-            if (nextRow3) {
-              const nums3 = nextRow3.filter(c => c !== '' && !isNaN(Number(c))).map(Number);
-              if (nums3.length >= 3) {
-                state = nums3[0]; dist = nums3[1]; ward = nums3[2];
-              }
-            }
-          }
-        }
-
-        if (total > 0 || onb > 0) {
-          return {
-            id, name, shortName,
-            meetingStatus: { political: pol, nonPolitical: nonPol },
-            onboardingStatus: { onboarded: onb, dicey: dicey, notOnboarded: notOnb },
-            pkIntervention: { yes: pkYes, no: pkNo },
-            hostPKTea: { yes: teaYes, no: teaNo },
-            committeeRec: { state: state, district: dist, ward: ward }
-          };
-        }
-      }
-    }
-    return null;
+  function getNum(r, idx) {
+    if (!r || idx >= r.length) return 0;
+    const v = String(r[idx]).trim();
+    if (!v || isNaN(Number(v))) return 0;
+    return Number(v);
   }
 
-  // 1. Executive Summary Reports
-  const overallRep = extractMetricBlock("Patna Mahanagar  Overall IDI's", 0, "patna_overall", "Patna Mahanagar Team Overall IDI's", "Patna Mahanagar (Overall)") || DEFAULT_REPORTS[0];
-  parsedList.push(overallRep);
+  // Row 3, 6, 9 contain the 3 side-by-side executive reports in PK Report tab:
+  if (rows.length >= 10) {
+    const r3 = rows[3];
+    const r6 = rows[6];
+    const r9 = rows[9];
 
-  const mahilaRep = extractMetricBlock("Mahila  Team Overall IDI's", 0, "mahila_team", "Mahila Team Overall IDI's", "Mahila Team (Women Leadership)") || DEFAULT_REPORTS[1];
-  parsedList.push(mahilaRep);
+    // 1. Overall Report (Col 0)
+    parsedList.push({
+      id: 'patna_overall',
+      category: 'executive',
+      name: "Patna Mahanagar Team Overall IDI's Report",
+      shortName: "Patna Mahanagar (Overall)",
+      meetingStatus: { total: getNum(r3, 0), political: getNum(r3, 2), nonPolitical: getNum(r3, 3) },
+      onboardingStatus: { onboarded: getNum(r3, 4), dicey: getNum(r3, 5), notOnboarded: getNum(r3, 6) },
+      pkIntervention: { yes: getNum(r6, 0), no: getNum(r6, 3) },
+      hostPKTea: { yes: getNum(r6, 4), no: getNum(r6, 5) },
+      committeeRec: { state: getNum(r9, 0), district: getNum(r9, 1), ward: getNum(r9, 3) },
+      leaderCategory: { newLeader: getNum(r9, 4), oldLeader: getNum(r9, 6) }
+    });
 
-  const teamRep = extractMetricBlock("Patna Mahanagar Team Overall IDI's Report", 0, "patna_team_report", "Patna Mahanagar Team Overall IDI's Report", "Patna Mahanagar (Team Report)") || DEFAULT_REPORTS[2];
-  parsedList.push(teamRep);
+    // 2. Mahila Team (Col 7)
+    parsedList.push({
+      id: 'mahila_team',
+      category: 'executive',
+      name: "Mahila Team Overall IDI's",
+      shortName: "Mahila Team (Women Leadership)",
+      meetingStatus: { total: getNum(r3, 7), political: getNum(r3, 8), nonPolitical: getNum(r3, 9) },
+      onboardingStatus: { onboarded: getNum(r3, 10), dicey: getNum(r3, 11), notOnboarded: getNum(r3, 12) },
+      pkIntervention: { yes: getNum(r6, 7), no: getNum(r6, 8) },
+      hostPKTea: { yes: getNum(r6, 10), no: getNum(r6, 11) },
+      committeeRec: { state: getNum(r9, 7), district: getNum(r9, 9), ward: getNum(r9, 11) }
+    });
 
-  // 2. Assembly team rows
-  let teamWiseHeaderIdx = -1;
-  for (let r = 0; r < rows.length; r++) {
-    if (rows[r].some(c => c && c.toLowerCase().includes('team wise performance status'))) {
-      teamWiseHeaderIdx = r;
-      break;
+    // 3. Recent Progress Report (Col 13)
+    parsedList.push({
+      id: 'patna_progress_report',
+      category: 'daily',
+      name: "Patna Mahanagar Recent IDI Progress Report (PK Report)",
+      shortName: "Recent IDI Progress (26)",
+      meetingStatus: { total: getNum(r3, 13), political: getNum(r3, 15), nonPolitical: getNum(r3, 16) },
+      onboardingStatus: { onboarded: getNum(r3, 17), dicey: getNum(r3, 18), notOnboarded: getNum(r3, 19) },
+      pkIntervention: { yes: getNum(r6, 13), no: getNum(r6, 16) },
+      hostPKTea: { yes: getNum(r6, 17), no: getNum(r6, 18) },
+      committeeRec: { state: getNum(r9, 13), district: getNum(r9, 14), ward: getNum(r9, 16) },
+      leaderCategory: { newLeader: getNum(r9, 17), oldLeader: getNum(r9, 19) }
+    });
+
+    // Parse Physical Meeting Status tables in rows 12-44
+    function parsePhys(startR, pId, pName, pShort) {
+      if (startR + 9 >= rows.length) return null;
+      const rm = rows[startR + 3];
+      const rp = rows[startR + 6];
+      const rt = rows[startR + 9];
+
+      const pool = getNum(rm, 0);
+      const met = getNum(rm, 2);
+      const onb = getNum(rm, 4);
+      const dicey = getNum(rm, 6);
+      const notOnb = getNum(rm, 8);
+      const rem = pool - met;
+
+      return {
+        id: pId,
+        category: 'leadership',
+        name: pName,
+        shortName: pShort,
+        isPhysical: true,
+        totalPool: pool,
+        meetingStatus: { total: pool, completed: met, remaining: rem, met: met, notMet: rem, political: met, nonPolitical: rem },
+        onboardingStatus: { onboarded: onb, dicey: dicey, notOnboarded: notOnb },
+        partyInclination: {
+          JSP: getNum(rp, 0), BJP: getNum(rp, 1), Neutral: getNum(rp, 2),
+          INC: getNum(rp, 3), HAM: getNum(rp, 4), JDU: getNum(rp, 5), RJD: getNum(rp, 6)
+        },
+        readyMeetPK: { yes: getNum(rp, 7), no: getNum(rp, 8) },
+        pkIntervention: { yes: getNum(rp, 7), no: getNum(rp, 8) },
+        hostPKTea: { yes: getNum(rt, 0), no: getNum(rt, 2) },
+        engagementStatus: { supporter: getNum(rt, 3), notInterested: getNum(rt, 5), sympathizer: getNum(rt, 7) },
+        committeeRec: { state: 0, district: dicey, ward: onb }
+      };
     }
+
+    const repMayor = parsePhys(12, 'pk_mayor_deputy_mayor', "Mayor / Deputy Mayor Physical Meeting Status (PK Report)", "Mayor / Deputy Mayor (PK)");
+    const repSangathan = parsePhys(23, 'pk_sangathan_status', "Sangathan Physical Meeting Status (PK Report)", "Sangathan Meeting Status");
+    const repAcc = parsePhys(34, 'pk_acc_status', "ACC Physical Registration Meeting Status (PK Report)", "ACC Registration Status");
+
+    if (repMayor) parsedList.push(repMayor);
+    if (repSangathan) parsedList.push(repSangathan);
+    if (repAcc) parsedList.push(repAcc);
   }
 
-  if (teamWiseHeaderIdx !== -1) {
-    for (let r = teamWiseHeaderIdx + 1; r < rows.length; r++) {
-      const row = rows[r];
-      const teamName = row.find(c => c && (c.includes('181') || c.includes('183') || c.includes('184') || c.includes('Patna Sahib') || c.includes('Digha') || c.includes('Kumhrar')));
-      if (teamName && !teamName.toLowerCase().includes('total')) {
-        const nums = row.filter(c => c !== '' && !isNaN(Number(c))).map(Number);
-        if (nums.length >= 12) {
-          const cleanName = teamName.replace(/\s+/g, ' ').trim();
-          let id = cleanName.toLowerCase().replace(/[^a-z0-9]+/g, '_');
-          if (id.includes('183') || id.includes('kumhrar')) id = "kumhrar_team1";
-          else if (id.includes('181') && id.includes('1')) id = "digha_team1";
-          else if (id.includes('181') && id.includes('2')) id = "digha_team2";
-          else if (id.includes('184') && id.includes('1')) id = "patnasahib_team1";
-          else if (id.includes('184') && id.includes('2')) id = "patnasahib_team2";
-
-          parsedList.push({
-            id: id,
-            name: cleanName,
-            shortName: cleanName,
-            meetingStatus: { political: nums[1] || 0, nonPolitical: nums[2] || 0 },
-            onboardingStatus: { onboarded: nums[3] || 0, dicey: nums[4] || 0, notOnboarded: nums[5] || 0 },
-            pkIntervention: { yes: nums[6] || 0, no: nums[7] || 0 },
-            hostPKTea: { yes: nums[8] || 0, no: nums[9] || 0 },
-            committeeRec: { state: nums[10] || 0, district: nums[11] || 0, ward: nums[12] || 0 }
-          });
-        }
-      }
-    }
-  }
-
-  ["councillors_2022", "councillors_2017"].forEach(cid => {
+  // Preserve councillors & others from defaults
+  ["councillors_2022", "councillors_2017", "acc_registration"].forEach(cid => {
     if (!parsedList.some(p => p.id === cid)) {
       const def = DEFAULT_REPORTS.find(d => d.id === cid);
       if (def) parsedList.push(def);
