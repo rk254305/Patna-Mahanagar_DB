@@ -4,7 +4,7 @@
     "poc": "Mahtab,Gautam,Sapna",
     "assembly": "Digha - 181",
     "wardNo": "1",
-    "area": "Digha/Rajiv Nagar",
+    "area": "Digha / Rajiv Nagar / Nakta Diyara",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -27,7 +27,7 @@
     "poc": "Mahtab,Gautam,Sapna",
     "assembly": "Digha - 181",
     "wardNo": "2",
-    "area": "Ashiyana Nagar/ khajpura",
+    "area": "Ashiyana Nagar / Khajapura / Kurji",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -50,7 +50,7 @@
     "poc": "Mahtab,Gautam,Sapna",
     "assembly": "Digha - 181",
     "wardNo": "5",
-    "area": "Samanpura / A.G Colony / Ashiyana Nagar",
+    "area": "Samanpura / A.G. Colony / Ashiyana Nagar",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -73,7 +73,7 @@
     "poc": "Mahtab,Gautam,Sapna",
     "assembly": "Digha - 181",
     "wardNo": "6",
-    "area": "Rajiv Nagar",
+    "area": "Rajiv Nagar / Ram Nagari / Magistrate Colony",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -96,7 +96,7 @@
     "poc": "Mahtab,Gautam,Sapna",
     "assembly": "Digha - 181",
     "wardNo": "7",
-    "area": "Kesari Nagar/Rajvanshi Nagar/Patel Nagar",
+    "area": "Kesari Nagar / Rajvanshi Nagar / Patel Nagar",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -119,7 +119,7 @@
     "poc": "Mahtab,Gautam,Sapna",
     "assembly": "Digha - 181",
     "wardNo": "8",
-    "area": "Shashtri Nagar/Punai Chak/Patel Nagar",
+    "area": "Shashtri Nagar / Punai Chak / Patel Nagar",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -142,7 +142,7 @@
     "poc": "Mahtab,Gautam,Sapna",
     "assembly": "Digha - 181",
     "wardNo": "20",
-    "area": "Punai Chak/Rajvanshi Nagar",
+    "area": "Punaichak / Rajvanshi Nagar",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -165,7 +165,7 @@
     "poc": "Mahtab,Gautam,Sapna",
     "assembly": "Digha - 181",
     "wardNo": "22A",
-    "area": "Digha/Makhdumpur",
+    "area": "Digha / Makhdumpur / Patliputra",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -188,7 +188,7 @@
     "poc": "Mahtab,Gautam,Sapna",
     "assembly": "Digha - 181",
     "wardNo": "22B",
-    "area": "Kurji/Balupar",
+    "area": "Kurji / Balupar / Bind Toli",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -211,7 +211,7 @@
     "poc": "Mahtab,Gautam,Sapna",
     "assembly": "Digha - 181",
     "wardNo": "22C",
-    "area": "Mainpura",
+    "area": "Mainpura / Digha Bridge Point",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -234,7 +234,7 @@
     "poc": "Abhishek , Reshu Rani",
     "assembly": "Digha - 181",
     "wardNo": "3",
-    "area": "Murlichak/Khalilpura/Sabjapur",
+    "area": "Muralichak / Khalilpura / Sabjpura",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -257,7 +257,7 @@
     "poc": "Abhishek , Reshu Rani",
     "assembly": "Digha - 181",
     "wardNo": "4",
-    "area": "Shekhpura/Raja bazaar/Khajpura",
+    "area": "Shekhpura / Raja Bazaar / Khajapura",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -280,7 +280,7 @@
     "poc": "Abhishek , Reshu Rani",
     "assembly": "Digha - 181",
     "wardNo": "9",
-    "area": "Beli Road/Harding Road/Khausal Nagar",
+    "area": "Beli Road / Hording Road / Kaushal Nagar",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -303,7 +303,7 @@
     "poc": "Abhishek , Reshu Rani",
     "assembly": "Digha - 181",
     "wardNo": "10",
-    "area": "Anisabad",
+    "area": "Anisabad / Phulwari Border",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -326,7 +326,7 @@
     "poc": "Abhishek , Reshu Rani",
     "assembly": "Digha - 181",
     "wardNo": "11",
-    "area": "Chitkhohra/Anishabad/Shivpuri",
+    "area": "Chitkohra / Anisabad / Shivpuri",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -349,7 +349,7 @@
     "poc": "Abhishek , Reshu Rani",
     "assembly": "Digha - 181",
     "wardNo": "12",
-    "area": "Chitkhohra/Anishabad/Shivpuri",
+    "area": "Chitkohra / Anisabad / Shivpuri",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -372,7 +372,7 @@
     "poc": "Abhishek , Reshu Rani",
     "assembly": "Digha - 181",
     "wardNo": "13",
-    "area": "Sarispabad / Gardanibagh / Sadhnapuri",
+    "area": "Saristabad / Gardanibag / Sadhnapuri",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -395,7 +395,7 @@
     "poc": "Abhishek , Reshu Rani",
     "assembly": "Digha - 181",
     "wardNo": "14",
-    "area": "Sarispabad",
+    "area": "Saristabad / Mahavir Cancer Sansthan Area",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -418,7 +418,7 @@
     "poc": "Abhishek , Reshu Rani",
     "assembly": "Digha - 181",
     "wardNo": "16",
-    "area": "Jakkanpur/Jhunjhun Mahal",
+    "area": "Jakkanpur / Jhunjhun Mahal",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -441,7 +441,7 @@
     "poc": "Abhishek , Reshu Rani",
     "assembly": "Digha - 181",
     "wardNo": "21",
-    "area": "A.N College/Adaalat Ganj",
+    "area": "A. N. College / Boring Road",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -464,7 +464,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "31",
-    "area": "Chiraiya Tand, Postal Park",
+    "area": "Chiraiya Tand / Postal Park",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -487,7 +487,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "32",
-    "area": "Kankarbagh / Doctors Colony / Kumhrar West",
+    "area": "Postal Park / Chiraiyatand",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -510,7 +510,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "33",
-    "area": "Kankarbagh / Postal Park, RMS Colony",
+    "area": "Kankarbag, Postel Park, RMS Colony",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -533,7 +533,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "34",
-    "area": "Kankarbagh / Lohiya Nagar",
+    "area": "Kankarbag, Lohiyanagar",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -556,7 +556,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "43",
-    "area": "KadamKua/Rajendra Nagar",
+    "area": "Kadamkua / Rajendra Nagar",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -579,7 +579,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "44",
-    "area": "Kankarbagh / Hanuman Nagar / Lohiya Nagar / Bahadurpur",
+    "area": "Kankadbag / Hanuman Nagar / Lohiya Nagar / Bahadurpur",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -602,7 +602,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "45",
-    "area": "RMS Colony/Malahi Pakdi/Chitragupt Nagar",
+    "area": "RMS Colony / Malahi Pakdi / Chitragupta nagar",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -625,7 +625,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "55",
-    "area": "Bahadurpur Housing Colony/Kumhrar",
+    "area": "Bahadurpur Housing Colony / Kumhrar",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -648,7 +648,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "46",
-    "area": "Bahadurpur/Nand Lal Chhpra",
+    "area": "Bahadurpur / Nandlal Chhpra",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -671,7 +671,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "47",
-    "area": "Bahadurpur/Sandalpur",
+    "area": "Bahadurpur / Sandalpur",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -694,7 +694,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "48",
-    "area": "Musallahpur",
+    "area": "Musallahpur / Bazar Samiti",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -717,7 +717,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "49",
-    "area": "Ranighat/Patna Law College",
+    "area": "Ranighat / Patna Law College",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -740,7 +740,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "50",
-    "area": "Ranighat/Mahendru/Muhammadpur/Sandalpur/Katra Dargah",
+    "area": "Ranighat / Mahendru / Muhammadpur / Sandalpur / Katra Dargah",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -763,7 +763,7 @@
     "poc": "Saurabh , Roshan ,Richa Thakur",
     "assembly": "Kumhrar - 183",
     "wardNo": "51",
-    "area": "Chaudhari Tola/Khajoor Banna/Tripoliya/Mahendru",
+    "area": "Chaudhari Tola / Khajoor Banna / Tripoliya / Mahendru",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -786,7 +786,7 @@
     "poc": "Shubham Kumar  , Mayank , Shabnam",
     "assembly": "Patna Sahib - 184",
     "wardNo": "52",
-    "area": "Tripollia/Pripoliya/Gai Ghat/Alamganj/Gulljarbag",
+    "area": "Tripoliya / Gai Ghat / Alamgunj / Guljarbag",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -809,7 +809,7 @@
     "poc": "Shubham Kumar  , Mayank , Shabnam",
     "assembly": "Patna Sahib - 184",
     "wardNo": "53",
-    "area": "Gai Ghat/Shershah Road/BabuGunj",
+    "area": "Gai Ghat / Shershah Road / Babuagunj",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -832,7 +832,7 @@
     "poc": "Shubham Kumar  , Mayank , Shabnam",
     "assembly": "Patna Sahib - 184",
     "wardNo": "54",
-    "area": "Mirdaha Toli/Alabakspur/Shershah Road",
+    "area": "Mirdaha Toli / Alabakspur / Shersah Road",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -855,7 +855,7 @@
     "poc": "Shubham Kumar  , Mayank , Shabnam",
     "assembly": "Patna Sahib - 184",
     "wardNo": "56",
-    "area": "Maharajganj/Chhota and Bada Pahari/Jakariyapur",
+    "area": "Maharajganj / Chhota & Bada Pahari / Jakariyapur",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -878,7 +878,7 @@
     "poc": "Shubham Kumar  , Mayank , Shabnam",
     "assembly": "Patna Sahib - 184",
     "wardNo": "57",
-    "area": "Mina Bazar/Shadikpur/Tulsimandi/Guljarbag",
+    "area": "Mina Bazar / Shadikpur / Tulsimandi / Guljarbag",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -901,7 +901,7 @@
     "poc": "Shubham Kumar  , Mayank , Shabnam",
     "assembly": "Patna Sahib - 184",
     "wardNo": "58",
-    "area": "Mathramma / Chailital / Mahavirghat / Guljarbag",
+    "area": "Mathramna / Chailital / Mahavirghat / Guljarbag",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -947,7 +947,7 @@
     "poc": "Shubham Kumar  , Mayank , Shabnam",
     "assembly": "Patna Sahib - 184",
     "wardNo": "60",
-    "area": "Gujri / Khajekala / Mogalpur / Padri ki Haweli",
+    "area": "Gujri / Khajekala / Mogalpura / Padri ki Haweli",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -993,7 +993,7 @@
     "poc": "Shubham Kumar  , Mayank , Shabnam",
     "assembly": "Patna Sahib - 184",
     "wardNo": "62",
-    "area": "Mangal Talaw / Begampur",
+    "area": "Mangal Talab / Begampur",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1016,7 +1016,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Patna Sahib - 184",
     "wardNo": "63",
-    "area": "Mogalpur / Nun ka Chauraha / Chok Sikarpur / Dundi Bazar",
+    "area": "Mogalpura / Nun ka Chauraha / Chok Sikarpur / Dundi Bazar",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -1062,7 +1062,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Patna Sahib - 184",
     "wardNo": "65",
-    "area": "Padri ki Haweli / Maharajghat / Tedhghat / Mangal Talaw / Sadar Gali",
+    "area": "Padri ki Haweli / Maharajghat / Tedhighat / Mangal Talaw / Sadar Gali",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -1108,7 +1108,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Patna Sahib - 184",
     "wardNo": "67",
-    "area": "Chhipi Tola / Nehru Tola / Kila Road / Kalmasikoh",
+    "area": "Chhipi Tola / Nehru Tola / Kila Road / Kaimasikoh",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1200,7 +1200,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Patna Sahib - 184",
     "wardNo": "71",
-    "area": "Chhutkiya Bazar / Nurudinganj",
+    "area": "Chutikiya Bazar / Nurudinganj",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1246,7 +1246,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "15",
-    "area": "Gandhi Maidan / Exhibition Road / Frazer Road",
+    "area": "Yarpur / Jakkanpur / Mithapur",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 0,
@@ -1269,7 +1269,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "17",
-    "area": "Boring Canal Road / Sri Krishna Puri (SK Puri)",
+    "area": "Jakkanpur / JP Nagar / Punpun Road",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1292,7 +1292,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "18",
-    "area": "Kidwaipuri / Buddha Colony / Mandiri",
+    "area": "Purandarpur / Mithapur East",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1315,7 +1315,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "19",
-    "area": "Kadamkuan / Sahityakar Colony / Park Road",
+    "area": "Mithapur / Jakkanpur Border",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1338,7 +1338,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "22",
-    "area": "Naya Tola / Machhua Toli / Bari Path / Bakarganj",
+    "area": "Rajapur / Boring Road / North S.K Puri",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1361,7 +1361,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "23",
-    "area": "Kankarbagh North / Doctors Colony / Ashok Nagar",
+    "area": "North S.K Puri / S.K Puri",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1384,7 +1384,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "24",
-    "area": "Kankarbagh Central / Lohia Nagar",
+    "area": "Boring Canal Road / Buddha Colony",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1407,7 +1407,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "25",
-    "area": "Kadamkuan East / Rajendra Nagar North",
+    "area": "Kidwaipuri / Kotwali / Boring Road East",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1430,7 +1430,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "26",
-    "area": "Pirbahore / Patna Market / Ashok Rajpath / Sabzibagh",
+    "area": "North Mandiri / Baily Road / PWC",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1453,7 +1453,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "27",
-    "area": "RMS Colony / Malahi Pakri / Chitragupt Nagar",
+    "area": "Golghar / Lodipur / Sinha Library",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1476,7 +1476,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "28",
-    "area": "Rajendra Nagar South / Dinkar Golambar / Saidpur",
+    "area": "Dak Banglow / SP Verma Road / Frezer Road",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1499,7 +1499,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "29",
-    "area": "Bahadurpur / Nand Lal Chhapra / Bazar Samiti West",
+    "area": "Karbigahiya / Postal Park / Chiraiyatand",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1522,7 +1522,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "30",
-    "area": "Bahadurpur / Sandalpur West / Kumhrar Border",
+    "area": "Sipara / Dashratha",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1545,7 +1545,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "35",
-    "area": "Chiraiyatand / Postal Park / Munna Chak / Chandmari Road",
+    "area": "Chandmari Road / Kankarbagh West",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1568,7 +1568,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "36",
-    "area": "Purbi Lohanipur / Kadamkuan South / Congress Maidan",
+    "area": "Lalji Tola / CDA Building / Purvi Lohanipur",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1591,7 +1591,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "37",
-    "area": "Lohanipur East / Railway Colony / Kadamkuan",
+    "area": "B.N. College / Bankipur / Salimpur Ahra",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1614,7 +1614,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "38",
-    "area": "Kadamkuan / Churi Market / Shiva Mandir Gali",
+    "area": "Kadamkuan / Pirmuhani / Daldali",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1637,7 +1637,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "39",
-    "area": "New Jakkanpur / Dariyapur / Machhua Toli South",
+    "area": "Bhawar Pokhar / Khetan Market / Sabzibagh",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1660,7 +1660,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "40",
-    "area": "Govind Mitra Road (GM Road) / BM Das Road / Pirbahore",
+    "area": "Darzi Tola / Sabzi Bagh / Govind Mitra Road",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1683,7 +1683,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "41",
-    "area": "Lohanipur Main / Kadamkuan Main Road",
+    "area": "PMCH / Science College / Afzal Pur / Ramna Road / Laal Bagh",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
@@ -1706,7 +1706,7 @@
     "poc": "Imteyaz , Vickey , Sadaf",
     "assembly": "Bankipur - 182",
     "wardNo": "42",
-    "area": "Rajendra Nagar North / Arya Kumar Road / Stadium",
+    "area": "Dariyapur / Machhua Toli / Bari Path",
     "w2017": {
       "winnerPool": 1,
       "winnerMtg": 1,
